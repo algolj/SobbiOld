@@ -3,3 +3,8 @@ $black: #1C1C1C;
 $brown: #875053;
 $white: #FFF;
 $grey: #979797;
+
+:export {
+  brown: $brown;
+  wheat: $wheat
+}

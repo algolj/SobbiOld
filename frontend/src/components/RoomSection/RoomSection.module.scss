@@ -1,0 +1,25 @@
+@import '../../styles/index';
+.room {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: $wheat;
+  padding: 0 10px;
+  &__wrapper {
+    max-width: 1440px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  &__buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
