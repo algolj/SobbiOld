@@ -1,0 +1,20 @@
+.home {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  font-size: 80px;
+}
+
+@media screen and (min-width: 1024px) {
+  .home {
+    font-size: 120px;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .home {
+    font-size: 170px;
+  }
+}

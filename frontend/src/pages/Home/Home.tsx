@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
 import s from './Home.module.scss';
-import Button from '../../components/UI/Button/Button';
+import WelcomeSection from '../../components/WelcomeSection/WelcomeSection';
 
 const Home: FC = () => {
   return (
-    <div>
-      <Button padding={'30px'} children={'Create'} />
+    <div className={s.home}>
+      <WelcomeSection />
+      {/*<Button padding={'30px'} children={'Create'} />*/}
     </div>
   );
 };
