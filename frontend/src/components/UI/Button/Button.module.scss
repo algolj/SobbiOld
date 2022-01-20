@@ -1,0 +1,20 @@
+@import '../../../styles/index';
+
+.button {
+  position: relative;
+  transform: translate(-3px, -3px);
+  z-index: 1;
+  background: $wheat;
+  border-radius: 8px;
+  border: 1px solid $black;
+  font-size: 20px;
+  transition: 0.2s;
+  box-shadow: inset -3px -3px $wheat, inset -4px -4px $black;
+
+  &:active {
+    box-shadow: inset 0 0;
+    transform: translate(0, 0);
+
+  }
+
+}
