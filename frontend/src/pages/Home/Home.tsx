@@ -1,18 +1,24 @@
-import React, { FC, useRef } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import s from './Home.module.scss';
 import sprite from '../../assets/sprite.svg';
 import Title from '../../components/UI/Title/Title';
 import colors from '../../styles/vars.module.scss';
 import Button from '../../components/UI/Button/Button';
+import Footer from '../../components/Footer/Footer';
 
 const Home: FC = () => {
+  const [isAnim, setIsAnim] = useState<boolean>(false);
   const roomRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const scrollToRoom = () => {
+    setIsAnim(true);
     const roomPos = roomRef.current.getBoundingClientRect().top + pageYOffset;
     window.scrollTo({
       top: roomPos,
       behavior: 'smooth',
     });
+    setTimeout(() => {
+      setIsAnim(false);
+    }, 400);
   };
   return (
     <div className={s.home}>
@@ -35,7 +41,11 @@ const Home: FC = () => {
           onClick={() => {
             scrollToRoom();
           }}
-          className={s.welcome__arrow}
+          className={
+            isAnim
+              ? `${s.welcome__arrow} ${s.welcome__arrow_active}`
+              : s.welcome__arrow
+          }
         >
           <use href={`${sprite}#arrow`} />
         </svg>
@@ -44,12 +54,12 @@ const Home: FC = () => {
         <div className={s.room__wrapper}>
           <Title color={colors.wheat}>Room</Title>
           <div className={s.room__buttons}>
-            <Button height={'200px'} width={'200px'}>
-              Create
-            </Button>
-            <Button height={'200px'} width={'200px'}>
-              Enter
-            </Button>
+            <div className={s.room__button_wrapper}>
+              <Button>Create</Button>
+            </div>
+            <div className={s.room__button_wrapper}>
+              <Button>Enter</Button>
+            </div>
           </div>
         </div>
       </section>
@@ -106,6 +116,7 @@ const Home: FC = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

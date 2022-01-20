@@ -16,7 +16,7 @@
 
   </symbol>
   <symbol viewBox="0 0 106.5 126.5" id="arrow">
-    <path fill-rule="evenodd"  stroke="rgb(0, 0, 0)" stroke-width="5px" stroke-linecap="butt" stroke-linejoin="miter" fill="none"
+    <path fill-rule="evenodd"  stroke="rgb(0, 0, 0)" stroke-width="5px" stroke-linecap="butt" stroke-linejoin="miter"
           d="M97.277,72.250 L61.402,108.125 L52.000,117.527 L42.598,108.125 L6.723,72.250 L16.125,62.848 L44.851,91.574 L44.851,5.000 L59.149,5.000 L59.149,91.574 L87.875,62.848 L97.277,72.250 Z"/>
 
   </symbol>

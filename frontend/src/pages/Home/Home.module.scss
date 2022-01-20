@@ -99,6 +99,13 @@
       position: absolute;
       bottom: 10px;
       width: 50px;
+      cursor: pointer;
+      fill: $white;
+      transition: 0.2s;
+
+      &_active {
+        fill: $black;
+      }
     }
   }
 
@@ -114,11 +121,17 @@
       gap: 15px;
     }
 
+    &__button_wrapper {
+      width: 200px;
+      height: 200px;
+    }
+
     &__buttons {
       width: 100%;
       display: flex;
-      justify-content: space-between;
-      flex-direction: row;
+      justify-content: center;
+      gap: 15px;
+      flex-direction: column;
       flex-wrap: wrap;
       align-items: center;
     }
@@ -142,8 +155,22 @@
   }
 }
 
+@media screen and (min-width: 500px) {
+  .home {
+    .room {
+      &__buttons {
+        justify-content: space-between;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+    }
+  }
+}
+
 @media screen and (min-width: 768px) {
   .home {
+
     .instruction {
       padding-left: 60px;
 
@@ -159,8 +186,9 @@
         }
       }
     }
-    .about{
-      &__text{
+
+    .about {
+      &__text {
         font-size: $SFont;
       }
     }
@@ -192,15 +220,23 @@
         flex-direction: column-reverse;
       }
     }
+
+    .room {
+      &__button_wrapper {
+        width: 300px;
+        height: 300px;
+      }
+    }
   }
 
 }
 
 @media screen and (min-width: 1440px) {
   .home {
-    .about__text{
+    .about__text {
       font-size: $MFont;
     }
+
     .instruction {
       padding-left: 70px;
 
@@ -247,6 +283,13 @@
 
       &__title_wrapper {
         flex-direction: column-reverse;
+      }
+    }
+
+    .room {
+      &__button_wrapper {
+        width: 400px;
+        height: 400px;
       }
     }
   }
