@@ -3,8 +3,13 @@ $black: #1C1C1C;
 $brown: #875053;
 $white: #FFF;
 $grey: #979797;
-
+$XSFont:16px;
+$SFont:20px;
+$MFont:24px;
+//$smallFont:16px;
 :export {
   brown: $brown;
-  wheat: $wheat
+  wheat: $wheat;
+  white: $white;
+  black: $black;
 }

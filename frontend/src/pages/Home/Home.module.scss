@@ -1,17 +1,253 @@
+@import '../../styles/index';
+
 .home {
+  width: 100vw;
   display: flex;
   flex-direction: column;
   font-size: 80px;
+
+  .section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 45px 10px;
+  }
+
+  .instruction {
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 26px;
+      max-width: 1440px;
+
+    }
+
+    &__article {
+      position: relative;
+      text-align: justify;
+      font-size: $XSFont;
+
+      &:before {
+        font-size: 35px;
+        font-weight: 700;
+
+      }
+
+      &:nth-child(2):before {
+        content: '1. ';
+      }
+
+      &:nth-child(3):before {
+        content: '2. ';
+      }
+
+      &:nth-child(4):before {
+        content: '3. ';
+      }
+
+      &:nth-child(5):before {
+        content: '4. ';
+      }
+
+      &:nth-child(odd):before {
+        color: #FFFFFF;
+        text-shadow: -1px 1px 0 #000,
+        1px 1px 0 #000,
+        1px -1px 0 #000,
+        -1px -1px 0 #000;
+      }
+    }
+  }
+
+  .welcome {
+    position: relative;
+    height: calc(100vh - 75px);
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+    padding: 0 10px;
+    max-width: 1440px;
+    margin: 0 auto;
+
+    &__title {
+      font-weight: bold;
+      font-size: 1em;
+
+      &_wrapper {
+        max-width: 500px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 3px;
+      }
+    }
+
+    &__subtitle {
+      font-size: 0.25em;
+      font-weight: 600;
+    }
+
+    &__text {
+      max-width: 500px;
+      text-align: justify;
+      font-size: $XSFont;
+    }
+
+    &__arrow {
+      position: absolute;
+      bottom: 10px;
+      width: 50px;
+    }
+  }
+
+  .room {
+    background: $wheat;
+
+    &__wrapper {
+      max-width: 1440px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    &__buttons {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+  }
+
+  .about {
+    background: $wheat;
+
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      max-width: 1440px;
+    }
+
+    &__text {
+      font-size: $XSFont;
+      text-align: justify;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .home {
+    .instruction {
+      padding-left: 60px;
+
+      &__article {
+        font-size: 20px;
+
+        &:before {
+          position: absolute;
+          top: 50%;
+          left: -49px;
+          transform: translateY(-50%);
+          font-size: 45px;
+        }
+      }
+    }
+    .about{
+      &__text{
+        font-size: $SFont;
+      }
+    }
+  }
 }
 
 @media screen and (min-width: 1024px) {
   .home {
     font-size: 120px;
+
+    .welcome {
+      justify-content: center;
+      flex-direction: row;
+
+      &__title {
+        font-size: 1.4em;
+      }
+
+      &__subtitle {
+        font-size: 0.21em;
+      }
+
+      &__text {
+        transform: translateY(-10px);
+        font-size: $MFont;
+      }
+
+      &__title_wrapper {
+        flex-direction: column-reverse;
+      }
+    }
+  }
+
+}
+
+@media screen and (min-width: 1440px) {
+  .home {
+    .about__text{
+      font-size: $MFont;
+    }
+    .instruction {
+      padding-left: 70px;
+
+      &__article {
+        font-size: $MFont;
+
+        &:before {
+          position: absolute;
+          top: 50%;
+          left: -59px;
+          transform: translateY(-50%);
+          font-size: 55px;
+        }
+      }
+    }
   }
 }
 
 @media screen and (min-width: 1920px) {
   .home {
     font-size: 170px;
+
+    .welcome {
+      justify-content: center;
+      flex-direction: row;
+
+      &__title {
+        font-size: 1.4em;
+
+        &_wrapper {
+          max-width: 700px;
+        }
+      }
+
+      &__subtitle {
+        font-size: 0.21em;
+      }
+
+      &__text {
+        max-width: 700px;
+        transform: translateY(-10px);
+        font-size: 0.186em;
+      }
+
+      &__title_wrapper {
+        flex-direction: column-reverse;
+      }
+    }
   }
 }
