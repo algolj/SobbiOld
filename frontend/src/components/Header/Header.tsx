@@ -12,12 +12,18 @@ const Header: FC = () => {
           <use href={`${sprite}#logo`} />
         </svg>
       </Link>
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={isOpen ? `${s.burger} ${s.burger_active}` : s.burger}
-      >
-        <span className={s.burger__line} />
-      </button>
+      <div className={s.burger}>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className={
+            isOpen
+              ? `${s.burger__rectangle} ${s.burger__rectangle_active}`
+              : s.burger__rectangle
+          }
+        >
+          <span className={s.burger__line} />
+        </button>
+      </div>
       <div
         className={
           isOpen
@@ -35,7 +41,7 @@ const Header: FC = () => {
           <Link className={s.header__link} to={''}>
             Rating
           </Link>
-          <Link to={''}>
+          <Link to={'/user'}>
             <svg className={s.header__login}>
               <use href={`${sprite}#logIn`} />
             </svg>

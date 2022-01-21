@@ -6,6 +6,22 @@
   flex-direction: column;
   font-size: 80px;
 
+  .sidebar {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 50px;
+    display: flex;
+    gap: 100px;
+    flex-direction: column;
+
+    &__links {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-size: $MFont;
+    }
+  }
+
   .section {
     width: 100%;
     display: flex;
@@ -19,7 +35,7 @@
       flex-direction: column;
       align-items: center;
       gap: 26px;
-      max-width: 1440px;
+      max-width: 1024px;
 
     }
 
@@ -145,7 +161,7 @@
       flex-direction: column;
       align-items: center;
       gap: 15px;
-      max-width: 1440px;
+      max-width: 1024px;
     }
 
     &__text {
@@ -258,7 +274,9 @@
 @media screen and (min-width: 1920px) {
   .home {
     font-size: 170px;
-
+    .sidebar{
+      right: 200px;
+    }
     .welcome {
       justify-content: center;
       flex-direction: row;

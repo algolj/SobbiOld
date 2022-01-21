@@ -22,6 +22,12 @@ const Home: FC = () => {
   };
   return (
     <div className={s.home}>
+      <div className={s.sidebar}>
+        <div className={s.sidebar__links}>Home</div>
+        <div className={s.sidebar__links}>Room</div>
+        <div className={s.sidebar__links}>How to use</div>
+        <div className={s.sidebar__links}>About</div>
+      </div>
       <section className={`${s.welcome} ${s.section}`}>
         <div className={s.welcome__title_wrapper}>
           <div className={s.welcome__title}>Sobbi</div>

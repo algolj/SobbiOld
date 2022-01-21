@@ -1,0 +1,62 @@
+@import "../../styles/index";
+
+.user {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  &__avatar {
+    border-radius: 50%;
+    border: 2px solid $brown;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $wheat;
+    margin: 0 auto;
+  }
+
+  &__photo {
+    width: 200px;
+  }
+
+  &__mail {
+    font-size: $SFont;
+    color: $black;
+    font-weight: 600;
+    word-wrap: break-word;
+
+    &_wrapper {
+      padding: 10px 5px;
+      border-radius: 10px;
+      @include boxShadow;
+
+    }
+
+    &_title {
+      width: 300px;
+      font-size: $XSFont;
+      color: $brown;
+    }
+  }
+
+  &__info {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &_media {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
+  }
+
+  &__feedbacks {
+
+  }
+}

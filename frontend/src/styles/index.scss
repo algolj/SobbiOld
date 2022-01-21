@@ -1,6 +1,7 @@
 @import './reset-style.scss';
 @import 'vars.module';
 @import 'fonts';
+@import "mixin";
 
 * {
   font-family: 'Montserrat', sans-serif;
