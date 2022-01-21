@@ -1,11 +1,18 @@
 @import "../../styles/index";
 
 .user {
-  width: 100%;
+  max-width: 1024px;
   padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 70px;
+  margin: 0 auto;
+
+  &__title {
+    font-size: $XLFont;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
 
   &__avatar {
     border-radius: 50%;
@@ -16,7 +23,6 @@
     justify-content: center;
     align-items: center;
     background: $wheat;
-    margin: 0 auto;
   }
 
   &__photo {
@@ -49,6 +55,13 @@
     flex-direction: column;
     gap: 20px;
 
+    &_wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
     &_media {
       display: flex;
       flex-direction: row;
@@ -56,7 +69,29 @@
     }
   }
 
-  &__feedbacks {
+  &__description {
+    max-width: 700px;
 
+    &_text {
+      margin: 0 0 0 10px;
+      font-size: $SFont;
+    }
+  }
+
+  &__feedbacks {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .user {
+    &__info {
+      &_wrapper {
+        flex-direction: row-reverse;
+        justify-content: space-between;
+      }
+    }
   }
 }
