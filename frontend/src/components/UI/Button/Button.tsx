@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import s from './Button.module.scss';
+import style from './Button.module.scss';
 
 interface IProps {
   children?: React.ReactChild;
@@ -8,7 +8,7 @@ interface IProps {
 
 const Button: FC<IProps> = ({ children, onClick }) => {
   return (
-    <button className={s.button} onClick={onClick}>
+    <button className={style.button} onClick={onClick}>
       {children}
     </button>
   );

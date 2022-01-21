@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import s from './InfoItem.module.scss';
+import style from './InfoItem.module.scss';
 
 interface IProps {
   name: string;
@@ -8,17 +8,17 @@ interface IProps {
 
 const InfoItem: FC<IProps> = ({ name, referral }) => {
   return (
-    <div className={s.info__wrapper}>
+    <div className={style.info__wrapper}>
       <a
         target={'_blank'}
         href={referral}
         className={
-          referral ? s.info__item : `${s.info__item} ${s.info__item_disable}`
+          referral ? style.info__item : `${style.info__item} ${style.info__item_disable}`
         }
       >
         <img
           draggable={false}
-          className={s.info__image}
+          className={style.info__image}
           src={`./assets/icon/${name}`}
           alt={name}
         />

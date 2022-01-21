@@ -1,28 +1,28 @@
 import React, { FC } from 'react';
-import s from './Footer.module.scss';
+import style from './Footer.module.scss';
 
 const Footer: FC = () => {
   return (
-    <div className={s.footer}>
+    <div className={style.footer}>
       <a
-        className={s.footer__course}
-        href="https://rs.school/js/"
+        className={style.footer__course}
+        href="https://rstyle.school/js/"
         target={'_blank'}
       >
         <img src={'./assets/icon/rsSchoolLogo.svg'} alt="Rs School" />
       </a>
-      <div className={s.footer__text}>2022</div>
-      <div className={s.github}>
+      <div className={style.footer__text}>2022</div>
+      <div className={style.github}>
         <img
-          className={s.github__icon}
+          className={style.github__icon}
           src={'./assets/icon/gitHub.svg'}
           alt="GitHub"
         />
-        <div className={s.github__text}>github</div>
+        <div className={style.github__text}>github</div>
       </div>
-      <div className={s.footer__text_wrapper}>
+      <div className={style.footer__text_wrapper}>
         <a
-          className={`${s.footer__developers} ${s.footer__text}`}
+          className={`${style.footer__developers} ${style.footer__text}`}
           target={'_blank'}
           href="https://github.com/algolj/Sobbi"
         >
@@ -30,7 +30,7 @@ const Footer: FC = () => {
         </a>
         ·
         <a
-          className={`${s.footer__developers} ${s.footer__text}`}
+          className={`${style.footer__developers} ${style.footer__text}`}
           target={'_blank'}
           href="https://github.com/VaniaToper"
         >
