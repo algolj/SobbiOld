@@ -1,7 +1,7 @@
 import React from 'react';
-import style from './FeedBackShortcut.module.scss';
+import style from './FeedbackShortcut.module.scss';
 
-const FeedBackShortcut = () => {
+const FeedbackShortcut = () => {
   return (
     <button className={style.feedback}>
       <div className={style.feedback__wrapper}>
@@ -22,4 +22,4 @@ const FeedBackShortcut = () => {
   );
 };
 
-export default FeedBackShortcut;
+export default FeedbackShortcut;

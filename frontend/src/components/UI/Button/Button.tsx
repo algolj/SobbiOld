@@ -4,11 +4,14 @@ import style from './Button.module.scss';
 interface IProps {
   children?: React.ReactChild;
   onClick?: () => void;
+  props?: any;
+
+  [key: string]: any;
 }
 
-const Button: FC<IProps> = ({ children, onClick }) => {
+const Button: FC<IProps> = ({ children, onClick, ...props }) => {
   return (
-    <button className={style.button} onClick={onClick}>
+    <button {...props} className={style.button} onClick={onClick}>
       {children}
     </button>
   );

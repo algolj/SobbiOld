@@ -1,0 +1,14 @@
+@import "../../../styles/index";
+.modal {
+  padding: 15px 0;
+  width: 90%;
+  border-radius: 15px;
+  border: 1px solid $black;
+  background: $white;
+  &__bg {
+    display: none;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100vw;
+    height: 100vh;
+  }
+}

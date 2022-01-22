@@ -32,7 +32,7 @@ const Header: FC = () => {
         }
       >
         <nav className={style.header__nav}>
-          <Link className={style.header__link} to={''}>
+          <Link className={style.header__link} to={'/room'}>
             Tasks
           </Link>
           <Link className={style.header__link} to={''}>

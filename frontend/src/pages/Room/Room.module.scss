@@ -1,0 +1,15 @@
+@import "../../styles/index";
+.room {
+  padding: 0 10px;
+
+  &__menu {
+    border: 1px solid $black;
+    height: 60%;
+  }
+  &__searcher{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+  }
+}

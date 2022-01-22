@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import Title from '../../components/UI/Title/Title';
 import colors from '../../styles/index.scss';
 import style from './User.module.scss';
-import FeedBackShortcut from '../../components/FeedBackShortcut/FeedBackShortcut';
+import FeedbackShortcut from '../../components/FeedbackShortcut/FeedbackShortcut';
 import InfoItem from '../../components/UI/InfoItem/InfoItem';
 
 const User: FC = () => {
@@ -49,7 +49,7 @@ const User: FC = () => {
       </div>
       <div className={style.user__feedbacks}>
         <div className={style.user__title}>Feedbacks</div>
-        <FeedBackShortcut />
+        <FeedbackShortcut />
       </div>
     </div>
   );
