@@ -1,16 +1,108 @@
 @import "../../styles/index";
 
 .searcher {
-  padding: 5px;
   width: 100%;
   border: 1px solid $black;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  transition: 0.2s;
+
+  &_open {
+    gap: 0;
+
+    .searcher__header_arrow {
+      transform: translateY(-50%);
+    }
+
+    .searcher__content {
+      margin: 0;
+      overflow: hidden;
+      max-height: 0;
+
+      .searcher:hover {
+        background: red;
+      }
+    }
+  }
+
+  &__header {
+    position: relative;
+    padding: 5px;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &_arrow {
+      position: absolute;
+      top: 50%;
+      right: 5px;
+      transform: translateY(-50%) rotate(180deg);
+      width: 15px;
+      transition: 0.2s;
+    }
+
+    &:hover {
+      background-color: $lightGrey;
+    }
+
+    &:active {
+      background-color: $mediumGrey;
+    }
+  }
+
   &__title {
-    font-size: $MFont;
+    font-size: $LFont;
     font-weight: 700;
   }
-  &__difficulty{
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 5px;
+    max-height: 400px;
+    transition: 0.2s;
+  }
+
+  &__filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  &__difficulty {
     display: flex;
     gap: 10px;
     height: 50px;
+  }
+
+  &__tests {
+    padding-top: 4px;
+    width: 100%;
+    height: 200px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+
+@keyframes openAnim {
+  0% {
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+    -webkit-transform-origin: 100% 0;
+    transform-origin: 100% 0;
+  }
+  100% {
+    -webkit-transform: scaleY(0.3);
+    transform: scaleY(0.3);
+    -webkit-transform-origin: 100% 0;
+    transform-origin: 100% 0;
   }
 }

@@ -1,0 +1,54 @@
+@import "../../styles/index";
+
+.message {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+
+  &_received {
+    justify-content: left;
+
+    .message__container {
+      flex-direction: row;
+
+    }
+    .message__text{
+      color: $white;
+    }
+  }
+
+  &__container {
+    position: relative;
+    float: right;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 5px;
+
+  }
+
+  &__wrapper {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  &__avatar {
+    transform: translateY(80%);
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    background-position: center center;
+    border-radius: 50px;
+    background-color: $wheat;
+  }
+
+  &__text {
+    font-weight: 500;
+    color: $black;
+    font-size: $SFont;
+  }
+}

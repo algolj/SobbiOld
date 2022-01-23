@@ -1,12 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg">
   <symbol viewBox="0 0 71.5 78.5" id="logIn">
-    <path fill-rule="evenodd"  stroke="rgb(0, 0, 0)" stroke-width="5px" stroke-linecap="butt" stroke-linejoin="miter" fill="none"
+    <path fill-rule="evenodd" stroke="rgb(0, 0, 0)" stroke-width="5px"
+          stroke-linecap="butt" stroke-linejoin="miter" fill="none"
           d="M34.000,5.500 C43.113,5.500 50.500,12.887 50.500,22.000 C50.500,31.113 43.113,38.500 34.000,38.500 C24.887,38.500 17.500,31.113 17.500,22.000 C17.500,12.887 24.887,5.500 34.000,5.500 Z"/>
-    <path fill-rule="evenodd"  stroke="rgb(0, 0, 0)" stroke-width="5px" stroke-linecap="butt" stroke-linejoin="miter" fill="none"
+    <path fill-rule="evenodd" stroke="rgb(0, 0, 0)" stroke-width="5px"
+          stroke-linecap="butt" stroke-linejoin="miter" fill="none"
           d="M28.500,39.500 C28.500,39.500 28.368,51.091 20.500,49.500 C12.632,47.909 11.620,53.709 10.500,56.500 C9.380,59.291 5.500,72.500 5.500,72.500 "/>
-    <path fill-rule="evenodd"  stroke="rgb(0, 0, 0)" stroke-width="5px" stroke-linecap="butt" stroke-linejoin="miter" fill="none"
+    <path fill-rule="evenodd" stroke="rgb(0, 0, 0)" stroke-width="5px"
+          stroke-linecap="butt" stroke-linejoin="miter" fill="none"
           d="M40.500,39.500 C40.500,39.500 40.632,51.091 48.500,49.500 C56.368,47.909 57.380,53.709 58.500,56.500 C59.620,59.291 63.500,72.500 63.500,72.500 "/>
-    <path fill-rule="evenodd"  stroke="rgb(0, 0, 0)" stroke-width="5px" stroke-linecap="butt" stroke-linejoin="miter" fill="none"
+    <path fill-rule="evenodd" stroke="rgb(0, 0, 0)" stroke-width="5px"
+          stroke-linecap="butt" stroke-linejoin="miter" fill="none"
           d="M21.500,51.500 C21.500,51.500 32.587,75.068 47.500,51.500 "/>
   </symbol>
   <symbol viewBox="0 0 357 205" id="logo">
@@ -16,8 +20,14 @@
 
   </symbol>
   <symbol viewBox="0 0 106.5 126.5" id="arrow">
-    <path fill-rule="evenodd"  stroke="rgb(0, 0, 0)" stroke-width="5px" stroke-linecap="butt" stroke-linejoin="miter"
+    <path fill-rule="evenodd" stroke="rgb(0, 0, 0)" stroke-width="5px"
+          stroke-linecap="butt" stroke-linejoin="miter"
           d="M97.277,72.250 L61.402,108.125 L52.000,117.527 L42.598,108.125 L6.723,72.250 L16.125,62.848 L44.851,91.574 L44.851,5.000 L59.149,5.000 L59.149,91.574 L87.875,62.848 L97.277,72.250 Z"/>
 
+  </symbol>
+  <symbol viewBox="0 0 129 25" id="message">
+    <path
+      d="M7.08852 22.9442L123.354 21.9652C125.926 21.9435 128 19.8522 128 17.2799V5.6855C128 3.09777 125.902 1 123.314 1H9.7634C7.17567 1 5.0779 3.09777 5.0779 5.6855V16.7585C5.0779 17.9474 4.67599 19.1013 3.93744 20.033L1.19873 23.4878C0.839005 23.9416 1.28574 24.5865 1.83701 24.4092L5.69349 23.169C6.14446 23.024 6.61482 22.9482 7.08852 22.9442Z"
+    />
   </symbol>
 </svg>
