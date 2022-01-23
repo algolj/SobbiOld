@@ -3,6 +3,9 @@
 .chat {
   max-height: 300px;
   overflow-y: scroll;
+  &_hide{
+    display: none;
+  }
   &__messages {
     display: flex;
     flex-direction: column;
