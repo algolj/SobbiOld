@@ -1,16 +1,18 @@
 @import "../../styles/index";
 
 .room {
+  overflow-y: hidden;
   padding: 0 10px;
   display: flex;
   flex-direction: column;
-
   gap: 10px;
 
   &__chats {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding-top: 10px;
+
     &_switcher {
       width: 100%;
       height: 40px;
@@ -20,7 +22,9 @@
   }
 
   &__video {
-    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    margin: 0 auto;
 
     &_hide {
       display: none;
@@ -28,15 +32,74 @@
   }
 
   &__menu {
+    width: 100%;
     border: 1px solid $black;
-    height: 60%;
   }
 
   &__searcher {
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     flex-direction: column;
     padding: 10px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .room {
+    height: calc(100vh - 75px);
+    padding: 0;
+
+    &__chats {
+      border: 1px solid $black;
+      align-items: center;
+      flex-direction: row;
+      justify-content: center;
+      gap: 0;
+      padding: 0;
+
+      &_switcher {
+        display: none;
+      }
+    }
+
+    &__video {
+      height: 100%;
+      max-width: 100%;
+      object-fit: cover;
+      width: 50%;
+      margin: 0;
+
+      &_hide {
+        display: inline;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .room {
+    flex-direction: row-reverse;
+
+    &__menu {
+      display: flex;
+      flex-direction: row;
+    }
+
+    &__video {
+      min-height: auto;
+      height: 30%;
+      width: 100%;
+    }
+
+    &__chats {
+      min-width: 300px;
+      width: 30%;
+      max-width: 450px;
+      flex-direction: column-reverse;
+      justify-content: space-between;
+    }
+
   }
 }

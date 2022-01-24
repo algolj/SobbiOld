@@ -9,7 +9,7 @@ interface IProps {
 
 const NavBar: FC<IProps> = ({ navBars, icon }) => {
   return (
-    <>
+    <div className={style.nav__wrapper}>
       {navBars.map((options) => (
         <div key={uniqid()} className={style.nav}>
           {options.map((option, index) => (
@@ -19,7 +19,7 @@ const NavBar: FC<IProps> = ({ navBars, icon }) => {
           ))}
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

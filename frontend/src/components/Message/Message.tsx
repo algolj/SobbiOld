@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import style from './Message.module.scss';
+import sprite from '../../assets/sprite.svg';
 
 interface IProps {
   isReceiving: boolean;
@@ -20,14 +21,16 @@ const Message: FC<IProps> = ({ isReceiving }) => {
           className={style.message__avatar}
         />
         <div
-          style={
-            isReceiving
-              ? { backgroundImage: 'url("./assets/icon/messageReceived.svg")' }
-              : { backgroundImage: 'url("./assets/icon/message.svg")' }
-          }
+          // style={{ backgroundImage: 'url("./assets/icon/messageArrow.svg")' }}
           className={style.message__wrapper}
         >
-          <span className={style.message__text}>Hello, my Viola</span>
+          <svg className={style.message__arrow}>
+            <use href={`${sprite}#messageArrow`} />
+          </svg>
+          <span className={style.message__text}>
+            Hello, my naa my name is my name is Violanaa my name is my name is
+            Violanaa my name
+          </span>
         </div>
       </div>
     </div>

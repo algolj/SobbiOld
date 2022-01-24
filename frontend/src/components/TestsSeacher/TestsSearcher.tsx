@@ -5,7 +5,7 @@ import SearchInput from '../../pages/inputs/SearchInput/SearchInput';
 import RoomTest from '../RoomTest/RoomTest';
 
 const TestsSearcher = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
   return (
     <div
       className={

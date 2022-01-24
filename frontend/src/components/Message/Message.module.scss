@@ -8,32 +8,57 @@
   &_received {
     justify-content: left;
 
-    .message__container {
-      flex-direction: row;
+    .message {
+      &__container {
+        flex-direction: row;
+      }
 
+      &__text {
+        color: $white;
+      }
+
+      &__wrapper {
+        background-color: $brown;
+      }
+
+      &__arrow {
+        fill: $brown;
+        left: 0;
+        bottom: 0;
+        transform: translate(-42.4%, 42.2%) scaleX(-1);
+      }
     }
-    .message__text{
-      color: $white;
-    }
+
+
   }
 
   &__container {
-    position: relative;
-    float: right;
     display: flex;
     flex-direction: row-reverse;
-    align-items: center;
-    gap: 5px;
-
+    align-items: end;
+    gap: 15px;
   }
 
   &__wrapper {
-    padding: 15px 20px;
+    position: relative;
+    width: 90%;
     display: flex;
     align-items: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center center;
+    background-color: $wheat;
+    border: 1px solid $black;
+    border-radius: 10px;
+    padding: 10px;
+
+  }
+
+  &__arrow {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    transform: translate(42.4%, 42.2%);
+    width: 30px;
+    height: 30px;
+    fill: $wheat;
   }
 
   &__avatar {
@@ -47,6 +72,7 @@
   }
 
   &__text {
+    position: relative;
     font-weight: 500;
     color: $black;
     font-size: $SFont;

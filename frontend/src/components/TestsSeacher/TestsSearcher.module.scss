@@ -82,7 +82,6 @@
   &__tests {
     padding-top: 4px;
     width: 100%;
-    height: 200px;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
@@ -91,18 +90,26 @@
   }
 }
 
-
-@keyframes openAnim {
-  0% {
-    -webkit-transform: scaleY(1);
-    transform: scaleY(1);
-    -webkit-transform-origin: 100% 0;
-    transform-origin: 100% 0;
+@media screen and (min-height: 750px) {
+  .searcher {
+    &__content {
+      max-height: 500px;
+    }
   }
-  100% {
-    -webkit-transform: scaleY(0.3);
-    transform: scaleY(0.3);
-    -webkit-transform-origin: 100% 0;
-    transform-origin: 100% 0;
+}
+
+@media screen and (min-height: 1000px) {
+  .searcher {
+    &__content {
+      max-height: 800px;
+    }
+  }
+}
+
+@media screen and (min-height: 1200px) {
+  .searcher {
+    &__content {
+      max-height: 1000px;
+    }
   }
 }

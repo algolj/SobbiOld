@@ -8,13 +8,36 @@
   justify-content: space-around;
   gap: 10px 5px;
 
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
   &__text {
     font-size: $SFont;
-
     font-weight: 500;
 
     &_active {
       font-weight: 700;
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .nav {
+    flex-direction: column-reverse;
+    height: 100%;
+    width: auto;
+
+    &__wrapper {
+      flex-direction: row;
+
+    }
+
+    &__text {
+      transform: rotate(180deg);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
     }
   }
 }

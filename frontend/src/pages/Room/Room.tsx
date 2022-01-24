@@ -14,22 +14,20 @@ const Room = () => {
           <Button onClick={() => setIsVideo(false)}>Chat</Button>
           <Button onClick={() => setIsVideo(true)}>Video</Button>
         </div>
+        <Chat isHide={!isVideo} />
         <img
           className={isVideo ? style.room__video : style.room__video_hide}
           src={'./assets/icon/video1.jpg'}
           alt=""
         />
-        <Chat isHide={!isVideo} />
       </div>
       <div className={style.room__menu}>
-        <div className={style.room__navigation}>
-          <NavBar
-            navBars={[
-              ['text', 'tasks', 'live coding'],
-              ['core', 'frameworks', 'algorithms'],
-            ]}
-          />
-        </div>
+        <NavBar
+          navBars={[
+            ['text', 'tasks', 'live coding'],
+            ['core', 'frameworks', 'algorithms'],
+          ]}
+        />
         <div className={style.room__searcher}>
           <TestsSearcher />
           <TestsSearcher />
