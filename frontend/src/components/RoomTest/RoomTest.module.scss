@@ -1,0 +1,49 @@
+@import "../../styles/index";
+
+.test {
+  width: 95%;
+  border-radius: 10px;
+  border: 1px solid $black;
+  background: $white;
+  max-width: 1300px;
+  &__rectangle {
+    transform: translate(-4px, -4px);
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    border-radius: 10px;
+    border: 1px solid $black;
+    background: $white;
+    transition: 0.2s;
+
+    &:active {
+      transform: translate(0, 0);
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &__title {
+    text-align: left;
+    font-weight: 700;
+    font-size: $SFont;
+    color: $black;
+  }
+
+  &__difficulty {
+    font-weight: 600;
+    font-size: $XSFont;
+    color: $brown;
+  }
+
+  &__text {
+    text-align: left;
+    font-size: $SFont;
+    color: $black;
+  }
+}

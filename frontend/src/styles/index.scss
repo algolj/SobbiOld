@@ -1,2 +1,23 @@
 @import './reset-style.scss';
-@import './constants.scss';
+@import 'vars.module';
+@import 'mixin';
+
+* {
+  font-family: 'Montserrat', sans-serif;
+  color: $black;
+}
+
+*::-webkit-scrollbar-thumb {
+  display: block;
+  background: $black;
+  border-radius: 0.2em;
+}
+
+*::-webkit-scrollbar {
+  width: 5px;
+  background-color: $white;
+}
+
+#root {
+  overflow-x: hidden;
+}

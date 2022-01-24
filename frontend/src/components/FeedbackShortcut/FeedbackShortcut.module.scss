@@ -1,0 +1,46 @@
+@import "../../styles/index";
+
+.feedback {
+  width: 100%;
+  background: $white;
+  border-radius: 21px;
+  border: 2px solid $black;
+  margin-left: 5px;
+  &__wrapper {
+    padding: 5px 10px;
+    transform: translate(-5px, -5px);
+    width: 100%;
+    background: $white;
+    border-radius: 19px;
+    outline: 2px solid $black;
+    transition: 0.2s;
+
+    &:active {
+      transform: translate(0, 0);
+    }
+  }
+
+  &__title {
+    text-align: left;
+    font-size: $MFont;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  &__text {
+    text-align: left;
+    font-size: $SFont;
+    font-weight: 500;
+    color: $grey;
+
+    &_strong {
+      font-weight: 600;
+    }
+  }
+
+  &__mark {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}
