@@ -15,10 +15,13 @@
     gap: 100px;
     flex-direction: column;
 
-    &__links {
+    &__link {
       writing-mode: vertical-rl;
       text-orientation: mixed;
       font-size: $MFont;
+      &_active{
+        font-weight: 700;
+      }
     }
   }
 
@@ -112,12 +115,15 @@
     }
 
     &__arrow {
-      position: absolute;
-      bottom: 10px;
       width: 50px;
       cursor: pointer;
       fill: $white;
       transition: 0.2s;
+
+      &_link {
+        position: absolute;
+        bottom: 10px;
+      }
 
       &_active {
         fill: $black;
@@ -274,9 +280,11 @@
 @media screen and (min-width: 1920px) {
   .home {
     font-size: 170px;
-    .sidebar{
+
+    .sidebar {
       right: 200px;
     }
+
     .welcome {
       justify-content: center;
       flex-direction: row;

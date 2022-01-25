@@ -12,7 +12,14 @@
   font-size: 25px;
   font-weight: 700;
   @include boxShadow;
-  transition: 0.2s transform, box-shadow 0.2s;
+  transition: 0.2s;
+
+  &_active {
+    box-shadow: 0 0 $wheat, 1px 1px 0 1px $black;
+    transform: translate(0, 0);
+    background: $brown;
+    color: $white;
+  }
 
   &:active {
     box-shadow: 0 0 $wheat, 1px 1px 0 1px $black;

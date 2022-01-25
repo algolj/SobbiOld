@@ -8,6 +8,14 @@
   padding: 10px;
   font-size: 30px;
 
+  a {
+    &:active {
+      transition: 0.2s;
+      opacity: 0.7;
+      transform: scale(0.97);
+    }
+  }
+
   &__wrapper {
     position: fixed;
     z-index: 2;
@@ -15,13 +23,28 @@
     left: 0;
     width: 100%;
     height: 100%;
+    padding: 0 10px;
     overflow: auto;
-    background: rgba(0, 0, 0, 0.5);
+    background: $white;
     transition: 0.2s;
-    transform: translate(-100%, 0);
+    transform: translate(-102%, 0);
+    @include boxShadow;
 
     &_active {
-      transform: translate(0, 0);
+      transform: translate(-3px, 0);
+
+      .header {
+        &__nav {
+          margin-top: 75px;
+          flex-direction: column;
+        }
+
+        &__login {
+          position: absolute;
+          top: 75px;
+          right: 7px;
+        }
+      }
     }
   }
 
@@ -35,9 +58,15 @@
 
   &__link {
     font-size: 1em;
+
+    &_secondary {
+      font-size: 0.8em;
+    }
   }
 
   &__logo {
+    position: relative;
+    z-index: 3;
     width: 100px;
     height: 50px;
   }
@@ -134,6 +163,25 @@
       transform: translate(0, 0);
       background: none;
       width: 50%;
+      box-shadow: none;
+      border: none;
+
+      &_active {
+        .header {
+          &__nav {
+            margin: 0;
+            flex-direction: row;
+          }
+
+          &__login {
+            position: relative;
+            top: 0;
+            right: 0;
+          }
+        }
+
+
+      }
     }
 
     &__nav {
