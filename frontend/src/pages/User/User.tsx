@@ -21,7 +21,9 @@ const User: FC = () => {
         <div className={style.user__info}>
           <div className={style.user__mail_wrapper}>
             <div className={style.user__mail_title}>E-mail</div>
-            <div className={style.user__mail}>beccasmith@gmail.com</div>
+            <a className={style.user__mail} href="mailto:beccasmith@gmail.com">
+              beccasmith@gmail.com
+            </a>
           </div>
           <div className={style.user__info_item}>
             <InfoItem referral={''} name={'sex.svg'} />

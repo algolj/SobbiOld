@@ -7,6 +7,12 @@
   color: $black;
 }
 
+html {  scroll-behavior: smooth;
+
+  scrollbar-color: $black $white;
+  scrollbar-width: 5px;
+}
+
 *::-webkit-scrollbar-thumb {
   display: block;
   background: $black;

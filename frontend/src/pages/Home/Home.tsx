@@ -5,30 +5,37 @@ import Title from '../../components/UI/Title/Title';
 import colors from '../../styles/vars.module.scss';
 import Button from '../../components/UI/Button/Button';
 import Footer from '../../components/Footer/Footer';
+import room from '../Room/Room';
 
 const Home: FC = () => {
   const [isAnim, setIsAnim] = useState<boolean>(false);
   const roomRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const sidebarRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+
   const scrollToRoom = () => {
     setIsAnim(true);
-    const roomPos = roomRef.current.getBoundingClientRect().top + pageYOffset;
-    window.scrollTo({
-      top: roomPos,
-      behavior: 'smooth',
-    });
     setTimeout(() => {
       setIsAnim(false);
     }, 400);
   };
+
   return (
     <div className={style.home}>
-      <div className={style.sidebar}>
-        <div className={style.sidebar__links}>Home</div>
-        <div className={style.sidebar__links}>Room</div>
-        <div className={style.sidebar__links}>How to use</div>
-        <div className={style.sidebar__links}>About</div>
+      <div ref={sidebarRef} className={style.sidebar}>
+        <a href={'#home'} className={style.sidebar__link}>
+          Home
+        </a>
+        <a href={'#room'} className={style.sidebar__link}>
+          Room
+        </a>
+        <a href={'#description'} className={style.sidebar__link}>
+          How to use
+        </a>
+        <a href={'#about'} className={style.sidebar__link}>
+          About
+        </a>
       </div>
-      <section className={`${style.welcome} ${style.section}`}>
+      <section id={'home'} className={`${style.welcome} ${style.section}`}>
         <div className={style.welcome__title_wrapper}>
           <div className={style.welcome__title}>Sobbi</div>
           <div className={style.welcome__subtitle}>
@@ -43,20 +50,26 @@ const Home: FC = () => {
           reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
           pariatur.
         </div>
-        <svg
-          onClick={() => {
-            scrollToRoom();
-          }}
-          className={
-            isAnim
-              ? `${style.welcome__arrow} ${style.welcome__arrow_active}`
-              : style.welcome__arrow
-          }
-        >
-          <use href={`${sprite}#arrow`} />
-        </svg>
+        <a className={style.welcome__arrow_link} href={'#room'}>
+          <svg
+            onClick={() => {
+              scrollToRoom();
+            }}
+            className={
+              isAnim
+                ? `${style.welcome__arrow} ${style.welcome__arrow_active}`
+                : style.welcome__arrow
+            }
+          >
+            <use href={`${sprite}#arrow`} />
+          </svg>
+        </a>
       </section>
-      <section ref={roomRef} className={`${style.room} ${style.section}`}>
+      <section
+        id={'room'}
+        ref={roomRef}
+        className={`${style.room} ${style.section}`}
+      >
         <div className={style.room__wrapper}>
           <Title color={colors.wheat}>Room</Title>
           <div className={style.room__buttons}>
@@ -69,7 +82,10 @@ const Home: FC = () => {
           </div>
         </div>
       </section>
-      <section className={`${style.instruction} ${style.section}`}>
+      <section
+        id={'description'}
+        className={`${style.instruction} ${style.section}`}
+      >
         <div className={style.instruction__wrapper}>
           <Title color={colors.white}>How to use</Title>
           <p className={style.instruction__article}>
@@ -100,7 +116,7 @@ const Home: FC = () => {
           </p>
         </div>
       </section>
-      <section className={`${style.about} ${style.section}`}>
+      <section id={'about'} className={`${style.about} ${style.section}`}>
         <div className={style.about__wrapper}>
           <Title color={colors.wheat}>About</Title>
           <div className={style.about__text}>

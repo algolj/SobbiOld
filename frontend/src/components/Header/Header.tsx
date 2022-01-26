@@ -3,8 +3,21 @@ import style from './Header.module.scss';
 import sprite from '../../assets/sprite.svg';
 import { Link } from 'react-router-dom';
 
-const Header: FC = () => {
+interface IProps {
+  navigation?: string[];
+}
+
+const Header: FC<IProps> = ({ navigation }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const closeBurger = (e: React.MouseEvent<HTMLElement>) => {
+    if (
+      e.target.constructor.name === 'HTMLAnchorElement' ||
+      e.target.constructor.name === 'SVGSVGElement' ||
+      e.target.constructor.name === 'SVGUseElement'
+    ) {
+      setIsOpen(false);
+    }
+  };
   return (
     <div className={style.header}>
       <Link to={''}>
@@ -31,7 +44,7 @@ const Header: FC = () => {
             : style.header__wrapper
         }
       >
-        <nav className={style.header__nav}>
+        <nav onClick={(e) => closeBurger(e)} className={style.header__nav}>
           <Link className={style.header__link} to={'/room'}>
             Tasks
           </Link>

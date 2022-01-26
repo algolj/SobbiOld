@@ -11,8 +11,12 @@ const Room = () => {
     <div className={style.room}>
       <div className={style.room__chats}>
         <div className={style.room__chats_switcher}>
-          <Button onClick={() => setIsVideo(false)}>Chat</Button>
-          <Button onClick={() => setIsVideo(true)}>Video</Button>
+          <Button active={!isVideo} onClick={() => setIsVideo(false)}>
+            Chat
+          </Button>
+          <Button active={isVideo} onClick={() => setIsVideo(true)}>
+            Video
+          </Button>
         </div>
         <Chat isHide={!isVideo} />
         <img
