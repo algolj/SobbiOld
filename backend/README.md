@@ -233,7 +233,12 @@ User registration on the platform.
     "gender": null,
     "bio": null,
     "image": null,
-    "socialMedia": null
+    "socialMedia": {
+        "linkedIn": "petrov",
+        "facebook": "petrol",
+        "github": "petrik"
+
+    }
 }
 ```
 
