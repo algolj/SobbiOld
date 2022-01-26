@@ -131,6 +131,7 @@ User registration on the platform.
     "token": "eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6InVzZXJOYW1lMSIsInBhc3N3b3JkIjoiMTIzNDU2IiwiaWF0IjoxNTE2MjM5MDIyfQ.6L_6G4xTG2ZWElesHV1dyP1s50ZsJasit4pqNTUp4CQ"
 }
 ```
+*new token
 
 #### 5. Change password
 
