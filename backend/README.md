@@ -18,10 +18,15 @@ After configuring for your database, just write `npm run db:migrate` in the cons
 
 User registration on the platform.
 **Request type:** POST
+
 **Route:** /api/user
+
 **Required parameters:** email (string), username(string), password (string).
+
 **Optional parameters:** last_name (string), first_name (string), country (enum), date_of_birth (date), gender (enum), bio (string), image (bytea), socialMedia (json).
+
 [**Error**](#error-response)
+
 **Request Body (JSON type):**
 
 ```JSON
@@ -54,9 +59,13 @@ User registration on the platform.
 #### 2. User authorization
 
 **Request type:** POST
+
 **Route:** /api/user/login
+
 **Required parameters:** login (email or username), password (string).
+
 [**Error**](#error-response)
+
 **Request Body (JSON type):**
 
 ```JSON
@@ -77,10 +86,15 @@ User registration on the platform.
 #### 3. Account deletion
 
 **Request type:** DELETE
+
 **Route:** /api/user
+
 **Required parameters:** None.
+
 **Required header:** Authorization (Bearer `HERE_JWT_TOKEN`).
+
 [**Error**](#error-response)
+
 **Response Body (JSON type):**
 
 ```JSON
@@ -93,10 +107,15 @@ User registration on the platform.
 #### 4. Change username or email
 
 **Request type:** PUT
+
 **Route:** /api/user/change/username **or** /api/user/change/email
+
 **Required parameters:** email (string) **or** username (string).
+
 **Required header:** Authorization (Bearer `HERE_JWT_TOKEN`).
+
 [**Error**](#error-response)
+
 **Request Body (JSON type):**
 
 ```JSON
@@ -116,10 +135,15 @@ User registration on the platform.
 #### 5. Change password
 
 **Request type:** PUT
+
 **Route:** /api/user/change/password
+
 **Required parameters:** oldPassword (string) or newPassword (string).
+
 **Required header:** Authorization (Bearer `HERE_JWT_TOKEN`).
+
 [**Error**](#error-response)
+
 **Request Body (JSON type):**
 
 ```JSON
@@ -151,10 +175,15 @@ User registration on the platform.
 #### 6. Get user profile
 
 **Request type:** GET
+
 **Route:** /api/user/profile
+
 **Required parameters:** None.
+
 **Required header:** Authorization (Bearer `HERE_JWT_TOKEN`).
+
 [**Error**](#error-response)
+
 **Response Body (JSON type):**
 
 ```JSON
@@ -176,9 +205,13 @@ User registration on the platform.
 #### 7. Get another user profile
 
 **Request type:** GET
+
 **Route:** /api/user/profile/id`number` **or** /api/user/profile/username
+
 **Required parameters:** None.
+
 [**Error**](#error-response)
+
 **Response Body (JSON type):**
 
 ```JSON
@@ -200,10 +233,15 @@ User registration on the platform.
 #### 8. Change user profile
 
 **Request type:** PUT
+
 **Route:** /api/profile
+
 **Optional parameters:** last_name (string), first_name (string), country (enum), date_of_birth (date), gender (enum), bio (string), image (bytea), socialMedia (json).
+
 **Required header:** Authorization (Bearer `HERE_JWT_TOKEN`).
+
 [**Error**](#error-response)
+
 **Request Body (JSON type):**
 
 ```JSON
