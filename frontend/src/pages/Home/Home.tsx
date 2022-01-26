@@ -6,11 +6,24 @@ import colors from '../../styles/vars.module.scss';
 import Button from '../../components/UI/Button/Button';
 import Footer from '../../components/Footer/Footer';
 import room from '../Room/Room';
+import Modal from '../../components/UI/Modal/Modal';
+import FormInput from '../inputs/FormInput/FormInput';
 
 const Home: FC = () => {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isAnim, setIsAnim] = useState<boolean>(false);
   const roomRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const homeRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const descriptionRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const aboutRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const sidebarRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const getSectionPosition = (
+    ref: React.MutableRefObject<HTMLInputElement>,
+  ) => {
+    return Math.ceil(
+      ref.current.getBoundingClientRect().top + ref.current.offsetHeight / 2,
+    );
+  };
 
   const scrollToRoom = () => {
     setIsAnim(true);
@@ -18,9 +31,51 @@ const Home: FC = () => {
       setIsAnim(false);
     }, 400);
   };
-
+  // window.addEventListener('scroll', (e) => {
+  //   const activeClass = `${style.sidebar__link_active} ${style.sidebar__link}`;
+  //   const sidebar1 = sidebarRef.current.children[0];
+  //   const sidebar2 = sidebarRef.current.children[1];
+  //   const sidebar3 = sidebarRef.current.children[2];
+  //   const sidebar4 = sidebarRef.current.children[3];
+  //   const refs = {
+  //     sidebar1: getSectionPosition(homeRef),
+  //     sidebar2: getSectionPosition(roomRef),
+  //     sidebar3: getSectionPosition(descriptionRef),
+  //     sidebar4: getSectionPosition(aboutRef),
+  //   };
+  //
+  //   for (let i = 0; i < sidebarRef.current.children.length; i++) {
+  //     const filteredRefs = Object.values(refs).filter((a) => a > 0);
+  //     Object.values(refs) = filteredRefs;
+  //
+  //     if (filteredRefs[0]) {
+  //       sidebarRef.current.children[i].className = activeClass;
+  //     } else sidebarRef.current.children[i].className = style.sidebar__link;
+  //   }
+  // });
   return (
     <div className={style.home}>
+      <Modal setVisibility={setIsVisible} title={'Room'} visibility={isVisible}>
+        <div className={style.create__form}>
+          <div className={style.create__time}>
+            <div className={style.create__date}>
+              <FormInput type={'date'} label={'Date'} />
+            </div>
+            <div className={style.create__hours}>
+              <FormInput type={'time'} label={'Time'} />
+            </div>
+          </div>
+          <FormInput label={'Room name'} />
+          <FormInput label={'E-mail'} />
+          <FormInput label={'Interviewer'} />
+          <FormInput label={'Interviewee'} />
+          <FormInput label={'Spectators'} />
+          <div className={style.create__button}>
+            <Button onClick={() => setIsVisible(false)}>Create</Button>
+          </div>
+        </div>
+      </Modal>
+
       <div ref={sidebarRef} className={style.sidebar}>
         <a href={'#home'} className={style.sidebar__link}>
           Home
@@ -35,7 +90,11 @@ const Home: FC = () => {
           About
         </a>
       </div>
-      <section id={'home'} className={`${style.welcome} ${style.section}`}>
+      <section
+        ref={homeRef}
+        id={'home'}
+        className={`${style.welcome} ${style.section}`}
+      >
         <div className={style.welcome__title_wrapper}>
           <div className={style.welcome__title}>Sobbi</div>
           <div className={style.welcome__subtitle}>
@@ -74,7 +133,7 @@ const Home: FC = () => {
           <Title color={colors.wheat}>Room</Title>
           <div className={style.room__buttons}>
             <div className={style.room__button_wrapper}>
-              <Button>Create</Button>
+              <Button onClick={() => setIsVisible(true)}>Create</Button>
             </div>
             <div className={style.room__button_wrapper}>
               <Button>Enter</Button>
@@ -83,6 +142,7 @@ const Home: FC = () => {
         </div>
       </section>
       <section
+        ref={descriptionRef}
         id={'description'}
         className={`${style.instruction} ${style.section}`}
       >
@@ -116,7 +176,11 @@ const Home: FC = () => {
           </p>
         </div>
       </section>
-      <section id={'about'} className={`${style.about} ${style.section}`}>
+      <section
+        ref={aboutRef}
+        id={'about'}
+        className={`${style.about} ${style.section}`}
+      >
         <div className={style.about__wrapper}>
           <Title color={colors.wheat}>About</Title>
           <div className={style.about__text}>

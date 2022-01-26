@@ -2,23 +2,29 @@ import React, { FC, useState } from 'react';
 import style from './Modal.module.scss';
 
 interface IProps {
-  children: React.ReactChild;
+  children?: React.ReactChild;
   visibility: boolean;
+  title: string;
+  setVisibility: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Modal: FC<IProps> = ({ children, visibility }) => {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-  if (visibility) setIsVisible(true);
+const Modal: FC<IProps> = ({ children, visibility, setVisibility, title }) => {
   return (
     <div
-      onClick={() => setIsVisible(false)}
+      id={'bg'}
+      onClick={(e: any) => {
+        if (e.target.id === 'bg') setVisibility(false);
+      }}
       className={
-        isVisible
-          ? `${style.modal__bg}${style.modal__bg_active}`
+        visibility
+          ? `${style.modal__bg} ${style.modal__bg_active}`
           : style.modal__bg
       }
     >
-      <div className={style.modal}>{children}</div>
+      <div className={style.modal}>
+        <div className={style.modal__title}>{title}</div>
+        {children}
+      </div>
     </div>
   );
 };
