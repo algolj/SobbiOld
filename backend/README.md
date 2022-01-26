@@ -148,6 +148,95 @@ User registration on the platform.
 }
 ```
 
+#### 6. Get user profile
+
+**Request type:** GET
+**Route:** /api/user/profile
+**Required parameters:** None.
+**Required header:** Authorization (Bearer `HERE_JWT_TOKEN`).
+[**Error**](#error-response)
+**Response Body (JSON type):**
+
+```JSON
+    {
+    "id": 1,
+    "username": "userName1",
+    "email": "example@example.com",
+    "last_name": "Alexander",
+    "first_name": null,
+    "country": null,
+    "date_of_birth": null,
+    "gender": null,
+    "bio": null,
+    "image": null,
+    "socialMedia": null
+}
+```
+
+#### 7. Get another user profile
+
+**Request type:** GET
+**Route:** /api/user/profile/id`number` **or** /api/user/profile/username
+**Required parameters:** None.
+[**Error**](#error-response)
+**Response Body (JSON type):**
+
+```JSON
+    {
+    "id": 1,
+    "username": "userName1",
+    "email": "example@example.com",
+    "last_name": "Alexander",
+    "first_name": null,
+    "country": null,
+    "date_of_birth": null,
+    "gender": null,
+    "bio": null,
+    "image": null,
+    "socialMedia": null
+}
+```
+
+#### 8. Change user profile
+
+**Request type:** PUT
+**Route:** /api/profile
+**Optional parameters:** last_name (string), first_name (string), country (enum), date_of_birth (date), gender (enum), bio (string), image (bytea), socialMedia (json).
+**Required header:** Authorization (Bearer `HERE_JWT_TOKEN`).
+[**Error**](#error-response)
+**Request Body (JSON type):**
+
+```JSON
+{
+    "last_name": "Alexander",
+    "first_name": "Drotov",
+    "socialMedia": {
+        "linkedIn": "petrov",
+        "facebook": "petrol",
+        "github": "petrik"
+
+    }
+}
+```
+
+**Response Body (JSON type):**
+
+```JSON
+    {
+    "id": 1,
+    "username": "userName1",
+    "email": "example@example.com",
+    "last_name": "Alexander",
+    "first_name": "Drotov",
+    "country": null,
+    "date_of_birth": null,
+    "gender": null,
+    "bio": null,
+    "image": null,
+    "socialMedia": null
+}
+```
+
 #### Error response
 
 Gets JSON with two parameters:
