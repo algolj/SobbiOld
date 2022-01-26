@@ -206,7 +206,7 @@ User registration on the platform.
 
 **Request type:** GET
 
-**Route:** /api/user/profile/id`number` **or** /api/user/profile/username
+**Route:** /api/user/profile/id`number` **or** /api/user/profile/`username`
 
 **Required parameters:** None.
 
