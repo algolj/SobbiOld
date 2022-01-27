@@ -9,6 +9,7 @@ interface IProps {
 
 const Header: FC<IProps> = ({ navigation }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
   const closeBurger = (e: React.MouseEvent<HTMLElement>) => {
     if (
       e.target.constructor.name === 'HTMLAnchorElement' ||
@@ -20,9 +21,10 @@ const Header: FC<IProps> = ({ navigation }) => {
   };
   return (
     <div className={style.header}>
+      <Modal></Modal>
       <Link to={''}>
         <svg className={style.header__logo}>
-          <use href={`${sprite}#logo`} />
+          <use href={`${sprite}#logo`}/>
         </svg>
       </Link>
       <div className={style.burger}>
@@ -34,7 +36,7 @@ const Header: FC<IProps> = ({ navigation }) => {
               : style.burger__rectangle
           }
         >
-          <span className={style.burger__line} />
+          <span className={style.burger__line}/>
         </button>
       </div>
       <div
@@ -54,11 +56,13 @@ const Header: FC<IProps> = ({ navigation }) => {
           <Link className={style.header__link} to={''}>
             Rating
           </Link>
-          <Link to={'/user'}>
+          <button onClick={()=>setIsVisible(true)} className={style.header__login_wrapper} >
             <svg className={style.header__login}>
-              <use href={`${sprite}#logIn`} />
+              <use href={`${sprite}#logIn`}/>
             </svg>
-          </Link>
+            <img className={style.header__login_hover}
+                 src={'./assets/icon/loginText.svg'} alt="login text"/>
+          </button>
         </nav>
       </div>
     </div>

@@ -72,8 +72,37 @@
   }
 
   &__login {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+
+    &:active {
+      transition: 0.2s;
+      opacity: 0.7;
+      transform: translate(-50%, -50%) scale(0.97);
+    }
+
+    &_wrapper {
+      width: 82px;
+      height: 82px;
+      position: relative;
+      border-radius: 10px;
+
+      &:hover {
+        .header__login_hover {
+          opacity: 1;
+        }
+      }
+
+    }
+
+    &_hover {
+      opacity: 0;
+      transition: 0.2s;
+    }
   }
 }
 
