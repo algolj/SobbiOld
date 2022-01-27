@@ -1,8 +1,9 @@
+import { Body, Controller, Get, Param, Put, UseGuards } from '@nestjs/common';
+
 import { IUser } from '@app/common/user.interface';
 import { User } from '@app/decorators/user.decorator';
 import { JwtUserGuard } from '@app/user/guards/jwt.guard';
 import { UserEntity } from '@app/user/user.entity';
-import { Body, Controller, Get, Param, Put, UseGuards } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 
 @Controller('profile')

@@ -1,18 +1,18 @@
-import { IAuth } from '@app/common/auth.interface';
-import { User } from '@app/decorators/user.decorator';
 import {
   Body,
   Controller,
   Delete,
-  Get,
   Post,
   Put,
   UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/createUser.dto';
 import { JwtUserGuard } from './guards/jwt.guard';
+
+import { IAuth } from '@app/common/auth.interface';
+import { User } from '@app/decorators/user.decorator';
+import { CreateUserDto } from './dto/createUser.dto';
 import { TLogin } from './types/login.type';
 import { IUser } from '../common/user.interface';
 import { REGULAR_CHECK_IS_EMAIL } from './user.constants';
@@ -33,7 +33,7 @@ export class UserController {
 
   @UsePipes(new ValidationPipe())
   @Post('login')
-  async loginUser(@Body() draftLoginInfo: IAuth) {
+  async loginUser(@Body() draftLoginInfo: IAuth): Promise<{ token: string }> {
     const authKey = REGULAR_CHECK_IS_EMAIL.test(draftLoginInfo.login)
       ? 'email'
       : 'username';
@@ -50,7 +50,7 @@ export class UserController {
 
   @UseGuards(JwtUserGuard)
   @Delete()
-  async deleteUser(@User() user: IUser) {
+  async deleteUser(@User() user: IUser): Promise<{ delete: boolean }> {
     return this.userService.deleteUser(user);
   }
 
@@ -58,7 +58,10 @@ export class UserController {
   @UseGuards(JwtUserGuard)
   @Put('change/email')
   @Put('change/username')
-  async changeUserEmail(@User() user: IUser, @Body() newValue: TLoginKey) {
+  async changeUserEmail(
+    @User() user: IUser,
+    @Body() newValue: TLoginKey,
+  ): Promise<{ token: string }> {
     return await this.userService.changeEmailOruserName(user, newValue);
   }
 
@@ -68,12 +71,14 @@ export class UserController {
   async changeUserPassword(
     @User() user: IUser,
     @Body() passwords: IChangePassword,
-  ) {
+  ): Promise<UserEntity> {
     return await this.userService.changeUserPassword(user, passwords);
   }
 
-  @Get('all')
-  async d() {
-    return this.userService.getAll();
+  @Post('auth-data-exists')
+  async existsAuthData(
+    @Body() authKay: TLoginKey,
+  ): Promise<{ exists: boolean }> {
+    return this.userService.emailOrUsernameExists(authKay);
   }
 }

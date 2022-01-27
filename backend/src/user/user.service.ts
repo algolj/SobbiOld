@@ -9,11 +9,16 @@ import { CreateUserDto } from './dto/createUser.dto';
 import {
   EMAIL_ALREADY_EXISTS,
   EMAIL_OR_USER_WRONG,
+  NOT_ALLOWED_EMAIL,
+  NOT_ALLOWED_USERNAME,
+  NO_CONTENT_IN_REQUEST,
+  REGULAR_CHECK_IS_EMAIL,
   USERNAME_ALREADY_EXISTS,
+  USER_NOT_FOUND,
 } from './user.constants';
+import { IUser } from '@app/common/user.interface';
 import { TLogin } from './types/login.type';
 import { TLoginData } from './types/login-data.type';
-import { IUser } from '@app/common/user.interface';
 import { TLoginKey } from './types/login-key.type';
 import { IChangePassword } from './types/change-password.interface';
 
@@ -25,14 +30,16 @@ export class UserService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async createUser(createUserDto: CreateUserDto): Promise<any> {
+  async createUser(createUserDto: CreateUserDto): Promise<UserEntity> {
     await this.isEmailOrUserNameExists({
       email: createUserDto.email,
     });
+    this.emailIsValid(createUserDto['email']);
 
     await this.isEmailOrUserNameExists({
       username: createUserDto.username,
     });
+    this.usernameIsValid(createUserDto['username']);
 
     const newUser = new UserEntity();
     Object.assign(newUser, createUserDto);
@@ -79,15 +86,15 @@ export class UserService {
     return { email: userInfo.email, username: userInfo.username };
   }
 
-  async loginUser(loginData: TLoginData) {
+  async loginUser(loginData: TLoginData): Promise<{ token: string }> {
     return { token: await this.jwtService.signAsync(loginData) };
   }
 
-  async deleteUser(user: IUser) {
-    return this.userRepository.delete(user);
+  async deleteUser(user: IUser): Promise<{ delete: boolean }> {
+    return { delete: !!(await this.userRepository.delete(user))['affected'] };
   }
 
-  async isEmailOrUserNameExists(authData: TLoginKey) {
+  private async isEmailOrUserNameExists(authData: TLoginKey) {
     const user = await this.getUserAuthData(authData);
 
     if (user) {
@@ -100,8 +107,28 @@ export class UserService {
     }
   }
 
-  async changeEmailOruserName(user: IUser, newValue: TLoginKey) {
+  private usernameIsValid(username) {
+    if (/^id\d*$/.test(username)) {
+      throw new HttpException(NOT_ALLOWED_USERNAME, HttpStatus.BAD_REQUEST);
+    }
+  }
+  private emailIsValid(email) {
+    if (!REGULAR_CHECK_IS_EMAIL.test(email)) {
+      throw new HttpException(NOT_ALLOWED_EMAIL, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async changeEmailOruserName(
+    user: IUser,
+    newValue: TLoginKey,
+  ): Promise<{ token: string }> {
     await this.isEmailOrUserNameExists(newValue);
+
+    if (newValue['username']) {
+      this.usernameIsValid(newValue['username']);
+    } else {
+      this.emailIsValid(newValue['email']);
+    }
 
     const currentUser = await this.userRepository.findOne(user);
 
@@ -115,7 +142,10 @@ export class UserService {
     });
   }
 
-  async changeUserPassword(user: IUser, passwords: IChangePassword) {
+  async changeUserPassword(
+    user: IUser,
+    passwords: IChangePassword,
+  ): Promise<UserEntity> {
     const currentAuthData = await this.getUserAuthData({
       username: user.username,
     });
@@ -126,10 +156,7 @@ export class UserService {
     );
 
     if (!currentAuthData || !isCorrectPassword) {
-      throw new HttpException(
-        'User not found or old password incorrenct.',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new HttpException(USER_NOT_FOUND, HttpStatus.BAD_REQUEST);
     }
 
     const currentUser = await this.userRepository.findOne(user);
@@ -143,7 +170,17 @@ export class UserService {
     return await this.userRepository.save(currentUser);
   }
 
-  async getAll() {
-    return this.userRepository.find();
+  async emailOrUsernameExists(
+    authKay: TLoginKey,
+  ): Promise<{ exists: boolean }> {
+    if (!authKay['username'] && !authKay['email']) {
+      throw new HttpException(NO_CONTENT_IN_REQUEST, HttpStatus.BAD_REQUEST);
+    }
+
+    const searchKey = authKay['username']
+      ? { username: authKay['username'] }
+      : { email: authKay['email'] };
+
+    return { exists: !!(await this.getUserAuthData(searchKey)) };
   }
 }
