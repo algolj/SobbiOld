@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import style from './Chat.module.scss';
 import SearchInput from '../../pages/inputs/SearchInput/SearchInput';
 import Message from '../Message/Message';
+import axios from 'axios';
 interface IProps {
   isHide: boolean;
 }

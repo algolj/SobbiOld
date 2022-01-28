@@ -177,8 +177,23 @@
       }
     }
   }
+}
 
+.form {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 400px;
+  margin: 0 auto;
+  transform: scale(0.85);
 
+  &__button {
+    padding-top: 10px;
+    height: 60px;
+    width: 70%;
+  }
 }
 
 @media screen and (min-width: 1440px) {
@@ -217,5 +232,8 @@
       align-items: center;
       flex-direction: row;
     }
+  }
+  .form {
+    transform: scale(1);
   }
 }

@@ -2,6 +2,9 @@ import React, { FC, useState } from 'react';
 import style from './Header.module.scss';
 import sprite from '../../assets/sprite.svg';
 import { Link } from 'react-router-dom';
+import Modal from '../UI/Modal/Modal';
+import FormInput from '../../pages/inputs/FormInput/FormInput';
+import Button from '../UI/Button/Button';
 
 interface IProps {
   navigation?: string[];
@@ -21,10 +24,23 @@ const Header: FC<IProps> = ({ navigation }) => {
   };
   return (
     <div className={style.header}>
-      <Modal></Modal>
+      <Modal
+        setVisibility={setIsVisible}
+        visibility={isVisible}
+        title={'Log In'}
+      >
+        <div className={style.form}>
+          <FormInput label={'User Name'} />
+          <FormInput label={'E-mail'} />
+          <FormInput label={'Password'} />
+          <div className={style.form__button}>
+            <Button onClick={() => setIsVisible(false)}>Login</Button>
+          </div>
+        </div>
+      </Modal>
       <Link to={''}>
         <svg className={style.header__logo}>
-          <use href={`${sprite}#logo`}/>
+          <use href={`${sprite}#logo`} />
         </svg>
       </Link>
       <div className={style.burger}>
@@ -36,7 +52,7 @@ const Header: FC<IProps> = ({ navigation }) => {
               : style.burger__rectangle
           }
         >
-          <span className={style.burger__line}/>
+          <span className={style.burger__line} />
         </button>
       </div>
       <div
@@ -56,12 +72,18 @@ const Header: FC<IProps> = ({ navigation }) => {
           <Link className={style.header__link} to={''}>
             Rating
           </Link>
-          <button onClick={()=>setIsVisible(true)} className={style.header__login_wrapper} >
+          <button
+            onClick={() => setIsVisible(true)}
+            className={style.header__login_wrapper}
+          >
             <svg className={style.header__login}>
-              <use href={`${sprite}#logIn`}/>
+              <use href={`${sprite}#logIn`} />
             </svg>
-            <img className={style.header__login_hover}
-                 src={'./assets/icon/loginText.svg'} alt="login text"/>
+            <img
+              className={style.header__login_hover}
+              src={'./assets/icon/loginText.svg'}
+              alt="login text"
+            />
           </button>
         </nav>
       </div>

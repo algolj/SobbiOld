@@ -8,6 +8,7 @@ import Footer from '../../components/Footer/Footer';
 import room from '../Room/Room';
 import Modal from '../../components/UI/Modal/Modal';
 import FormInput from '../inputs/FormInput/FormInput';
+import axios from 'axios';
 
 const Home: FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -24,7 +25,15 @@ const Home: FC = () => {
       ref.current.getBoundingClientRect().top + ref.current.offsetHeight / 2,
     );
   };
-
+  const bro = async () => {
+    const response = await axios.post('http://localhost:3000/api/user', {
+      username: 'user312321Name1',
+      email: 'exsadsad21321321ample@example.com',
+      password: '123456',
+    });
+    console.log(response);
+  };
+  bro();
   const scrollToRoom = () => {
     setIsAnim(true);
     setTimeout(() => {

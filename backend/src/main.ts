@@ -6,8 +6,15 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
   app.setGlobalPrefix('api');
-  await app.listen(3000);
+  app.enableCors({
+    origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+    credentials: true,
+  });
+  await app.listen(process.env.PORT || 3000);
 }
-bootstrap();
+
+bootstrap().then(() => {
+  console.log(`Server started on http://localhost:${process.env.PORT}`);
+});
