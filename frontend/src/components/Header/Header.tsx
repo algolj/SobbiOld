@@ -5,23 +5,29 @@ import { Link } from 'react-router-dom';
 import Modal from '../UI/Modal/Modal';
 import FormInput from '../../pages/inputs/FormInput/FormInput';
 import Button from '../UI/Button/Button';
+import { UseTypeSelector } from '../../hooks/useTypeSelector';
+import { useActions } from '../../hooks/useActions';
 
-interface IProps {
-  navigation?: string[];
-}
-
-const Header: FC<IProps> = ({ navigation }) => {
+const Header: FC = () => {
+  const { user, error } = UseTypeSelector((state) => state.user);
+  const { createUser, loginUser } = useActions();
+  const [isRegistration, setIsRegistration] = useState<boolean>(false);
+  const [userName, setUserName] = useState<string>('');
+  const [userEmail, setUserEmail] = useState<string>('');
+  const [userPassword, setUserPassword] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const closeBurger = (e: React.MouseEvent<HTMLElement>) => {
+    const role = e.target.constructor.name;
     if (
-      e.target.constructor.name === 'HTMLAnchorElement' ||
-      e.target.constructor.name === 'SVGSVGElement' ||
-      e.target.constructor.name === 'SVGUseElement'
+      role === 'HTMLAnchorElement' ||
+      role === 'SVGSVGElement' ||
+      role === 'SVGUseElement'
     ) {
       setIsOpen(false);
     }
   };
+
   return (
     <div className={style.header}>
       <Modal
@@ -30,11 +36,48 @@ const Header: FC<IProps> = ({ navigation }) => {
         title={'Log In'}
       >
         <div className={style.form}>
-          <FormInput label={'User Name'} />
-          <FormInput label={'E-mail'} />
-          <FormInput label={'Password'} />
+          <FormInput
+            value={userName}
+            onChange={setUserName}
+            label={'User Name'}
+          />
+          {isRegistration ? (
+            <FormInput
+              value={userEmail}
+              onChange={setUserEmail}
+              label={'E-mail'}
+              type={'email'}
+            />
+          ) : (
+            <span onClick={() => setIsRegistration(true)}>Register</span>
+          )}
+          <FormInput
+            value={userPassword}
+            onChange={setUserPassword}
+            label={'Password'}
+            type={'password'}
+          />
+
           <div className={style.form__button}>
-            <Button onClick={() => setIsVisible(false)}>Login</Button>
+            <Button
+              onClick={() => {
+                if (isRegistration) {
+                  createUser({
+                    username: userName,
+                    email: userEmail,
+                    password: userPassword,
+                  });
+                } else {
+                  loginUser({
+                    login: userName,
+                    password: userPassword,
+                  });
+                }
+                setIsVisible(false);
+              }}
+            >
+              {isRegistration ? 'Register' : 'Login'}
+            </Button>
           </div>
         </div>
       </Modal>

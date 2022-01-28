@@ -1,7 +1,17 @@
-import { IUser, UsersActionType } from '../../../types/userTypes';
+import {
+  ILoginUser,
+  INewUser,
+  UsersActionType,
+} from '../../../types/userTypes';
 
-export const createUser = (user: IUser) =>
+export const createUserAction = (user: INewUser) =>
   ({
-    type: UsersActionType,
+    type: UsersActionType.CREATE_USER,
+    payload: user,
+  } as const);
+
+export const loginUserAction = (user: ILoginUser) =>
+  ({
+    type: UsersActionType.LOGIN_USER,
     payload: user,
   } as const);

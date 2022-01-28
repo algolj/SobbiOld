@@ -11,8 +11,10 @@ const initialState: IUserState = {
 
 export const userReducer = (state = initialState, action: ActionTypesUsers) => {
   switch (action.type) {
-    // case CREATE_USER:
-    //   return { ...state, user: action.payload, error: null };
+    case UsersActionType.CREATE_USER:
+      return { ...state, user: action.payload, error: null };
+    case UsersActionType.LOGIN_USER:
+      return { ...state, user: action.payload, error: null };
     default:
       return state;
   }

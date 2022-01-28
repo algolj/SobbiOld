@@ -25,15 +25,7 @@ const Home: FC = () => {
       ref.current.getBoundingClientRect().top + ref.current.offsetHeight / 2,
     );
   };
-  const bro = async () => {
-    const response = await axios.post('http://localhost:3000/api/user', {
-      username: 'user312321Name1',
-      email: 'exsadsad21321321ample@example.com',
-      password: '123456',
-    });
-    console.log(response);
-  };
-  bro();
+
   const scrollToRoom = () => {
     setIsAnim(true);
     setTimeout(() => {
@@ -68,19 +60,19 @@ const Home: FC = () => {
         <div className={style.create__form}>
           <div className={style.create__time}>
             <div className={style.create__date}>
-              <FormInput type={'date'} label={'Date'} />
+              {/*<FormInput type={'date'} label={'Date'} />*/}
             </div>
             <div className={style.create__hours}>
-              <FormInput type={'time'} label={'Time'} />
+              {/*<FormInput type={'time'} label={'Time'} />*/}
             </div>
           </div>
-          <FormInput label={'Room name'} />
-          <FormInput label={'E-mail'} />
-          <FormInput label={'Interviewer'} />
-          <FormInput label={'Interviewee'} />
-          <FormInput label={'Spectators'} />
+          {/*<FormInput label={'Room name'} />*/}
+          {/*<FormInput label={'E-mail'} />*/}
+          {/*<FormInput label={'Interviewer'} />*/}
+          {/*<FormInput label={'Interviewee'} />*/}
+          {/*<FormInput label={'Spectators'} />*/}
           <div className={style.create__button}>
-            <Button onClick={() => setIsVisible(false)}>Create</Button>
+            <Button onClick={() => setIsVisible(false)}>Create</Button>y
           </div>
         </div>
       </Modal>
