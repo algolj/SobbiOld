@@ -307,6 +307,116 @@ User registration on the platform.
 }
 ```
 
+#### 10. Create room
+
+**Request type:** POST
+
+**Route:** /api/room
+
+**Required parameters:** name (string), date (Date), interviewee (string[]\*), interviewer (string[]\*), watcher (string[]\*).
+
+\* email, username or ''.
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "name": "test-room",
+    "date": "2014-04-05 05:00:00+02",
+    "interviewee": "sobaka@ffff.com",
+    "interviewer": ["", "fiass1srs1tsd12", "aiss1s1@dssa.com"],
+    "watcher": "dsds@dda.co"
+}
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "name": "test-room",
+    "date": "2014-04-05 05:00:00+02",
+    "interviewee": {
+        "username": "",
+        "email": "sobaka@ffff.com",
+        "password": "x06v9p"
+    },
+    "interviewer": [
+        {
+            "username": "",
+            "email": "",
+            "password": "-zg6akv"
+        },
+        {
+            "username": "fiass1srs1tsd12",
+            "email": "",
+            "password": "3t8lm6"
+        },
+        {
+            "username": "fias1srs1ts12",
+            "email": "",
+            "password": "sow18j"
+        }
+    ],
+    "watcher": {
+        "username": "",
+        "email": "dsds@dda.co",
+        "password": "3uuvqc"
+    }
+}
+```
+
+#### 10. Delete room
+
+**⚠️ Subsequently, it will be executed through authorization or through the password of the interviewer**
+
+**Request type:** DELETE
+
+**Route:** /api/room/id`number` or /api/room/`roomname`
+
+[**Error**](#error-response)
+
+````
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "delete": true
+}
+````
+
+#### 11. Change room date
+
+**⚠️ Subsequently, it will be executed through authorization or through the password of the interviewer**
+
+**Request type:** PUT
+
+**Route:** /api/room/id`number` or /api/room/`roomname`
+
+**Required parameters:** date (Date)
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "date": "2014-04-05 05:00:00+02"
+}
+```
+
+````
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "delete": true
+}
+````
+
 #### Error response
 
 Gets JSON with two parameters:

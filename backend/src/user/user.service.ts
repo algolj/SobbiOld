@@ -9,18 +9,23 @@ import { CreateUserDto } from './dto/createUser.dto';
 import {
   EMAIL_ALREADY_EXISTS,
   EMAIL_OR_USER_WRONG,
-  NOT_ALLOWED_EMAIL,
-  NOT_ALLOWED_USERNAME,
   NO_CONTENT_IN_REQUEST,
-  REGULAR_CHECK_IS_EMAIL,
   USERNAME_ALREADY_EXISTS,
   USER_NOT_FOUND,
 } from './user.constants';
+import {
+  REGULAR_CHECK_IS_EMAIL,
+  NOT_ALLOWED_EMAIL,
+  REGULAR_CHECK_IS_ID,
+  NOT_ALLOWED_USERNAME,
+} from '@app/common/global.constants';
 import { IUser } from '@app/common/user.interface';
 import { TLogin } from './types/login.type';
 import { TLoginData } from './types/login-data.type';
 import { TLoginKey } from './types/login-key.type';
 import { IChangePassword } from './types/change-password.interface';
+import { IDeleteResponce } from '@app/common/deleteResponce.interface';
+import { ITokenResponce } from '@app/common/tokenResponce.interface';
 
 @Injectable()
 export class UserService {
@@ -86,11 +91,11 @@ export class UserService {
     return { email: userInfo.email, username: userInfo.username };
   }
 
-  async loginUser(loginData: TLoginData): Promise<{ token: string }> {
+  async loginUser(loginData: TLoginData): Promise<ITokenResponce> {
     return { token: await this.jwtService.signAsync(loginData) };
   }
 
-  async deleteUser(user: IUser): Promise<{ delete: boolean }> {
+  async deleteUser(user: IUser): Promise<IDeleteResponce> {
     return { delete: !!(await this.userRepository.delete(user))['affected'] };
   }
 
@@ -108,7 +113,7 @@ export class UserService {
   }
 
   private usernameIsValid(username) {
-    if (/^id\d*$/.test(username)) {
+    if (REGULAR_CHECK_IS_ID.test(username)) {
       throw new HttpException(NOT_ALLOWED_USERNAME, HttpStatus.BAD_REQUEST);
     }
   }
@@ -121,7 +126,7 @@ export class UserService {
   async changeEmailOruserName(
     user: IUser,
     newValue: TLoginKey,
-  ): Promise<{ token: string }> {
+  ): Promise<ITokenResponce> {
     await this.isEmailOrUserNameExists(newValue);
 
     if (newValue['username']) {
@@ -182,5 +187,9 @@ export class UserService {
       : { email: authKay['email'] };
 
     return { exists: !!(await this.getUserAuthData(searchKey)) };
+  }
+
+  async getAllUser() {
+    return await this.userRepository.find();
   }
 }

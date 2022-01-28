@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Post,
   Put,
   UseGuards,
@@ -15,11 +16,13 @@ import { User } from '@app/decorators/user.decorator';
 import { CreateUserDto } from './dto/createUser.dto';
 import { TLogin } from './types/login.type';
 import { IUser } from '../common/user.interface';
-import { REGULAR_CHECK_IS_EMAIL } from './user.constants';
+import { REGULAR_CHECK_IS_EMAIL } from '@app/common/global.constants';
 import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
 import { TLoginKey } from './types/login-key.type';
 import { IChangePassword } from './types/change-password.interface';
+import { IDeleteResponce } from '@app/common/deleteResponce.interface';
+import { ITokenResponce } from '@app/common/tokenResponce.interface';
 
 @Controller('user')
 export class UserController {
@@ -33,7 +36,7 @@ export class UserController {
 
   @UsePipes(new ValidationPipe())
   @Post('login')
-  async loginUser(@Body() draftLoginInfo: IAuth): Promise<{ token: string }> {
+  async loginUser(@Body() draftLoginInfo: IAuth): Promise<ITokenResponce> {
     const authKey = REGULAR_CHECK_IS_EMAIL.test(draftLoginInfo.login)
       ? 'email'
       : 'username';
@@ -50,7 +53,7 @@ export class UserController {
 
   @UseGuards(JwtUserGuard)
   @Delete()
-  async deleteUser(@User() user: IUser): Promise<{ delete: boolean }> {
+  async deleteUser(@User() user: IUser): Promise<IDeleteResponce> {
     return this.userService.deleteUser(user);
   }
 
@@ -61,7 +64,7 @@ export class UserController {
   async changeUserEmail(
     @User() user: IUser,
     @Body() newValue: TLoginKey,
-  ): Promise<{ token: string }> {
+  ): Promise<ITokenResponce> {
     return await this.userService.changeEmailOruserName(user, newValue);
   }
 
@@ -79,6 +82,11 @@ export class UserController {
   async existsAuthData(
     @Body() authKay: TLoginKey,
   ): Promise<{ exists: boolean }> {
-    return this.userService.emailOrUsernameExists(authKay);
+    return await this.userService.emailOrUsernameExists(authKay);
+  }
+
+  @Get('all')
+  async dd() {
+    return await this.userService.getAllUser();
   }
 }
