@@ -407,15 +407,13 @@ User registration on the platform.
 }
 ```
 
-````
-
 **Response Body (JSON type):**
 
 ```JSON
 {
     "delete": true
 }
-````
+```
 
 #### Error response
 
