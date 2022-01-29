@@ -177,7 +177,7 @@ User registration on the platform.
 
 **Request type:** GET
 
-**Route:** /api/user/profile
+**Route:** /api/profile
 
 **Required parameters:** None.
 
@@ -207,7 +207,7 @@ User registration on the platform.
 
 **Request type:** GET
 
-**Route:** /api/user/profile/id`number` **or** /api/user/profile/`username`
+**Route:** /api/profile/id`number` **or** /api/profile/`username`
 
 **Required parameters:** None.
 
