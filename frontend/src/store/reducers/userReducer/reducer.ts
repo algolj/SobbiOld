@@ -5,7 +5,11 @@ import {
 } from '../../../types/userTypes';
 
 const initialState: IUserState = {
-  user: [],
+  user: {
+    username: '',
+    email: '',
+    password: '',
+  },
   isAuth: false,
   error: null,
 };
@@ -16,6 +20,8 @@ export const userReducer = (state = initialState, action: ActionTypesUsers) => {
       return { ...state, user: action.payload, error: null };
     case UsersActionType.LOGIN_USER:
       return { ...state, user: action.payload, error: null, isAuth: true };
+    case UsersActionType.LOGOUT_USER:
+      return { ...state, user: '', error: null, isAuth: false };
     default:
       return state;
   }

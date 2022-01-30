@@ -8,9 +8,9 @@ import { Dispatch } from 'react';
 import {
   createUserAction,
   loginUserAction,
+  logoutUserAction,
 } from '../reducers/userReducer/actions';
-import $api, { API_URL } from '../../http/http';
-import axios from 'axios';
+import $api from '../../http/http';
 
 export const createUser = (user: INewUser) => {
   return async (dispatch: Dispatch<ActionTypesUsers>) => {
@@ -30,21 +30,28 @@ export const loginUser = (user: ILoginUser) => {
         login: user.login,
         password: user.password,
       });
-      console.log(response);
       localStorage.setItem('token', response.data.token);
-      dispatch(loginUserAction(response.data));
+      $api.get('/profile').then((res) => {
+        dispatch(loginUserAction(res.data));
+      });
     } catch (e) {
       console.log(e);
     }
   };
 };
 
+export const logOut = () => {
+  localStorage.removeItem('token');
+  return logoutUserAction();
+};
+
 export const checkAuth = () => {
   return async (dispatch: Dispatch<ActionTypesUsers>) => {
     try {
-      const response = $api.get('/profile').then((res) => {
+      $api.get('/profile').then((res) => {
         const token = localStorage.getItem('token');
         localStorage.setItem('token', token!);
+        console.log(res.data.token);
         dispatch(loginUserAction(res.data));
       });
     } catch (e) {

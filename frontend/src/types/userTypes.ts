@@ -31,7 +31,7 @@ export interface ILoginUser {
 }
 
 export interface IUserState {
-  user: INewUser[];
+  user: INewUser;
   isAuth: boolean;
   error: null | string;
 }
@@ -39,4 +39,5 @@ export interface IUserState {
 export enum UsersActionType {
   CREATE_USER = 'CREATE_USER',
   LOGIN_USER = 'LOGIN_USER',
+  LOGOUT_USER = 'LOGOUT_USER',
 }

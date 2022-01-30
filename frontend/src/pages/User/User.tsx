@@ -5,26 +5,31 @@ import style from './User.module.scss';
 import FeedbackShortcut from '../../components/FeedbackShortcut/FeedbackShortcut';
 import InfoItem from '../../components/UI/InfoItem/InfoItem';
 import { UseTypeSelector } from '../../hooks/useTypeSelector';
+import { INewUser } from '../../types/userTypes';
+import Button from '../../components/UI/Button/Button';
+import { useActions } from '../../hooks/useActions';
+import { Link } from 'react-router-dom';
 
 const User: FC = () => {
-  const { user } = UseTypeSelector((state) => state.user);
+  const { user, isAuth } = UseTypeSelector((state) => state.user);
+  const { logOut } = useActions();
+  const { username, email, password, bio } = user;
   return (
     <div className={style.user}>
-      <Title color={colors.white}>{user}</Title>
+      <Title color={colors.white}>{username}</Title>
       <div className={style.user__info_wrapper}>
         <div className={style.user__avatar}>
           <img
             className={style.user__photo}
             src={'./assets/icon/logIn.svg'}
-            alt=""
+            alt="avatar"
           />
         </div>
-
         <div className={style.user__info}>
           <div className={style.user__mail_wrapper}>
             <div className={style.user__mail_title}>E-mail</div>
-            <a className={style.user__mail} href="mailto:beccasmith@gmail.com">
-              beccasmith@gmail.com
+            <a className={style.user__mail} href={`mailto:${email}`}>
+              {email}
             </a>
           </div>
           <div className={style.user__info_item}>
@@ -40,21 +45,27 @@ const User: FC = () => {
           </div>
         </div>
       </div>
-      <div className={style.user__description}>
-        <div className={style.user__title}>About me</div>
-        <div className={style.user__description_text}>
-          Results-oriented C programmer with 8+ years experience developing,
-          testing, and maintaining enterprise software applications. Designed
-          and developed over 30 advanced applications from use cases and
-          functional requirements. Investigated new technologies to make sure
-          that XYZ Corp remained the leader in setting industry standards in
-          past years.
+      {bio ? (
+        <div className={style.user__description}>
+          <div className={style.user__title}>About me</div>
+          <div className={style.user__description_text}>{bio}</div>
         </div>
-      </div>
+      ) : (
+        ''
+      )}
       <div className={style.user__feedbacks}>
         <div className={style.user__title}>Feedbacks</div>
         <FeedbackShortcut />
       </div>
+      <Link to={'/'}>
+        <Button
+          onClick={() => {
+            logOut();
+          }}
+        >
+          Logout
+        </Button>
+      </Link>
     </div>
   );
 };
