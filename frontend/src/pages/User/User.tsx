@@ -5,14 +5,13 @@ import style from './User.module.scss';
 import FeedbackShortcut from '../../components/FeedbackShortcut/FeedbackShortcut';
 import InfoItem from '../../components/UI/InfoItem/InfoItem';
 import { UseTypeSelector } from '../../hooks/useTypeSelector';
-import { INewUser } from '../../types/userTypes';
 import Button from '../../components/UI/Button/Button';
 import { useActions } from '../../hooks/useActions';
 import { Link } from 'react-router-dom';
 
 const User: FC = () => {
   const { user, isAuth } = UseTypeSelector((state) => state.user);
-  const { logOut } = useActions();
+  const { logoutUser, deleteUser } = useActions();
   const { username, email, password, bio } = user;
   return (
     <div className={style.user}>
@@ -60,10 +59,19 @@ const User: FC = () => {
       <Link to={'/'}>
         <Button
           onClick={() => {
-            logOut();
+            logoutUser();
           }}
         >
           Logout
+        </Button>
+      </Link>
+      <Link to={'/'}>
+        <Button
+          onClick={() => {
+            deleteUser();
+          }}
+        >
+          Delete
         </Button>
       </Link>
     </div>

@@ -10,7 +10,7 @@ export interface IAuthResponse {
   data: ILoginUser[];
 }
 
-export interface INewUser {
+export interface IUser {
   username: string;
   email: string;
   password: string;
@@ -31,7 +31,7 @@ export interface ILoginUser {
 }
 
 export interface IUserState {
-  user: INewUser;
+  user: IUser;
   isAuth: boolean;
   error: null | string;
 }
@@ -40,4 +40,5 @@ export enum UsersActionType {
   CREATE_USER = 'CREATE_USER',
   LOGIN_USER = 'LOGIN_USER',
   LOGOUT_USER = 'LOGOUT_USER',
+  DELETE_USER = 'DELETE_USER',
 }

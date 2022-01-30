@@ -17,7 +17,7 @@ const initialState: IUserState = {
 export const userReducer = (state = initialState, action: ActionTypesUsers) => {
   switch (action.type) {
     case UsersActionType.CREATE_USER:
-      return { ...state, user: action.payload, error: null };
+      return { ...state, user: action.payload, error: null, isAuth: true };
     case UsersActionType.LOGIN_USER:
       return { ...state, user: action.payload, error: null, isAuth: true };
     case UsersActionType.LOGOUT_USER:
