@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import style from './Header.module.scss';
 import sprite from '../../assets/sprite.svg';
 import { Link } from 'react-router-dom';
@@ -9,8 +9,8 @@ import { UseTypeSelector } from '../../hooks/useTypeSelector';
 import { useActions } from '../../hooks/useActions';
 
 const Header: FC = () => {
-  const { user, error } = UseTypeSelector((state) => state.user);
-  const { createUser, loginUser } = useActions();
+  const { isAuth } = UseTypeSelector((state) => state.user);
+  const { createUser, loginUser, checkAuth } = useActions();
   const [isRegistration, setIsRegistration] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>('');
   const [userEmail, setUserEmail] = useState<string>('');
@@ -27,9 +27,11 @@ const Header: FC = () => {
       setIsOpen(false);
     }
   };
-
+  useEffect(() => {
+    checkAuth();
+  }, []);
   return (
-    <div className={style.header}>
+    <div onClick={() => console.log(isAuth)} className={style.header}>
       <Modal
         setVisibility={setIsVisible}
         visibility={isVisible}
@@ -115,19 +117,26 @@ const Header: FC = () => {
           <Link className={style.header__link} to={''}>
             Rating
           </Link>
-          <button
-            onClick={() => setIsVisible(true)}
-            className={style.header__login_wrapper}
-          >
-            <svg className={style.header__login}>
-              <use href={`${sprite}#logIn`} />
-            </svg>
-            <img
-              className={style.header__login_hover}
-              src={'./assets/icon/loginText.svg'}
-              alt="login text"
+          {isAuth ? (
+            <Link
+              style={{ background: 'red', width: '30px', height: '30px' }}
+              to={'/user'}
             />
-          </button>
+          ) : (
+            <button
+              onClick={() => setIsVisible(true)}
+              className={style.header__login_wrapper}
+            >
+              <svg className={style.header__login}>
+                <use href={`${sprite}#logIn`} />
+              </svg>
+              <img
+                className={style.header__login_hover}
+                src={'./assets/icon/loginText.svg'}
+                alt="login text"
+              />
+            </button>
+          )}
         </nav>
       </div>
     </div>

@@ -4,11 +4,13 @@ import colors from '../../styles/index.scss';
 import style from './User.module.scss';
 import FeedbackShortcut from '../../components/FeedbackShortcut/FeedbackShortcut';
 import InfoItem from '../../components/UI/InfoItem/InfoItem';
+import { UseTypeSelector } from '../../hooks/useTypeSelector';
 
 const User: FC = () => {
+  const { user } = UseTypeSelector((state) => state.user);
   return (
     <div className={style.user}>
-      <Title color={colors.white}>REBECCA SMITCH, 27</Title>
+      <Title color={colors.white}>{user}</Title>
       <div className={style.user__info_wrapper}>
         <div className={style.user__avatar}>
           <img

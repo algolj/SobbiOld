@@ -1,5 +1,5 @@
 import {
-  ILoginUser,
+  IAuthResponse,
   INewUser,
   UsersActionType,
 } from '../../../types/userTypes';
@@ -10,7 +10,7 @@ export const createUserAction = (user: INewUser) =>
     payload: user,
   } as const);
 
-export const loginUserAction = (user: ILoginUser) =>
+export const loginUserAction = (user: IAuthResponse) =>
   ({
     type: UsersActionType.LOGIN_USER,
     payload: user,
