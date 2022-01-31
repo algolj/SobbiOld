@@ -4,18 +4,27 @@ import style from './FormInput.module.scss';
 interface IProps {
   label: string;
   value: string;
-  onChange: React.Dispatch<SetStateAction<string>>;
+  onChange: any;
+  onBlur?: any;
   type?: string;
 }
 
-const FormInput: FC<IProps> = ({ label, type = 'text', onChange, value }) => {
+const FormInput: FC<IProps> = ({
+  label,
+  type = 'text',
+  onChange,
+  onBlur,
+  value,
+}) => {
   return (
-    <label className={style.input__wrapper} htmlFor="fromInput">
+    <label className={style.input__wrapper} htmlFor="formInput">
       <input
+        name={label}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={onChange}
+        onBlur={onBlur}
         className={style.input}
-        id={'fromInput'}
+        id={'formInput'}
         type={type}
       />
       <span className={style.input__label}>{label}</span>

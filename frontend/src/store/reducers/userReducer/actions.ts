@@ -21,3 +21,14 @@ export const deleteUserAction = () =>
   ({
     type: UsersActionType.DELETE_USER,
   } as const);
+
+export const changeUserNameAction = (username: string) =>
+  ({
+    type: UsersActionType.CHANGE_USER_LOGIN,
+    payload: username,
+  } as const);
+export const changeUserEmailAction = (userEmail: string) =>
+  ({
+    type: UsersActionType.CHANGE_USER_EMAIL,
+    payload: userEmail,
+  } as const);

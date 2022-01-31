@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NotFound from '../pages/NotFound/NotFound';
 import Home from '../pages/Home/Home';
 import Header from '../components/Header/Header';

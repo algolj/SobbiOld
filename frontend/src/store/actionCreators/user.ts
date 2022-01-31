@@ -6,8 +6,9 @@ import {
 } from '../../types/userTypes';
 import { Dispatch } from 'react';
 import {
+  changeUserEmailAction,
+  changeUserNameAction,
   createUserAction,
-  deleteUserAction,
   loginUserAction,
   logoutUserAction,
 } from '../reducers/userReducer/actions';
@@ -53,7 +54,6 @@ export const checkAuth = () => {
       await $api.get('/profile').then((res) => {
         const token = localStorage.getItem('token');
         localStorage.setItem('token', token!);
-        console.log(res.data.token);
         dispatch(loginUserAction(res.data));
       });
     } catch (e) {
@@ -67,6 +67,33 @@ export const deleteUser = () => {
     try {
       await $api.delete('user');
       dispatch(logoutUserAction());
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const changeUserEmail = (email: string, type?: string) => {
+  return async (dispatch: Dispatch<ActionTypesUsers>) => {
+    try {
+      const response = await $api.put('user/change/email', {
+        email: email,
+      });
+      localStorage.setItem('token', response.data.token);
+      dispatch(changeUserEmailAction(email));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+export const changeUserName = (username: string, type?: string) => {
+  return async (dispatch: Dispatch<ActionTypesUsers>) => {
+    try {
+      const response = await $api.put('user/change/email', {
+        username: username,
+      });
+      localStorage.setItem('token', response.data.token);
+      dispatch(changeUserNameAction(username));
     } catch (e) {
       console.log(e);
     }

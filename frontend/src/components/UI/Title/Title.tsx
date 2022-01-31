@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import style from './Title.module.scss';
 interface IProps {
   color: string;
-  children: React.ReactChild;
+  children?: React.ReactChild;
 }
 
 const Title: FC<IProps> = ({ color, children }) => {

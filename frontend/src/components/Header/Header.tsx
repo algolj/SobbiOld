@@ -2,11 +2,9 @@ import React, { FC, useEffect, useState } from 'react';
 import style from './Header.module.scss';
 import sprite from '../../assets/sprite.svg';
 import { Link } from 'react-router-dom';
-import Modal from '../UI/Modal/Modal';
-import FormInput from '../../pages/inputs/FormInput/FormInput';
-import Button from '../UI/Button/Button';
 import { UseTypeSelector } from '../../hooks/useTypeSelector';
 import { useActions } from '../../hooks/useActions';
+import RegistrationModal from '../RegistrationModal/RegistrationModal';
 
 const Header: FC = () => {
   const { isAuth } = UseTypeSelector((state) => state.user);
@@ -18,6 +16,7 @@ const Header: FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const closeBurger = (e: React.MouseEvent<HTMLElement>) => {
+    //Formik
     const role = e.target.constructor.name;
     if (
       role === 'HTMLAnchorElement' ||
@@ -27,62 +26,10 @@ const Header: FC = () => {
       setIsOpen(false);
     }
   };
-  useEffect(() => {
-    checkAuth();
-  }, []);
-  return (
-    <div onClick={() => console.log(isAuth)} className={style.header}>
-      <Modal
-        setVisibility={setIsVisible}
-        visibility={isVisible}
-        title={'Log In'}
-      >
-        <div className={style.form}>
-          <FormInput
-            value={userName}
-            onChange={setUserName}
-            label={'User Name'}
-          />
-          {isRegistration ? (
-            <FormInput
-              value={userEmail}
-              onChange={setUserEmail}
-              label={'E-mail'}
-              type={'email'}
-            />
-          ) : (
-            <span onClick={() => setIsRegistration(true)}>Register</span>
-          )}
-          <FormInput
-            value={userPassword}
-            onChange={setUserPassword}
-            label={'Password'}
-            type={'password'}
-          />
 
-          <div className={style.form__button}>
-            <Button
-              onClick={() => {
-                if (isRegistration) {
-                  createUser({
-                    username: userName,
-                    email: userEmail,
-                    password: userPassword,
-                  });
-                } else {
-                  loginUser({
-                    login: userName,
-                    password: userPassword,
-                  });
-                }
-                setIsVisible(false);
-              }}
-            >
-              {isRegistration ? 'Register' : 'Login'}
-            </Button>
-          </div>
-        </div>
-      </Modal>
+  return (
+    <div className={style.header}>
+      <RegistrationModal isVisible={isVisible} setIsVisible={setIsVisible} />
       <Link to={''}>
         <svg className={style.header__logo}>
           <use href={`${sprite}#logo`} />
