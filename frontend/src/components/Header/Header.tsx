@@ -1,18 +1,12 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import style from './Header.module.scss';
 import sprite from '../../assets/sprite.svg';
 import { Link } from 'react-router-dom';
 import { UseTypeSelector } from '../../hooks/useTypeSelector';
-import { useActions } from '../../hooks/useActions';
 import RegistrationModal from '../RegistrationModal/RegistrationModal';
 
 const Header: FC = () => {
   const { isAuth } = UseTypeSelector((state) => state.user);
-  const { createUser, loginUser, checkAuth } = useActions();
-  const [isRegistration, setIsRegistration] = useState<boolean>(false);
-  const [userName, setUserName] = useState<string>('');
-  const [userEmail, setUserEmail] = useState<string>('');
-  const [userPassword, setUserPassword] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const closeBurger = (e: React.MouseEvent<HTMLElement>) => {

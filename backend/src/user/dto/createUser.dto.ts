@@ -16,10 +16,10 @@ export class CreateUserDto {
   @IsNotEmpty()
   readonly password: string;
 
-  readonly last_name: string;
-  readonly first_name: string;
+  readonly lastName: string;
+  readonly firstName: string;
   readonly country: ECountry;
-  readonly date_of_birth: Date;
+  readonly dateOfBirth: Date;
   readonly gender: EGender;
   readonly bio: string;
   readonly image: Blob;

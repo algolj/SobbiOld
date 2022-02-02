@@ -32,6 +32,7 @@
   },
   "rules": {
     "@typescript-eslint/default-param-last": "off",
+    "@typescript-eslint/indent": "off",
     "linebreak-style": "off"
   }
 }

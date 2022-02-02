@@ -6,6 +6,7 @@
     width: 50px;
     height: 50px;
     border-radius: 10px;
+
   }
 
   &__item {
@@ -20,13 +21,79 @@
     border: 2px solid $black;
     transition: 0.2s;
 
+    &_disable {
+      pointer-events: none;
+    }
+
     &:active {
       transform: translate(-2px, -2px);
 
     }
 
-    &_disable {
-      pointer-events: none;
+    &_add {
+      position: absolute;
+      width: 90%;
+      height: 90%;
+      border-radius: 8px;
+      background: rgba($wheat, 0.000001);
+      backdrop-filter: blur(4px);
+
+      &:after,
+      &:before {
+        content: '';
+        position: absolute;
+        background: $black;
+        border-radius: 10px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      &:before {
+        height: 60%;
+        width: 3px;
+      }
+
+      &:after {
+        width: 60%;
+        height: 3px;
+      }
+    }
+
+    &_remove {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-52%, -51%);
+      width: 90%;
+      height: 90%;
+      border-radius: 8px;
+      background: rgba($red, 0.7);
+      backdrop-filter: blur(4px);
+
+      &:after,
+      &:before {
+        content: '';
+        position: absolute;
+        background: $white;
+        border-radius: 10px;
+        left: 50%;
+        top: 50%;
+      }
+
+      &:before {
+        transform: translate(-50%, -50%) rotate(45deg);
+
+        height: 60%;
+        width: 3px;
+      }
+
+      &:after {
+        transform: translate(-50%, -50%) rotate(45deg);
+
+        width: 60%;
+        height: 3px;
+      }
     }
   }
 

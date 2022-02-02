@@ -10,18 +10,24 @@ export interface IAuthResponse {
   data: ILoginUser[];
 }
 
+export interface ISocialMedia {
+  linkedIn: string;
+  facebook: string;
+  github: string;
+}
+
 export interface IUser {
   username: string;
   email: string;
   password: string;
-  last_name?: string;
-  first_name?: string;
+  lastName?: string;
+  firstName?: string;
   country?: string;
-  date_of_birth?: string;
+  dateOfBirth?: string;
   gender?: string;
   bio?: string;
   image?: string;
-  socialMedia?: string;
+  socialMedia?: ISocialMedia | null;
   id?: 1;
 }
 

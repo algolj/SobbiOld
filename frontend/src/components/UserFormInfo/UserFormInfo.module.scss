@@ -1,0 +1,21 @@
+@import "../../styles/index";
+
+.user__info {
+  font-size: $SFont;
+  color: $black;
+  font-weight: 600;
+  word-wrap: break-word;
+
+  &_wrapper {
+    padding: 10px 5px;
+    border-radius: 10px;
+    @include boxShadow;
+
+  }
+
+  &_title {
+    width: 300px;
+    font-size: $XSFont;
+    color: $brown;
+  }
+}

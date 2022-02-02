@@ -7,8 +7,6 @@ import Button from '../../components/UI/Button/Button';
 import Footer from '../../components/Footer/Footer';
 import room from '../Room/Room';
 import Modal from '../../components/UI/Modal/Modal';
-import FormInput from '../inputs/FormInput/FormInput';
-import axios from 'axios';
 
 const Home: FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import style from './TestsSearcher.module.scss';
 import Button from '../UI/Button/Button';
-import SearchInput from '../../pages/inputs/SearchInput/SearchInput';
+import SearchInput from '../UI/inputs/SearchInput/SearchInput';
 import RoomTest from '../RoomTest/RoomTest';
 
 const TestsSearcher = () => {

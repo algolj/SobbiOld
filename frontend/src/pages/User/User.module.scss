@@ -29,26 +29,14 @@
     width: 200px;
   }
 
-  &__mail {
-    font-size: $SFont;
-    color: $black;
-    font-weight: 600;
-    word-wrap: break-word;
 
-    &_wrapper {
-      padding: 10px 5px;
-      border-radius: 10px;
-      @include boxShadow;
-
-    }
-
-    &_title {
-      width: 300px;
-      font-size: $XSFont;
-      color: $brown;
+  &__gender{
+    &_wrapper{
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
     }
   }
-
   &__info {
     width: 300px;
     display: flex;
