@@ -66,6 +66,7 @@ const RegistrationModal: FC<IProps> = React.memo(
             return (
               <div key={value}>
                 <FormInput
+                  name={Object.keys(formik.values)[index]}
                   value={Object.values(formik.values)[index]}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}

@@ -70,7 +70,7 @@ User registration on the platform.
 
 ```JSON
 {
-    "login": "userName1"
+    "login": "userName1",
     "password": "123456"
 }
 ```
@@ -150,7 +150,7 @@ User registration on the platform.
 ```JSON
 {
     "oldPassword": "123456",
-    "newPassword": "newpassword",
+    "newPassword": "newpassword"
 }
 ```
 
