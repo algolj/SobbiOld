@@ -23,7 +23,7 @@ User registration on the platform.
 
 **Required parameters:** email (string), username(string), password (string).
 
-**Optional parameters:** last_name (string), first_name (string), country (enum), date_of_birth (date), gender (enum), bio (string), image (bytea), socialMedia (json).
+**Optional parameters:** lastName (string), firstName (string), country (enum), dateOfBirth (date), gender (enum), bio (string), image (bytea), socialMedia (json).
 
 [**Error**](#error-response)
 
@@ -44,10 +44,10 @@ User registration on the platform.
     "username": "userName1",
     "email": "example@example.com",
     "password": "$2a$10$48I04efNweqqKQm4coWL0UqikuEsSNktP2svycr.FmoGV0/aMTjM2",
-    "last_name": "Alexander",
-    "first_name": null,
+    "lastName": "Alexander",
+    "firstName": null,
     "country": null,
-    "date_of_birth": null,
+    "dateOfBirth": null,
     "gender": null,
     "bio": null,
     "image": null,
@@ -99,8 +99,7 @@ User registration on the platform.
 
 ```JSON
 {
-    "raw": [],
-    "affected": 1
+    "delete": true
 }
 ```
 
@@ -131,7 +130,8 @@ User registration on the platform.
     "token": "eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6InVzZXJOYW1lMSIsInBhc3N3b3JkIjoiMTIzNDU2IiwiaWF0IjoxNTE2MjM5MDIyfQ.6L_6G4xTG2ZWElesHV1dyP1s50ZsJasit4pqNTUp4CQ"
 }
 ```
-*new token
+
+\*new token
 
 #### 5. Change password
 
@@ -161,10 +161,10 @@ User registration on the platform.
     "id": 1,
     "username": "userName1",
     "email": "example@example.com",
-    "last_name": "Alexander",
-    "first_name": null,
+    "lastName": "Alexander",
+    "firstName": null,
     "country": null,
-    "date_of_birth": null,
+    "dateOfBirth": null,
     "gender": null,
     "bio": null,
     "image": null,
@@ -177,7 +177,7 @@ User registration on the platform.
 
 **Request type:** GET
 
-**Route:** /api/user/profile
+**Route:** /api/profile
 
 **Required parameters:** None.
 
@@ -192,10 +192,10 @@ User registration on the platform.
     "id": 1,
     "username": "userName1",
     "email": "example@example.com",
-    "last_name": "Alexander",
-    "first_name": null,
+    "lastName": "Alexander",
+    "firstName": null,
     "country": null,
-    "date_of_birth": null,
+    "dateOfBirth": null,
     "gender": null,
     "bio": null,
     "image": null,
@@ -207,7 +207,7 @@ User registration on the platform.
 
 **Request type:** GET
 
-**Route:** /api/user/profile/id`number` **or** /api/user/profile/`username`
+**Route:** /api/profile/id`number` **or** /api/profile/`username`
 
 **Required parameters:** None.
 
@@ -220,10 +220,10 @@ User registration on the platform.
     "id": 1,
     "username": "userName1",
     "email": "example@example.com",
-    "last_name": "Alexander",
-    "first_name": null,
+    "lastName": "Alexander",
+    "firstName": null,
     "country": null,
-    "date_of_birth": null,
+    "dateOfBirth": null,
     "gender": null,
     "bio": null,
     "image": null,
@@ -237,7 +237,7 @@ User registration on the platform.
 
 **Route:** /api/profile
 
-**Optional parameters:** last_name (string), first_name (string), country (enum), date_of_birth (date), gender (enum), bio (string), image (bytea), socialMedia (json).
+**Optional parameters:** lastName (string), firstName (string), country (enum), dateOfBirth (date), gender (enum), bio (string), image (bytea), socialMedia (json).
 
 **Required header:** Authorization (Bearer `HERE_JWT_TOKEN`).
 
@@ -247,8 +247,8 @@ User registration on the platform.
 
 ```JSON
 {
-    "last_name": "Alexander",
-    "first_name": "Drotov",
+    "lastName": "Alexander",
+    "firstName": "Drotov",
     "socialMedia": {
         "linkedIn": "petrov",
         "facebook": "petrol",
@@ -265,10 +265,10 @@ User registration on the platform.
     "id": 1,
     "username": "userName1",
     "email": "example@example.com",
-    "last_name": "Alexander",
-    "first_name": "Drotov",
+    "lastName": "Alexander",
+    "firstName": "Drotov",
     "country": null,
-    "date_of_birth": null,
+    "dateOfBirth": null,
     "gender": null,
     "bio": null,
     "image": null,
@@ -278,6 +278,138 @@ User registration on the platform.
         "github": "petrik"
 
     }
+}
+```
+
+#### 9. Checking if a username or email exists in a database
+
+**Request type:** POST
+
+**Route:** /api/user/auth-data-exists
+
+**Required parameters:** username (string) or email (string).
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "email": "aaa@ddd.com"
+}
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "exists": true
+}
+```
+
+#### 10. Create room
+
+**Request type:** POST
+
+**Route:** /api/room
+
+**Required parameters:** name (string), date (Date), interviewee (string[]\*), interviewer (string[]\*), watcher (string[]\*).
+
+\* email, username or ''.
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "name": "test-room",
+    "date": "2014-04-05 05:00:00+02",
+    "interviewee": "sobaka@ffff.com",
+    "interviewer": ["", "fiass1srs1tsd12", "aiss1s1@dssa.com"],
+    "watcher": "dsds@dda.co"
+}
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "name": "test-room",
+    "date": "2014-04-05 05:00:00+02",
+    "interviewee": {
+        "username": "",
+        "email": "sobaka@ffff.com",
+        "password": "x06v9p"
+    },
+    "interviewer": [
+        {
+            "username": "",
+            "email": "",
+            "password": "-zg6akv"
+        },
+        {
+            "username": "fiass1srs1tsd12",
+            "email": "",
+            "password": "3t8lm6"
+        },
+        {
+            "username": "fias1srs1ts12",
+            "email": "",
+            "password": "sow18j"
+        }
+    ],
+    "watcher": {
+        "username": "",
+        "email": "dsds@dda.co",
+        "password": "3uuvqc"
+    }
+}
+```
+
+#### 11. Delete room
+
+**⚠️ Subsequently, it will be executed through authorization or through the password of the interviewer**
+
+**Request type:** DELETE
+
+**Route:** /api/room/id`number` or /api/room/`roomname`
+
+[**Error**](#error-response)
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "delete": true
+}
+```
+
+#### 12. Change room date
+
+**⚠️ Subsequently, it will be executed through authorization or through the password of the interviewer**
+
+**Request type:** PUT
+
+**Route:** /api/room/id`number` or /api/room/`roomname`
+
+**Required parameters:** date (Date)
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "date": "2014-04-05 05:00:00+02"
+}
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "delete": true
 }
 ```
 
