@@ -26,7 +26,13 @@
       transform: translate(-2px, -2px);
 
     }
-
+    &_ref{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
     &_disable {
       pointer-events: none;
     }
@@ -70,13 +76,13 @@
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-52%, -51%);
+      transform: translate(-50%, -50%);
       width: 90%;
       height: 90%;
       border-radius: 8px;
       background: rgba($red, 0.7);
       backdrop-filter: blur(4px);
-
+      cursor: pointer;
       &:after,
       &:before {
         content: '';
