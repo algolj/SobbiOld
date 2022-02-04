@@ -28,16 +28,16 @@ export class UserEntity {
   password: string;
 
   @Column({ nullable: true })
-  last_name: string;
+  lastName: string;
 
   @Column({ nullable: true })
-  first_name: string;
+  firstName: string;
 
   @Column({ type: 'enum', enum: ECountry, nullable: true })
   country: ECountry;
 
   @Column({ type: 'date', nullable: true })
-  date_of_birth: Date;
+  dateOfBirth: Date;
 
   @Column({ type: 'enum', enum: EGender, nullable: true })
   gender: EGender;

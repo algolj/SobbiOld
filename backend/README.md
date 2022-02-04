@@ -23,7 +23,7 @@ User registration on the platform.
 
 **Required parameters:** email (string), username(string), password (string).
 
-**Optional parameters:** last_name (string), first_name (string), country (enum), date_of_birth (date), gender (enum), bio (string), image (bytea), socialMedia (json).
+**Optional parameters:** lastName (string), firstName (string), country (enum), dateOfBirth (date), gender (enum), bio (string), image (bytea), socialMedia (json).
 
 [**Error**](#error-response)
 
@@ -44,10 +44,10 @@ User registration on the platform.
     "username": "userName1",
     "email": "example@example.com",
     "password": "$2a$10$48I04efNweqqKQm4coWL0UqikuEsSNktP2svycr.FmoGV0/aMTjM2",
-    "last_name": "Alexander",
-    "first_name": null,
+    "lastName": "Alexander",
+    "firstName": null,
     "country": null,
-    "date_of_birth": null,
+    "dateOfBirth": null,
     "gender": null,
     "bio": null,
     "image": null,
@@ -161,10 +161,10 @@ User registration on the platform.
     "id": 1,
     "username": "userName1",
     "email": "example@example.com",
-    "last_name": "Alexander",
-    "first_name": null,
+    "lastName": "Alexander",
+    "firstName": null,
     "country": null,
-    "date_of_birth": null,
+    "dateOfBirth": null,
     "gender": null,
     "bio": null,
     "image": null,
@@ -192,10 +192,10 @@ User registration on the platform.
     "id": 1,
     "username": "userName1",
     "email": "example@example.com",
-    "last_name": "Alexander",
-    "first_name": null,
+    "lastName": "Alexander",
+    "firstName": null,
     "country": null,
-    "date_of_birth": null,
+    "dateOfBirth": null,
     "gender": null,
     "bio": null,
     "image": null,
@@ -220,10 +220,10 @@ User registration on the platform.
     "id": 1,
     "username": "userName1",
     "email": "example@example.com",
-    "last_name": "Alexander",
-    "first_name": null,
+    "lastName": "Alexander",
+    "firstName": null,
     "country": null,
-    "date_of_birth": null,
+    "dateOfBirth": null,
     "gender": null,
     "bio": null,
     "image": null,
@@ -237,7 +237,7 @@ User registration on the platform.
 
 **Route:** /api/profile
 
-**Optional parameters:** last_name (string), first_name (string), country (enum), date_of_birth (date), gender (enum), bio (string), image (bytea), socialMedia (json).
+**Optional parameters:** lastName (string), firstName (string), country (enum), dateOfBirth (date), gender (enum), bio (string), image (bytea), socialMedia (json).
 
 **Required header:** Authorization (Bearer `HERE_JWT_TOKEN`).
 
@@ -247,8 +247,8 @@ User registration on the platform.
 
 ```JSON
 {
-    "last_name": "Alexander",
-    "first_name": "Drotov",
+    "lastName": "Alexander",
+    "firstName": "Drotov",
     "socialMedia": {
         "linkedIn": "petrov",
         "facebook": "petrol",
@@ -265,10 +265,10 @@ User registration on the platform.
     "id": 1,
     "username": "userName1",
     "email": "example@example.com",
-    "last_name": "Alexander",
-    "first_name": "Drotov",
+    "lastName": "Alexander",
+    "firstName": "Drotov",
     "country": null,
-    "date_of_birth": null,
+    "dateOfBirth": null,
     "gender": null,
     "bio": null,
     "image": null,

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import './style.scss';
+import './NotFound.module.scss';
 
 const Page404: FC = () => {
   return <div>404</div>;

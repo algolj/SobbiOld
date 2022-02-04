@@ -1,0 +1,76 @@
+@import "../../styles/index";
+
+.footer {
+  margin: 0 auto;
+  padding: 45px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+  gap: 20px;
+
+  &__course {
+    font-size: $XSFont;
+    transition: 0.2s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:active {
+      opacity: 0.6;
+      transform: scale(0.97);
+    }
+  }
+
+  &__text {
+    font-size: $SFont;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    letter-spacing: 3px;
+
+    &_wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      font-size: $SFont;
+    }
+  }
+
+  &__developers {
+    transition: 0.2s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:active {
+      opacity: 0.6;
+      transform: scale(0.97);
+    }
+
+  }
+
+  .github {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid $black;
+
+    &__icon {
+      padding: 9.5px 0;
+    }
+
+    &__text {
+      border-top: 1px solid $black;
+      width: 100%;
+      text-align: center;
+      letter-spacing: 2.5px;
+      padding-top: 1px;
+      font-size: $XSFont;
+    }
+  }
+}

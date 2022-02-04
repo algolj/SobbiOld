@@ -1,0 +1,97 @@
+@import "../../styles/index";
+
+.user {
+  max-width: 1024px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+  margin: 0 auto;
+
+  &__title {
+    font-size: $XLFont;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+
+  &__avatar {
+    border-radius: 50%;
+    border: 2px solid $brown;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $wheat;
+  }
+
+  &__photo {
+    width: 200px;
+  }
+
+  &__mail {
+    font-size: $SFont;
+    color: $black;
+    font-weight: 600;
+    word-wrap: break-word;
+
+    &_wrapper {
+      padding: 10px 5px;
+      border-radius: 10px;
+      @include boxShadow;
+
+    }
+
+    &_title {
+      width: 300px;
+      font-size: $XSFont;
+      color: $brown;
+    }
+  }
+
+  &__info {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &_wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    &_media {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
+  }
+
+  &__description {
+    max-width: 700px;
+
+    &_text {
+      margin: 0 0 0 10px;
+      font-size: $SFont;
+    }
+  }
+
+  &__feedbacks {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .user {
+    &__info {
+      &_wrapper {
+        flex-direction: row-reverse;
+        justify-content: space-between;
+      }
+    }
+  }
+}
