@@ -21,6 +21,11 @@ export enum SocialMediaEnum {
   facebook = 'facebook',
   github = 'github',
 }
+export enum GenderEnum {
+  Male = 'Male',
+  Female = 'Female',
+  Other = 'Other',
+}
 
 export interface IUser {
   username: string;

@@ -13,7 +13,7 @@ import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
 import { useActions } from '../../hooks/useActions';
-import { IUserInfo, SocialMediaEnum } from '../../types/userTypes';
+import { GenderEnum, IUserInfo, SocialMediaEnum } from '../../types/userTypes';
 
 interface IUserForm {
   formUsername: string;
@@ -23,11 +23,25 @@ interface IUserForm {
   formBio: string;
   formSocialMedia: string;
   formPicked: string;
+  formGender: string;
+  formDateOfBirth: string;
+  formImage: string;
 }
 
 const User: FC = () => {
   const {
-    user: { username, password, bio, email, lastName, firstName, socialMedia },
+    user: {
+      username,
+      password,
+      bio,
+      email,
+      lastName,
+      firstName,
+      socialMedia,
+      gender,
+      dateOfBirth,
+      image,
+    },
   } = useTypeSelector((state) => state.user);
   const {
     logoutUser,
@@ -36,10 +50,14 @@ const User: FC = () => {
     changeUserEmail,
     changeUserInfo,
   } = useActions();
+
   const { github, linkedIn, facebook } = SocialMediaEnum;
+  const socialMediaArray = [github, linkedIn, facebook];
+  const { Male, Female, Other } = GenderEnum;
+  const genderArray = [Male, Female, Other];
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [visibility, setVisibility] = useState<boolean>(false);
-  const socialMediaModal = [github, linkedIn, facebook];
+  const [formImage1, setFormImage1] = useState('');
   const userForm = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -50,14 +68,15 @@ const User: FC = () => {
       formSocialMedia: '',
       formBio: bio,
       formPicked: '',
+      formGender: gender,
+      formDateOfBirth: dateOfBirth,
+      formImage: image,
     },
     validationSchema: Yup.object({
       // login: Yup.string().required('Required'),
     }),
     onSubmit: async (values: IUserForm) => {
-      await changeUserName(userForm.values.formUsername);
-      await changeUserEmail(userForm.values.formEmail);
-      await setIsEdit(false);
+      console.log('adssd');
     },
   });
 
@@ -69,12 +88,26 @@ const User: FC = () => {
     formBio,
     formSocialMedia,
     formPicked,
+    formGender,
+    formDateOfBirth,
+    formImage,
   } = userForm.values;
-  const changeUserInfoHandler = async () => {
-    const userObject: any = { socialMedia: {} };
-    userObject.socialMedia![
-      formPicked
-    ] = `https://${formPicked}.com/${formSocialMedia}`;
+
+  const changeUserInfoHandler = async (remove?: boolean) => {
+    const userObject: any = {
+      socialMedia: {},
+      gender: formGender,
+      firstName: formFirstName,
+      lastName: formLastName,
+      dateOfBirth: formDateOfBirth,
+      bio: formBio,
+      image: formImage1,
+    };
+    if (!remove) {
+      userObject.socialMedia![
+        formPicked
+      ] = `https://${formPicked}.com/${formSocialMedia}`;
+    }
     await changeUserInfo(userObject);
   };
 
@@ -92,14 +125,13 @@ const User: FC = () => {
             value={formSocialMedia}
             onChange={userForm.handleChange}
           />
-          {socialMediaModal.map((media) => (
-            <label>
+          {socialMediaArray.map((media) => (
+            <label key={media}>
               <InfoItem
-                key={media}
                 isEdit={isEdit}
                 name={media}
                 isButton={true}
-                isChecked={formPicked}
+                checked={formPicked}
               />
               <input
                 className={style.modal__radio}
@@ -127,37 +159,83 @@ const User: FC = () => {
       </Title>
       <div className={style.user__info_wrapper}>
         <div className={style.user__avatar}>
-          <img
-            className={style.user__photo}
-            src={'./assets/icon/logIn.svg'}
-            alt="avatar"
+          <img className={style.user__photo} src={image} alt="avatar" />
+          <input
+            type="file"
+            onChange={(e) => setFormImage1(e.target.files![0].name)}
+            name=""
+            id=""
           />
         </div>
         <div className={style.user__info}>
           <UserFormInfo
             isEdit={isEdit}
-            value={formUsername}
+            value={formEmail}
             onChange={userForm.handleChange}
+            label={'E-mail'}
+            name={'formEmail'}
+          />
+          <UserFormInfo
+            isEdit={isEdit}
+            value={formFirstName}
+            onChange={userForm.handleChange}
+            label={'First name'}
+            name={'formFirstName'}
+          />
+          <UserFormInfo
+            isEdit={isEdit}
+            value={formLastName}
+            onChange={userForm.handleChange}
+            label={'Last name'}
+            name={'formLastName'}
+          />
+          <UserFormInfo
+            isEdit={isEdit}
+            value={formDateOfBirth}
+            onChange={userForm.handleChange}
+            label={'Birth'}
+            name={'formDateOfBirth'}
+            type={'date'}
           />
           <div className={style.user__gender}>
             {isEdit ? (
               <div className={style.user__gender_wrapper}>
-                <InfoItem isEdit={isEdit} name={'female'} />
-                <InfoItem isEdit={isEdit} name={'male'} />
-                <InfoItem isEdit={isEdit} name={'another'} />
+                {genderArray.map((genderItem) => (
+                  <label key={genderItem}>
+                    <InfoItem
+                      isButton={true}
+                      isEdit={isEdit}
+                      checked={formGender}
+                      name={genderItem}
+                    />
+                    <input
+                      className={style.modal__radio}
+                      id={'formGender'}
+                      type={'radio'}
+                      name={'formGender'}
+                      value={genderItem}
+                      onChange={userForm.handleChange}
+                    />
+                  </label>
+                ))}
+                {/*<InfoItem isEdit={isEdit} name={'male'} />*/}
+                {/*<InfoItem isEdit={isEdit} name={'another'} />*/}
               </div>
             ) : (
-              <InfoItem isEdit={isEdit} name={'female'} />
+              <InfoItem isEdit={isEdit} isClickable={false} name={gender} />
             )}
           </div>
           <div className={style.user__info_media}>
-            {socialMedia
-              ? Object.keys(socialMedia).map((media) => (
+            {gender
+              ? Object.keys(socialMedia).map((media, index) => (
                   <InfoItem
                     key={media}
                     isEdit={isEdit}
-                    referral={'https://github.com/VaniaToper'}
-                    name={'gitHub'}
+                    onRemove={() => changeUserInfoHandler(true)}
+                    referral={`https://${media}/${
+                      Object.values(socialMedia)[index]
+                    }`}
+                    name={media}
                   />
                 ))
               : null}
@@ -179,11 +257,10 @@ const User: FC = () => {
           <div className={style.user__description_text}>{bio}</div>
         </div>
       ) : (
-        <textarea
+        <input
           name={'formBio'}
           onChange={userForm.handleChange}
-          cols={30}
-          rows={10}
+          value={formBio}
         />
       )}
       <div className={style.user__feedbacks}>
@@ -197,7 +274,17 @@ const User: FC = () => {
       >
         Edit
       </Button>
-      <Button onSubmit={userForm.handleSubmit}>Save</Button>
+      <Button
+        onClick={async () => {
+          await changeUserInfoHandler();
+          await changeUserName(userForm.values.formUsername);
+          await changeUserEmail(userForm.values.formEmail);
+          await setIsEdit(false);
+        }}
+        onSubmit={userForm.handleSubmit}
+      >
+        Save
+      </Button>
       <Link to={'/'}>
         <Button
           onClick={() => {
