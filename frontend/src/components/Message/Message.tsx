@@ -6,7 +6,7 @@ interface IProps {
   isReceiving: boolean;
 }
 
-const Message: FC<IProps> = ({ isReceiving }) => {
+const Message: FC<IProps> = React.memo(({ isReceiving }) => {
   return (
     <div
       className={
@@ -35,6 +35,6 @@ const Message: FC<IProps> = ({ isReceiving }) => {
       </div>
     </div>
   );
-};
+});
 
 export default Message;

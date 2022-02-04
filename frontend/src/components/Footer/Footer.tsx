@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import style from './Footer.module.scss';
 
-const Footer: FC = () => {
+const Footer: FC = React.memo(() => {
   return (
     <div className={style.footer}>
       <a
@@ -43,6 +43,6 @@ const Footer: FC = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Footer;
