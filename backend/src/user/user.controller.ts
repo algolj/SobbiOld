@@ -1,5 +1,3 @@
-import { IAuth } from '@app/common/auth.interface';
-import { User } from '@app/decorators/user.decorator';
 import {
   Body,
   Controller,
@@ -11,15 +9,20 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/createUser.dto';
 import { JwtUserGuard } from './guards/jwt.guard';
+
+import { IAuth } from '@app/common/auth.interface';
+import { User } from '@app/decorators/user.decorator';
+import { CreateUserDto } from './dto/createUser.dto';
 import { TLogin } from './types/login.type';
 import { IUser } from '../common/user.interface';
-import { REGULAR_CHECK_IS_EMAIL } from './user.constants';
+import { REGULAR_CHECK_IS_EMAIL } from '@app/common/global.constants';
 import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
 import { TLoginKey } from './types/login-key.type';
 import { IChangePassword } from './types/change-password.interface';
+import { IDeleteResponce } from '@app/common/deleteResponce.interface';
+import { ITokenResponce } from '@app/common/tokenResponce.interface';
 
 @Controller('user')
 export class UserController {
@@ -33,7 +36,7 @@ export class UserController {
 
   @UsePipes(new ValidationPipe())
   @Post('login')
-  async loginUser(@Body() draftLoginInfo: IAuth) {
+  async loginUser(@Body() draftLoginInfo: IAuth): Promise<ITokenResponce> {
     const authKey = REGULAR_CHECK_IS_EMAIL.test(draftLoginInfo.login)
       ? 'email'
       : 'username';
@@ -50,7 +53,7 @@ export class UserController {
 
   @UseGuards(JwtUserGuard)
   @Delete()
-  async deleteUser(@User() user: IUser) {
+  async deleteUser(@User() user: IUser): Promise<IDeleteResponce> {
     return this.userService.deleteUser(user);
   }
 
@@ -58,7 +61,10 @@ export class UserController {
   @UseGuards(JwtUserGuard)
   @Put('change/email')
   @Put('change/username')
-  async changeUserEmail(@User() user: IUser, @Body() newValue: TLoginKey) {
+  async changeUserEmail(
+    @User() user: IUser,
+    @Body() newValue: TLoginKey,
+  ): Promise<ITokenResponce> {
     return await this.userService.changeEmailOruserName(user, newValue);
   }
 
@@ -68,12 +74,19 @@ export class UserController {
   async changeUserPassword(
     @User() user: IUser,
     @Body() passwords: IChangePassword,
-  ) {
+  ): Promise<UserEntity> {
     return await this.userService.changeUserPassword(user, passwords);
   }
 
+  @Post('auth-data-exists')
+  async existsAuthData(
+    @Body() authKay: TLoginKey,
+  ): Promise<{ exists: boolean }> {
+    return await this.userService.emailOrUsernameExists(authKay);
+  }
+
   @Get('all')
-  async d() {
-    return this.userService.getAll();
+  async dd() {
+    return await this.userService.getAllUser();
   }
 }

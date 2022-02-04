@@ -9,6 +9,7 @@ import {
   NOT_CHANGE_PASSWORD,
   NOT_CHANGE_USERNAME,
 } from './profile.constants';
+import { REGULAR_CHECK_IS_ID } from '@app/common/global.constants';
 
 @Injectable()
 export class ProfileService {
@@ -22,7 +23,7 @@ export class ProfileService {
   }
 
   async getProfile(id: string): Promise<UserEntity> {
-    const findParam = /^id\d*$/.test(id)
+    const findParam = REGULAR_CHECK_IS_ID.test(id)
       ? { id: +id.slice(2) }
       : { username: id };
 

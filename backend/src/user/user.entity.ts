@@ -1,10 +1,17 @@
 import { genSalt, hash } from 'bcryptjs';
 import { Blob } from 'buffer';
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 import { ECountry } from '@app/common/country.enum';
 import { EGender } from '@app/common/gender.enum';
 import { ISocialMedia } from '@app/common/social-media.interface';
+import { RoomUserEntity } from '@app/room/room-user.entity';
 
 @Entity({ name: 'user' })
 export class UserEntity {
@@ -43,6 +50,9 @@ export class UserEntity {
 
   @Column({ type: 'json', nullable: true })
   socialMedia: ISocialMedia;
+
+  @OneToMany(() => RoomUserEntity, (roomUser) => roomUser.userInRoom)
+  rooms: RoomUserEntity[];
 
   @BeforeInsert()
   async hashPassword() {
