@@ -160,12 +160,12 @@ const User: FC = () => {
       <div className={style.user__info_wrapper}>
         <div className={style.user__avatar}>
           <img className={style.user__photo} src={image} alt="avatar" />
-          <input
-            type="file"
-            onChange={(e) => setFormImage1(e.target.files![0].name)}
-            name=""
-            id=""
-          />
+          {/*<input*/}
+          {/*  type="file"*/}
+          {/*  onChange={(e) => setFormImage1(e.target.files![0].name)}*/}
+          {/*  name=""*/}
+          {/*  id=""*/}
+          {/*/>*/}
         </div>
         <div className={style.user__info}>
           <UserFormInfo
@@ -285,16 +285,7 @@ const User: FC = () => {
       >
         Save
       </Button>
-      <Link to={'/'}>
-        <Button
-          onClick={() => {
-            logoutUser();
-          }}
-        >
-          Logout
-        </Button>
-      </Link>
-      <Link to={'/'}>
+      <Link className={style.user__delete} to={'/'}>
         <Button
           onClick={() => {
             deleteUser();

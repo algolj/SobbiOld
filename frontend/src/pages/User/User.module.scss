@@ -68,7 +68,10 @@
       font-size: $SFont;
     }
   }
-
+  &__delete{
+    width: 120px;
+    height: 50px;
+  }
   &__feedbacks {
     display: flex;
     flex-direction: column;

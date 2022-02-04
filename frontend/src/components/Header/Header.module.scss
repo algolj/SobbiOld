@@ -7,7 +7,6 @@
   align-items: center;
   padding: 10px;
   font-size: 30px;
-
   a {
     &:active {
       transition: 0.2s;
@@ -24,7 +23,8 @@
     width: 100%;
     height: 100%;
     padding: 0 10px;
-    overflow: auto;
+    overflow: visible;
+
     background: $white;
     transition: 0.2s;
     transform: translate(-102%, 0);

@@ -6,16 +6,17 @@ import { useTypeSelector } from '../../hooks/useTypeSelector';
 
 interface IProps {
   setIsVisible: React.Dispatch<SetStateAction<boolean>>;
+  onClick?: () => void;
 }
 
-const LoginAvatar: FC<IProps> = React.memo(({ setIsVisible }) => {
+const LoginAvatar: FC<IProps> = React.memo(({ setIsVisible, onClick }) => {
   const { isAuth } = useTypeSelector((state) => state.user);
   return (
     <>
       {isAuth ? (
-        <Link
+        <div
+          onClick={onClick}
           style={{ background: 'red', width: '30px', height: '30px' }}
-          to={'/user'}
         />
       ) : (
         <button
