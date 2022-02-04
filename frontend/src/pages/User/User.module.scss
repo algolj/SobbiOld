@@ -29,23 +29,12 @@
     width: 200px;
   }
 
-  &__mail {
-    font-size: $SFont;
-    color: $black;
-    font-weight: 600;
-    word-wrap: break-word;
 
+  &__gender {
     &_wrapper {
-      padding: 10px 5px;
-      border-radius: 10px;
-      @include boxShadow;
-
-    }
-
-    &_title {
-      width: 300px;
-      font-size: $XSFont;
-      color: $brown;
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
     }
   }
 
@@ -71,6 +60,8 @@
 
   &__description {
     max-width: 700px;
+    overflow-wrap: break-word;
+    hyphens: manual;
 
     &_text {
       margin: 0 0 0 10px;
@@ -82,6 +73,12 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+  }
+}
+
+.modal {
+  &__radio {
+    //display: none;
   }
 }
 

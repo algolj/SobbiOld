@@ -7,7 +7,7 @@ interface IProps {
   icon?: string;
 }
 
-const NavBar: FC<IProps> = ({ navBars, icon }) => {
+const NavBar: FC<IProps> = React.memo(({ navBars, icon }) => {
   return (
     <div className={style.nav__wrapper}>
       {navBars.map((options) => (
@@ -21,6 +21,6 @@ const NavBar: FC<IProps> = ({ navBars, icon }) => {
       ))}
     </div>
   );
-};
+});
 
 export default NavBar;

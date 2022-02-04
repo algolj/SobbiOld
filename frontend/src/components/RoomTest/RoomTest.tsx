@@ -5,7 +5,7 @@ interface IProps {
   difficulty: string;
 }
 
-const RoomTest: FC<IProps> = ({ difficulty }) => {
+const RoomTest: FC<IProps> = React.memo(({ difficulty }) => {
   return (
     <div className={style.test}>
       <button className={style.test__rectangle}>
@@ -23,6 +23,6 @@ const RoomTest: FC<IProps> = ({ difficulty }) => {
       </button>
     </div>
   );
-};
+});
 
 export default RoomTest;

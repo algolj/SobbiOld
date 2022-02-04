@@ -1,25 +1,28 @@
 import React, { FC, useState } from 'react';
 import style from './Header.module.scss';
 import sprite from '../../assets/sprite.svg';
+import RegistrationModal from '../RegistrationModal/RegistrationModal';
+import { IconTarget } from '../../types/types';
 import { Link } from 'react-router-dom';
+import LoginAvatar from '../LoginAvatar/LoginAvatar';
 
-interface IProps {
-  navigation?: string[];
-}
-
-const Header: FC<IProps> = ({ navigation }) => {
+const Header: FC = React.memo(() => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
   const closeBurger = (e: React.MouseEvent<HTMLElement>) => {
+    const role = e.target.constructor.name;
     if (
-      e.target.constructor.name === 'HTMLAnchorElement' ||
-      e.target.constructor.name === 'SVGSVGElement' ||
-      e.target.constructor.name === 'SVGUseElement'
+      role === IconTarget.Anchor ||
+      role === IconTarget.Svg ||
+      role === IconTarget.SvgUse
     ) {
       setIsOpen(false);
     }
   };
+
   return (
     <div className={style.header}>
+      <RegistrationModal isVisible={isVisible} setIsVisible={setIsVisible} />
       <Link to={''}>
         <svg className={style.header__logo}>
           <use href={`${sprite}#logo`} />
@@ -54,15 +57,11 @@ const Header: FC<IProps> = ({ navigation }) => {
           <Link className={style.header__link} to={''}>
             Rating
           </Link>
-          <Link to={'/user'}>
-            <svg className={style.header__login}>
-              <use href={`${sprite}#logIn`} />
-            </svg>
-          </Link>
+          <LoginAvatar setIsVisible={setIsVisible} />
         </nav>
       </div>
     </div>
   );
-};
+});
 
 export default Header;

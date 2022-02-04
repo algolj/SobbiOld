@@ -10,18 +10,20 @@ interface IProps {
   [key: string]: any;
 }
 
-const Button: FC<IProps> = ({ children, onClick, active, ...props }) => {
-  return (
-    <button
-      {...props}
-      className={
-        active ? `${style.button} ${style.button_active}` : style.button
-      }
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
-};
+const Button: FC<IProps> = React.memo(
+  ({ children, onClick, active, ...props }) => {
+    return (
+      <button
+        {...props}
+        className={
+          active ? `${style.button} ${style.button_active}` : style.button
+        }
+        onClick={onClick}
+      >
+        {children}
+      </button>
+    );
+  },
+);
 
 export default Button;
