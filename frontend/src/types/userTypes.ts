@@ -11,9 +11,15 @@ export interface IAuthResponse {
 }
 
 export interface ISocialMedia {
-  linkedIn: string;
-  facebook: string;
-  github: string;
+  linkedIn?: string;
+  facebook?: string;
+  github?: string;
+}
+
+export enum SocialMediaEnum {
+  linkedIn = 'linkedIn',
+  facebook = 'facebook',
+  github = 'github',
 }
 
 export interface IUser {
@@ -31,15 +37,15 @@ export interface IUser {
   id?: 1;
 }
 
+export type IUserInfo = Omit<IUser, 'username' | 'email' | 'password'>;
+
 export interface ILoginUser {
   login: string;
   password: string;
 }
 
 export interface IUserState {
-  user: IUser;
-  username: string;
-  email: string;
+  user: IUser | null;
   isAuth: boolean;
   error: null | string;
 }
@@ -51,4 +57,5 @@ export enum UsersActionType {
   DELETE_USER = 'DELETE_USER',
   CHANGE_USER_LOGIN = 'CHANGE_USER_LOGIN',
   CHANGE_USER_EMAIL = 'CHANGE_USER_EMAIL',
+  CHANGE_USER_INFO = 'CHANGE_USER_INFO',
 }

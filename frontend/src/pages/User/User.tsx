@@ -4,15 +4,16 @@ import colors from '../../styles/index.scss';
 import style from './User.module.scss';
 import FeedbackShortcut from '../../components/FeedbackShortcut/FeedbackShortcut';
 import InfoItem from '../../components/UI/InfoItem/InfoItem';
-import { UseTypeSelector } from '../../hooks/useTypeSelector';
 import Button from '../../components/UI/Button/Button';
-import { useActions } from '../../hooks/useActions';
-import { Link } from 'react-router-dom';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import UserFormInfo from '../../components/UserFormInfo/UserFormInfo';
 import Modal from '../../components/UI/Modal/Modal';
 import FormInput from '../../components/UI/inputs/FormInput/FormInput';
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
+import { Link } from 'react-router-dom';
+import { useTypeSelector } from '../../hooks/useTypeSelector';
+import { useActions } from '../../hooks/useActions';
+import { IUserInfo, SocialMediaEnum } from '../../types/userTypes';
 
 interface IUserForm {
   formUsername: string;
@@ -21,17 +22,24 @@ interface IUserForm {
   formLastName: string;
   formBio: string;
   formSocialMedia: string;
+  formPicked: string;
 }
 
 const User: FC = () => {
   const {
     user: { username, password, bio, email, lastName, firstName, socialMedia },
-  } = UseTypeSelector((state) => state.user);
-  const { logoutUser, deleteUser, changeUserName, changeUserEmail } =
-    useActions();
+  } = useTypeSelector((state) => state.user);
+  const {
+    logoutUser,
+    deleteUser,
+    changeUserName,
+    changeUserEmail,
+    changeUserInfo,
+  } = useActions();
+  const { github, linkedIn, facebook } = SocialMediaEnum;
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [visibility, setVisibility] = useState<boolean>(false);
-  const socialMediaModal = ['github', 'linkedIn', 'facebook'];
+  const socialMediaModal = [github, linkedIn, facebook];
   const userForm = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -41,16 +49,18 @@ const User: FC = () => {
       formLastName: lastName,
       formSocialMedia: '',
       formBio: bio,
+      formPicked: '',
     },
     validationSchema: Yup.object({
       // login: Yup.string().required('Required'),
     }),
-    onSubmit: (values: IUserForm) => {
-      changeUserName(userForm.values.formUsername);
-      changeUserEmail(userForm.values.formEmail);
-      setIsEdit(false);
+    onSubmit: async (values: IUserForm) => {
+      await changeUserName(userForm.values.formUsername);
+      await changeUserEmail(userForm.values.formEmail);
+      await setIsEdit(false);
     },
   });
+
   const {
     formEmail,
     formUsername,
@@ -58,7 +68,16 @@ const User: FC = () => {
     formLastName,
     formBio,
     formSocialMedia,
+    formPicked,
   } = userForm.values;
+  const changeUserInfoHandler = async () => {
+    const userObject: any = { socialMedia: {} };
+    userObject.socialMedia![
+      formPicked
+    ] = `https://${formPicked}.com/${formSocialMedia}`;
+    await changeUserInfo(userObject);
+  };
+
   return (
     <form onSubmit={(e) => e.preventDefault()} className={style.user}>
       <Modal
@@ -68,13 +87,31 @@ const User: FC = () => {
       >
         <div className="">
           <FormInput
+            name={'formSocialMedia'}
             label={'Name'}
             value={formSocialMedia}
             onChange={userForm.handleChange}
           />
           {socialMediaModal.map((media) => (
-            <input type="radio"><InfoItem isEdit={isEdit} name={`${media}.svg`} />
+            <label>
+              <InfoItem
+                key={media}
+                isEdit={isEdit}
+                name={media}
+                isButton={true}
+                isChecked={formPicked}
+              />
+              <input
+                className={style.modal__radio}
+                id={'formPicked'}
+                type={'radio'}
+                name={'formPicked'}
+                value={media}
+                onChange={userForm.handleChange}
+              />
+            </label>
           ))}
+          <Button onClick={() => changeUserInfoHandler()}>Add</Button>
         </div>
       </Modal>
       <Title color={colors.white}>
@@ -105,21 +142,22 @@ const User: FC = () => {
           <div className={style.user__gender}>
             {isEdit ? (
               <div className={style.user__gender_wrapper}>
-                <InfoItem isEdit={isEdit} referral={''} name={'female.svg'} />
-                <InfoItem isEdit={isEdit} referral={''} name={'male.svg'} />
-                <InfoItem isEdit={isEdit} referral={''} name={'another.svg'} />
+                <InfoItem isEdit={isEdit} name={'female'} />
+                <InfoItem isEdit={isEdit} name={'male'} />
+                <InfoItem isEdit={isEdit} name={'another'} />
               </div>
             ) : (
-              <InfoItem isEdit={isEdit} referral={''} name={'female.svg'} />
+              <InfoItem isEdit={isEdit} name={'female'} />
             )}
           </div>
           <div className={style.user__info_media}>
             {socialMedia
-              ? Object.keys(socialMedia).map(() => (
+              ? Object.keys(socialMedia).map((media) => (
                   <InfoItem
+                    key={media}
                     isEdit={isEdit}
                     referral={'https://github.com/VaniaToper'}
-                    name={'gitHub.svg'}
+                    name={'gitHub'}
                   />
                 ))
               : null}
@@ -127,9 +165,9 @@ const User: FC = () => {
               <InfoItem
                 onClick={() => setVisibility(true)}
                 isAdd={true}
+                isButton={true}
                 isEdit={isEdit}
-                referral={''}
-                name={'gitHub.svg'}
+                name={'gitHub'}
               />
             ) : null}
           </div>

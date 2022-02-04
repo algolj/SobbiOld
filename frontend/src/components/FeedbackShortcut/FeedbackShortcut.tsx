@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import style from './FeedbackShortcut.module.scss';
 
-const FeedbackShortcut = () => {
+const FeedbackShortcut: FC = React.memo(() => {
   return (
     <button className={style.feedback}>
       <div className={style.feedback__wrapper}>
@@ -20,6 +20,6 @@ const FeedbackShortcut = () => {
       </div>
     </button>
   );
-};
+});
 
 export default FeedbackShortcut;

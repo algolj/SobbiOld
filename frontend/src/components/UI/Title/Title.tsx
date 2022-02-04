@@ -5,12 +5,12 @@ interface IProps {
   children?: React.ReactChild;
 }
 
-const Title: FC<IProps> = ({ color, children }) => {
+const Title: FC<IProps> = React.memo(({ color, children }) => {
   return (
     <span className={style.title} style={{ color: color }}>
       {children}
     </span>
   );
-};
+});
 
 export default Title;

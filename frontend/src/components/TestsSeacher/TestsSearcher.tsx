@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import style from './TestsSearcher.module.scss';
 import Button from '../UI/Button/Button';
 import SearchInput from '../UI/inputs/SearchInput/SearchInput';
 import RoomTest from '../RoomTest/RoomTest';
 
-const TestsSearcher = () => {
+const TestsSearcher: FC = React.memo(() => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
   return (
     <div
@@ -41,6 +41,6 @@ const TestsSearcher = () => {
       </div>
     </div>
   );
-};
+});
 
 export default TestsSearcher;

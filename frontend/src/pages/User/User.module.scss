@@ -30,13 +30,14 @@
   }
 
 
-  &__gender{
-    &_wrapper{
+  &__gender {
+    &_wrapper {
       display: flex;
       flex-direction: row;
       gap: 10px;
     }
   }
+
   &__info {
     width: 300px;
     display: flex;
@@ -72,6 +73,12 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+  }
+}
+
+.modal {
+  &__radio {
+    //display: none;
   }
 }
 

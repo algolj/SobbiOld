@@ -1,4 +1,4 @@
-import { IUser, UsersActionType } from '../../../types/userTypes';
+import { IUser, IUserInfo, UsersActionType } from '../../../types/userTypes';
 
 export const createUserAction = (user: IUser) =>
   ({
@@ -27,8 +27,15 @@ export const changeUserNameAction = (username: string) =>
     type: UsersActionType.CHANGE_USER_LOGIN,
     payload: username,
   } as const);
+
 export const changeUserEmailAction = (userEmail: string) =>
   ({
     type: UsersActionType.CHANGE_USER_EMAIL,
     payload: userEmail,
+  } as const);
+
+export const changeUserInfoAction = (info: IUser) =>
+  ({
+    type: UsersActionType.CHANGE_USER_INFO,
+    payload: info,
   } as const);

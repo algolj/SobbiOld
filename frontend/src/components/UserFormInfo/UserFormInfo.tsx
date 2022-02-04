@@ -7,7 +7,7 @@ interface IProps {
   onChange: any;
 }
 
-const UserFormInfo: FC<IProps> = ({ isEdit, value, onChange }) => {
+const UserFormInfo: FC<IProps> = React.memo(({ isEdit, value, onChange }) => {
   return (
     <div className={style.user__info_wrapper}>
       <div className={style.user__info_title}>E-mail</div>
@@ -18,6 +18,6 @@ const UserFormInfo: FC<IProps> = ({ isEdit, value, onChange }) => {
       )}
     </div>
   );
-};
+});
 
 export default UserFormInfo;

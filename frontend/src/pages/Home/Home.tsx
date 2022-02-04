@@ -1,12 +1,12 @@
 import React, { FC, useRef, useState } from 'react';
 import style from './Home.module.scss';
+import colors from '../../styles/vars.module.scss';
 import sprite from '../../assets/sprite.svg';
 import Title from '../../components/UI/Title/Title';
-import colors from '../../styles/vars.module.scss';
 import Button from '../../components/UI/Button/Button';
 import Footer from '../../components/Footer/Footer';
-import room from '../Room/Room';
 import Modal from '../../components/UI/Modal/Modal';
+import room from '../Room/Room';
 
 const Home: FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -70,7 +70,7 @@ const Home: FC = () => {
           {/*<FormInput label={'Interviewee'} />*/}
           {/*<FormInput label={'Spectators'} />*/}
           <div className={style.create__button}>
-            <Button onClick={() => setIsVisible(false)}>Create</Button>y
+            <Button onClick={() => setIsVisible(false)}>Create</Button>
           </div>
         </div>
       </Modal>

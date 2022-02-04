@@ -21,6 +21,12 @@
     border: 2px solid $black;
     transition: 0.2s;
 
+    &_checked {
+      background: $brown;
+      transform: translate(-2px, -2px);
+
+    }
+
     &_disable {
       pointer-events: none;
     }

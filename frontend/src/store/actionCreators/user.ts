@@ -3,10 +3,12 @@ import {
   IAuthResponse,
   ILoginUser,
   IUser,
+  IUserInfo,
 } from '../../types/userTypes';
 import { Dispatch } from 'react';
 import {
   changeUserEmailAction,
+  changeUserInfoAction,
   changeUserNameAction,
   createUserAction,
   loginUserAction,
@@ -25,7 +27,6 @@ export const loginUser = (user: ILoginUser) => {
       $api.get('/profile').then((res) => {
         dispatch(loginUserAction(res.data));
       });
-      console.log('sadasd');
     } catch (e) {
       console.log(e);
     }
@@ -51,11 +52,10 @@ export const logoutUser = () => {
 export const checkAuth = () => {
   return async (dispatch: Dispatch<ActionTypesUsers>) => {
     try {
-      await $api.get('/profile').then((res) => {
-        const token = localStorage.getItem('token');
-        localStorage.setItem('token', token!);
-        dispatch(loginUserAction(res.data));
-      });
+      const res = await $api.get('/profile');
+      const token = localStorage.getItem('token');
+      localStorage.setItem('token', token!);
+      dispatch(loginUserAction(res.data));
     } catch (e) {
       console.log(e);
     }
@@ -94,6 +94,32 @@ export const changeUserName = (username: string, type?: string) => {
       });
       localStorage.setItem('token', response.data.token);
       dispatch(changeUserNameAction(username));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const changeUserInfo = (user: IUserInfo) => {
+  return async (dispatch: Dispatch<ActionTypesUsers>) => {
+    try {
+      console.log(user);
+      const response = await $api.put('profile', {
+        lastName: user.lastName,
+        firstName: user.firstName,
+        country: user.country,
+        dateOfBirth: user.dateOfBirth,
+        gender: user.gender,
+        bio: user.bio,
+        image: user.image,
+        socialMedia: {
+          linkedIn: user.socialMedia?.linkedIn,
+          facebook: user.socialMedia?.facebook,
+          github: user.socialMedia?.github,
+        },
+      });
+      console.log(response.data);
+      dispatch(changeUserInfoAction(response.data));
     } catch (e) {
       console.log(e);
     }

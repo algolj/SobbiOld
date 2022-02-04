@@ -1,21 +1,20 @@
 import React, { FC, useState } from 'react';
 import style from './Header.module.scss';
 import sprite from '../../assets/sprite.svg';
-import { Link } from 'react-router-dom';
-import { UseTypeSelector } from '../../hooks/useTypeSelector';
 import RegistrationModal from '../RegistrationModal/RegistrationModal';
+import { IconTarget } from '../../types/types';
+import { Link } from 'react-router-dom';
+import LoginAvatar from '../LoginAvatar/LoginAvatar';
 
-const Header: FC = () => {
-  const { isAuth } = UseTypeSelector((state) => state.user);
+const Header: FC = React.memo(() => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const closeBurger = (e: React.MouseEvent<HTMLElement>) => {
-    //Formik
     const role = e.target.constructor.name;
     if (
-      role === 'HTMLAnchorElement' ||
-      role === 'SVGSVGElement' ||
-      role === 'SVGUseElement'
+      role === IconTarget.Anchor ||
+      role === IconTarget.Svg ||
+      role === IconTarget.SvgUse
     ) {
       setIsOpen(false);
     }
@@ -58,30 +57,11 @@ const Header: FC = () => {
           <Link className={style.header__link} to={''}>
             Rating
           </Link>
-          {isAuth ? (
-            <Link
-              style={{ background: 'red', width: '30px', height: '30px' }}
-              to={'/user'}
-            />
-          ) : (
-            <button
-              onClick={() => setIsVisible(true)}
-              className={style.header__login_wrapper}
-            >
-              <svg className={style.header__login}>
-                <use href={`${sprite}#logIn`} />
-              </svg>
-              <img
-                className={style.header__login_hover}
-                src={'./assets/icon/loginText.svg'}
-                alt="login text"
-              />
-            </button>
-          )}
+          <LoginAvatar setIsVisible={setIsVisible} />
         </nav>
       </div>
     </div>
   );
-};
+});
 
 export default Header;
