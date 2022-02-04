@@ -367,7 +367,7 @@ User registration on the platform.
 }
 ```
 
-#### 10. Delete room
+#### 11. Delete room
 
 **⚠️ Subsequently, it will be executed through authorization or through the password of the interviewer**
 
@@ -377,17 +377,15 @@ User registration on the platform.
 
 [**Error**](#error-response)
 
-````
-
 **Response Body (JSON type):**
 
 ```JSON
 {
     "delete": true
 }
-````
+```
 
-#### 11. Change room date
+#### 12. Change room date
 
 **⚠️ Subsequently, it will be executed through authorization or through the password of the interviewer**
 
