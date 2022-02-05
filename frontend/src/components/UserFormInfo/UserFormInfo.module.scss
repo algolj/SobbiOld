@@ -5,7 +5,11 @@
   color: $black;
   font-weight: 600;
   word-wrap: break-word;
-
+  &::-webkit-calendar-picker-indicator{
+    margin: 0;
+    padding: 0;
+  }
+  padding: 0;
   &_wrapper {
     width: 100%;
     padding: 10px 5px;

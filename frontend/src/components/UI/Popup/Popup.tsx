@@ -9,7 +9,10 @@ interface IProps {
   setIsHide: React.Dispatch<SetStateAction<boolean>>;
 }
 
-const Popup: FC<IProps> = ({ isHide, setIsHide, options }) => {
+const Popup: FC<IProps> = React.memo(({ isHide, setIsHide, options }) => {
+  window.addEventListener('click', () => {
+    setIsHide(true);
+  });
   return (
     <div
       className={`${style.popup__wrapper} ${isHide ? style.popup_hide : null}`}
@@ -29,6 +32,6 @@ const Popup: FC<IProps> = ({ isHide, setIsHide, options }) => {
       </div>
     </div>
   );
-};
+});
 
 export default Popup;

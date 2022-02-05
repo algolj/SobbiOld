@@ -12,7 +12,7 @@ const Header: FC = React.memo(() => {
   const { logoutUser } = useActions();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [isPopup, setIsPopup] = useState<boolean>(false);
+  const [isHidePopup, setIsHidePopup] = useState<boolean>(true);
   const popupOptions: IPopupValues[] = [
     {
       label: 'Profile',
@@ -78,12 +78,15 @@ const Header: FC = React.memo(() => {
           >
             <LoginAvatar
               setIsVisible={setIsVisible}
-              onClick={() => setIsPopup(!isPopup)}
+              onClick={(e) => {
+                e!.stopPropagation();
+                setIsHidePopup(!isHidePopup);
+              }}
             />
             <Popup
               options={popupOptions}
-              isHide={isPopup}
-              setIsHide={setIsPopup}
+              isHide={isHidePopup}
+              setIsHide={setIsHidePopup}
             />
           </div>
         </nav>

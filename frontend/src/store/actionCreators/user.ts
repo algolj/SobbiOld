@@ -104,7 +104,6 @@ export const changeUserName = (username: string, type?: string) => {
 export const changeUserInfo = (user: IUserInfo) => {
   return async (dispatch: Dispatch<ActionTypesUsers>) => {
     try {
-      console.log(user);
       const response = await $api.put('profile', {
         lastName: user.lastName,
         firstName: user.firstName,
@@ -119,7 +118,7 @@ export const changeUserInfo = (user: IUserInfo) => {
           github: user.socialMedia?.github,
         },
       });
-      console.log(response.data);
+      console.log(response.data.socialMedia);
       dispatch(changeUserInfoAction(response.data));
     } catch (e) {
       console.log(e);

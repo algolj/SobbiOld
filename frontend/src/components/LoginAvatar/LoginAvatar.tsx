@@ -6,7 +6,7 @@ import { useTypeSelector } from '../../hooks/useTypeSelector';
 
 interface IProps {
   setIsVisible: React.Dispatch<SetStateAction<boolean>>;
-  onClick?: () => void;
+  onClick?: (e?: React.MouseEvent<HTMLElement>) => void;
 }
 
 const LoginAvatar: FC<IProps> = React.memo(({ setIsVisible, onClick }) => {

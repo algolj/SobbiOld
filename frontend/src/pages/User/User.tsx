@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import Title from '../../components/UI/Title/Title';
 import colors from '../../styles/index.scss';
 import style from './User.module.scss';
+import styleTitle from '../../components/UI/Title/Title.module.scss';
 import FeedbackShortcut from '../../components/FeedbackShortcut/FeedbackShortcut';
 import InfoItem from '../../components/UI/InfoItem/InfoItem';
 import Button from '../../components/UI/Button/Button';
@@ -95,23 +96,27 @@ const User: FC = () => {
     formDateOfBirth,
     formImage,
   } = userForm.values;
+  const userUpdate: any = {
+    socialMedia: {},
+    gender: formGender,
+    firstName: formFirstName,
+    lastName: formLastName,
+    dateOfBirth: formDateOfBirth,
+    bio: formBio,
+    image: formImage1,
+  };
+  const changeUserInfoHandler = async (
+    remove?: boolean,
+    userInfo: any = userUpdate,
+  ) => {
+    userInfo.socialMedia![
+      formPicked
+    ] = `https://${formPicked}.com/${formSocialMedia}`;
 
-  const changeUserInfoHandler = async (remove?: boolean) => {
-    const userObject: any = {
-      socialMedia: {},
-      gender: formGender,
-      firstName: formFirstName,
-      lastName: formLastName,
-      dateOfBirth: formDateOfBirth,
-      bio: formBio,
-      image: formImage1,
-    };
-    if (!remove) {
-      userObject.socialMedia![
-        formPicked
-      ] = `https://${formPicked}.com/${formSocialMedia}`;
+    if (remove) {
+      delete userInfo.socialMedia![formPicked];
     }
-    await changeUserInfo(userObject);
+    await changeUserInfo(userInfo);
   };
   const userEdit = async () => {
     if (!isEdit) return setIsEdit(!isEdit);
@@ -161,6 +166,7 @@ const User: FC = () => {
       <Title color={colors.white}>
         {isEdit ? (
           <input
+            className={styleTitle.title}
             name={'formUsername'}
             value={formUsername}
             onChange={userForm.handleChange}
@@ -240,7 +246,7 @@ const User: FC = () => {
             )}
           </div>
           <div className={style.user__info_media}>
-            {gender
+            {socialMedia
               ? Object.keys(socialMedia).map((media, index) => (
                   <InfoItem
                     key={media}
