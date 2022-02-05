@@ -25,6 +25,7 @@
     background: $wheat;
   }
 
+
   &__photo {
     width: 200px;
   }
@@ -37,6 +38,7 @@
       gap: 10px;
     }
   }
+
 
   &__info {
     width: 300px;
@@ -51,6 +53,12 @@
       gap: 15px;
     }
 
+    &_name {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
     &_media {
       display: flex;
       flex-direction: row;
@@ -63,15 +71,56 @@
     overflow-wrap: break-word;
     hyphens: manual;
 
+    &_button {
+      width: 200px;
+      height: 70px;
+    }
+
     &_text {
       margin: 0 0 0 10px;
       font-size: $SFont;
+      &area{
+        border-radius: 10px;
+        outline: 1px solid $black;
+        resize: none;
+        margin: 0 0 0 10px;
+        padding: 10px;
+        font-size: $SFont;
+      }
     }
   }
-  &__delete{
-    width: 120px;
-    height: 50px;
+
+  &__settings {
+    display: flex;
+    justify-content: right;
   }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 120px;
+    height: 120px;
+  }
+
+  &__delete {
+
+    &_modal {
+      width: 100%;
+      height: 100%;
+    }
+
+    &_wrapper {
+      height: 45px;
+      margin: 60px auto 10px auto;
+      width: 50%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 30px;
+    }
+  }
+
   &__feedbacks {
     display: flex;
     flex-direction: column;
@@ -91,6 +140,17 @@
       &_wrapper {
         flex-direction: row-reverse;
         justify-content: space-between;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .user {
+    &__info {
+      &_name {
+        flex-direction: row;
+        width: 620px;
       }
     }
   }

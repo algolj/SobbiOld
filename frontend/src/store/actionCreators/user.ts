@@ -66,6 +66,7 @@ export const deleteUser = () => {
   return async (dispatch: Dispatch<ActionTypesUsers>) => {
     try {
       await $api.delete('user');
+      localStorage.removeItem('token');
       dispatch(logoutUserAction());
     } catch (e) {
       console.log(e);

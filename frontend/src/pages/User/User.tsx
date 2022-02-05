@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
 import { useActions } from '../../hooks/useActions';
 import { GenderEnum, IUserInfo, SocialMediaEnum } from '../../types/userTypes';
+import SearchInput from '../../components/UI/inputs/SearchInput/SearchInput';
 
 interface IUserForm {
   formUsername: string;
@@ -56,7 +57,9 @@ const User: FC = () => {
   const { Male, Female, Other } = GenderEnum;
   const genderArray = [Male, Female, Other];
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [isEditBio, setIsEditBio] = useState<boolean>(false);
   const [visibility, setVisibility] = useState<boolean>(false);
+  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [formImage1, setFormImage1] = useState('');
   const userForm = useFormik({
     enableReinitialize: true,
@@ -76,7 +79,7 @@ const User: FC = () => {
       // login: Yup.string().required('Required'),
     }),
     onSubmit: async (values: IUserForm) => {
-      console.log('adssd');
+      console.log('');
     },
   });
 
@@ -110,7 +113,16 @@ const User: FC = () => {
     }
     await changeUserInfo(userObject);
   };
-
+  const userEdit = async () => {
+    if (!isEdit) return setIsEdit(!isEdit);
+    else {
+      await changeUserInfoHandler();
+      await changeUserName(userForm.values.formUsername);
+      await changeUserEmail(userForm.values.formEmail);
+      setIsEdit(false);
+      setIsEditBio(false);
+    }
+  };
   return (
     <form onSubmit={(e) => e.preventDefault()} className={style.user}>
       <Modal
@@ -168,26 +180,28 @@ const User: FC = () => {
           {/*/>*/}
         </div>
         <div className={style.user__info}>
+          <div className={style.user__info_name}>
+            <UserFormInfo
+              isEdit={isEdit}
+              value={formFirstName}
+              onChange={userForm.handleChange}
+              label={'First name'}
+              name={'formFirstName'}
+            />
+            <UserFormInfo
+              isEdit={isEdit}
+              value={formLastName}
+              onChange={userForm.handleChange}
+              label={'Last name'}
+              name={'formLastName'}
+            />
+          </div>
           <UserFormInfo
             isEdit={isEdit}
             value={formEmail}
             onChange={userForm.handleChange}
             label={'E-mail'}
             name={'formEmail'}
-          />
-          <UserFormInfo
-            isEdit={isEdit}
-            value={formFirstName}
-            onChange={userForm.handleChange}
-            label={'First name'}
-            name={'formFirstName'}
-          />
-          <UserFormInfo
-            isEdit={isEdit}
-            value={formLastName}
-            onChange={userForm.handleChange}
-            label={'Last name'}
-            name={'formLastName'}
           />
           <UserFormInfo
             isEdit={isEdit}
@@ -251,49 +265,63 @@ const User: FC = () => {
           </div>
         </div>
       </div>
-      {bio ? (
+      {bio || isEditBio ? (
         <div className={style.user__description}>
           <div className={style.user__title}>About me</div>
-          <div className={style.user__description_text}>{bio}</div>
+          {isEdit ? (
+            <textarea
+              className={style.user__description_textarea}
+              name={'formBio'}
+              value={formBio}
+              onChange={userForm.handleChange}
+              cols={70}
+              rows={10}
+            />
+          ) : (
+            <div className={style.user__description_text}>{bio}</div>
+          )}
         </div>
-      ) : (
-        <input
-          name={'formBio'}
-          onChange={userForm.handleChange}
-          value={formBio}
-        />
-      )}
+      ) : isEdit ? (
+        isEditBio ? null : (
+          <div className={style.user__description_button}>
+            <Button onClick={() => setIsEditBio(true)}>
+              Create description
+            </Button>
+          </div>
+        )
+      ) : null}
       <div className={style.user__feedbacks}>
         <div className={style.user__title}>Feedbacks</div>
         <FeedbackShortcut />
       </div>
-      <Button
-        onClick={() => {
-          setIsEdit(!isEdit);
-        }}
+
+      <Modal
+        visibility={showDeleteModal}
+        title={'Are you sure?'}
+        setVisibility={setShowDeleteModal}
       >
-        Edit
-      </Button>
-      <Button
-        onClick={async () => {
-          await changeUserInfoHandler();
-          await changeUserName(userForm.values.formUsername);
-          await changeUserEmail(userForm.values.formEmail);
-          await setIsEdit(false);
-        }}
-        onSubmit={userForm.handleSubmit}
-      >
-        Save
-      </Button>
-      <Link className={style.user__delete} to={'/'}>
-        <Button
-          onClick={() => {
-            deleteUser();
-          }}
-        >
-          Delete
-        </Button>
-      </Link>
+        <div className={style.user__delete_wrapper}>
+          <Link className={style.user__delete_modal} to={'/'}>
+            <Button isRed={true} onClick={() => deleteUser()}>
+              Delete
+            </Button>
+          </Link>
+          <Button onClick={() => setShowDeleteModal(false)}>Cancel</Button>
+        </div>
+      </Modal>
+      <div className={style.user__settings}>
+        <div className={style.user__buttons}>
+          <Button onClick={userEdit}>{isEdit ? 'Save' : 'Edit'}</Button>
+          <Button
+            isRed={true}
+            onClick={() => {
+              setShowDeleteModal(true);
+            }}
+          >
+            Delete
+          </Button>
+        </div>
+      </div>
     </form>
   );
 };

@@ -6,18 +6,19 @@ interface IProps {
   onClick?: () => void;
   active?: boolean;
   props?: any;
+  isRed?: boolean;
 
   [key: string]: any;
 }
 
 const Button: FC<IProps> = React.memo(
-  ({ children, onClick, active, ...props }) => {
+  ({ children, onClick, active, isRed, ...props }) => {
     return (
       <button
         {...props}
-        className={
-          active ? `${style.button} ${style.button_active}` : style.button
-        }
+        className={`${style.button} ${active ? style.button_active : null} ${
+          isRed ? style.button_red : null
+        }`}
         onClick={onClick}
       >
         {children}
