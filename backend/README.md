@@ -313,7 +313,7 @@ User registration on the platform.
 
 **Route:** /api/room
 
-**Required parameters:** name (string), date (Date), interviewee (string[]\*), interviewer (string[]\*), watcher (string[]\*).
+**Required parameters:** name (string), date (Date),creator (string\*), interviewee (string\*), interviewer (string[]\*), watcher (string[]\*).
 
 \* email, username or ''.
 
@@ -325,6 +325,7 @@ User registration on the platform.
 {
     "name": "test-room",
     "date": "2014-04-05 05:00:00+02",
+    "creator":"vovk@gmail.com",
     "interviewee": "sobaka@ffff.com",
     "interviewer": ["", "fiass1srs1tsd12", "aiss1s1@dssa.com"],
     "watcher": "dsds@dda.co"
@@ -337,6 +338,11 @@ User registration on the platform.
 {
     "name": "test-room",
     "date": "2014-04-05 05:00:00+02",
+    "creator": {
+        "username": "",
+        "email": "vovk@gmail.com",
+        "password": "S23v9p"
+    },
     "interviewee": {
         "username": "",
         "email": "sobaka@ffff.com",

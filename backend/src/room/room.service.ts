@@ -19,6 +19,7 @@ import { IRoomResponce } from './types/roomResponce.interface';
 import { IRoomUserAndPassword } from './types/roomUserAndPassword.interface';
 import { IRoomUserResponce } from './types/roomUserResponce.interface';
 import { IChanged } from '@app/common/changed.interface';
+import { MailService } from '@app/mail/mail.service';
 
 @Injectable()
 export class RoomService {
@@ -29,6 +30,7 @@ export class RoomService {
     private readonly roomUserRepository: Repository<RoomUserEntity>,
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    private mailService: MailService,
   ) {}
 
   private isEmail = (key: string): boolean => REGULAR_CHECK_IS_EMAIL.test(key);
@@ -114,8 +116,9 @@ export class RoomService {
     }
   }
 
-  private roomResultConertor(
+  private roomResultConvertor(
     room: RoomEntity,
+    creator: IRoomUserAndPassword,
     interviewee: IRoomUserAndPassword,
     interviewer: IRoomUserAndPassword,
     watcher: IRoomUserAndPassword,
@@ -150,6 +153,7 @@ export class RoomService {
     return {
       name: room.name,
       date: room.date,
+      creator: usersConvertor(creator),
       interviewee: usersConvertor(interviewee),
       interviewer: usersConvertor(interviewer),
       watcher: usersConvertor(watcher),
@@ -158,6 +162,12 @@ export class RoomService {
 
   async createRoom(requestRoom: CreateRoomDto): Promise<IRoomResponce> {
     await this.isUniqueRoomName(requestRoom.name);
+
+    const creator = await this.createRoomUser({
+      users: Array.isArray(requestRoom.creator)
+        ? requestRoom.creator[0]
+        : requestRoom.creator,
+    });
 
     const interviewee = await this.createRoomUser({
       users: Array.isArray(requestRoom.interviewee)
@@ -181,6 +191,7 @@ export class RoomService {
     Object.assign(room, {
       name: requestRoom.name,
       date: requestRoom.date,
+      creator: creator.roomUser,
       interviewee: interviewee.roomUser,
       interviewer: converterToArray(interviewer.roomUser),
       watcher: converterToArray(watcher.roomUser),
@@ -188,8 +199,18 @@ export class RoomService {
 
     const createdRoom = await this.roomRepository.save(room);
 
-    return this.roomResultConertor(
+    // sending out invitations
+    await this.mailService.sendMailAboutCreateRoom(
       createdRoom,
+      creator,
+      interviewee,
+      interviewer,
+      watcher,
+    );
+
+    return this.roomResultConvertor(
+      createdRoom,
+      creator,
       interviewee,
       interviewer,
       watcher,

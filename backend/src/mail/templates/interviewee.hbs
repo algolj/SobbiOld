@@ -1,0 +1,152 @@
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Sobbi</title>
+    <style>
+      @media (prefers-color-scheme: dark) { .link-to-room { background-color:
+      #f1e9dc !important; border: 3px solid #1c1c1c !important; } } @import
+      url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+      body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif;
+      font-weight: 300; background-color: #f2f2f2; } .container { width: 60%;
+      background-color: white; } td { padding: 0; } table { border-spacing:
+      16px; padding: 12px 10px; } .title { font-size: 24px; font-weight: 700; }
+      .web-site-name { text-decoration: none; } .logo-container { text-align:
+      right; } .link { color: #1c1c1c; } .link_recommendation { font-weight:
+      400; line-height: 24px; } .link_clarification { color: #979797; }
+      .link-to-room { height: 60px; width: 240px; font-weight: 700;
+      border-radius: 13px; line-height: 58px; font-size: 25px; display:
+      inline-block; text-decoration: none; background-color: #f1e9dc; border:
+      3px solid #1c1c1c; user-select: none; transition: 0.2s; }
+      .link-to-room_shadow { position: relative; } .link-to-room_front {
+      transform: translate(-7px, -7px); position: absolute; display: block; }
+      .link-to-room_front:active { transform: translate(-3px, -3px); }
+      .simple-text { text-align: justify; line-height: 20px; } .clarification {
+      color: #979797; font-size: 14px; } .button-container { text-align: center;
+      height: 100px; } @media screen and (max-width: 600px) { .container {
+      width: 80%; } } @media screen and (max-width: 400px) { .container { width:
+      90%; } }
+    </style>
+  </head>
+  <body>
+    <br /><br />
+    <center class='wrapper'>
+      <table class='container'>
+        <tr>
+          <td class='logo-container'>
+            <a
+              class='title link web-site-name'
+              href='https://sobbi.pw'
+              target='_blank'
+            >Sobbi</a>
+          </td>
+        </tr>
+        <tr>
+          <td class='title'>👋</td>
+        </tr>
+        <tr>
+          <td>
+            Hi, I'm Vlad from the
+            <a class='link' href='https://sobbi.pw' target='_blank'>Sobbi</a>
+            interview platform and I have something to tell you.
+          </td>
+        </tr>
+        <tr>
+          <td class='simple-text'>
+            Some company is interested in you and offers to pass an online
+            interview. For this we have prepared a virtual room. Here are the
+            details:
+          </td>
+        </tr>
+        <tr>
+          <td class='simple-text'>
+            <strong>Date: </strong>{{date}}
+            <br />
+            <strong>Time: </strong>{{time}}
+            (GMT)<br />
+            <span class='clarification'>
+              I can put it in your
+              <a
+                class='link_clarification'
+                href='#'
+                target='_blank'
+              >Outlook</a>,
+              <a class='link_clarification' href='#' target='_blank'>Google</a>
+              or
+              <a class='link_clarification' href='#' target='_blank'>iCal</a>
+              calendar if you don't mind.
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td class='simple-text'>
+            <strong>Room name: </strong>{{roomName}}<br />
+            <strong>Password: </strong>{{password}}<br />
+          </td>
+        </tr>
+        <tr>
+          <td class='simple-text'>
+            <br />
+            You don't have to remember it, but just press this button when the
+            time comes.
+          </td>
+        </tr>
+        <tr>
+          <td class='button-container'>
+            <a
+              class='link-to-room link-to-room_shadow'
+              target='_blank'
+              href='{{roomLink}}'
+            ><span class='title link link-to-room link-to-room_front'>Enter room</span></a>
+          </td>
+        </tr>
+        <tr>
+          <td class='simple-text'>
+            Try not to worry, get enough sleep, prepare a glass of water and try
+            not to be late for it. At the bottom, I added a couple more articles
+            with tips on how to pass the interview even better.
+            <ul>
+              <li>
+                <a href='#' target='_blank' class='link link_recommendation'>How
+                  to deal with anxiety before an interview.</a>
+              </li>
+              <li>
+                <a
+                  href='#'
+                  target='_blank'
+                  class='link link_recommendation'
+                >What should be next to you at the interview.</a>
+              </li>
+              <li>
+                <a
+                  href='#'
+                  target='_blank'
+                  class='link link_recommendation'
+                >Exercises for diction and speech.</a>
+              </li>
+              <li>
+                <a href='#' target='_blank' class='link link_recommendation'>12
+                  tips on how to show your best side in an interview.</a>
+              </li>
+              <li>
+                <a href='#' target='_blank' class='link link_recommendation'>I
+                  don't know the answers to the questions. What should I do? Am
+                  I stupid?</a>
+              </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td class='simple-text'>
+            <strong style='float: left; margin-right: 5px'>P.S.</strong>
+            <p style='display: flow-root'>
+              Good luck to you, I believe that you will succeed 😉
+            </p>
+          </td>
+        </tr>
+      </table>
+    </center>
+    <br /><br />
+  </body>
+</html>
