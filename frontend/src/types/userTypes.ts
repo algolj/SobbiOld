@@ -10,21 +10,22 @@ export interface IAuthResponse {
   data: ILoginUser[];
 }
 
-export interface ISocialMedia {
-  linkedIn?: string;
-  facebook?: string;
-  github?: string;
-}
-
 export enum SocialMediaEnum {
   linkedIn = 'linkedIn',
   facebook = 'facebook',
   github = 'github',
 }
+
 export enum GenderEnum {
   Male = 'Male',
   Female = 'Female',
   Other = 'Other',
+}
+
+export interface ISocialMedia {
+  linkedIn?: string;
+  facebook?: string;
+  github?: string;
 }
 
 export interface IUser {
@@ -37,7 +38,7 @@ export interface IUser {
   dateOfBirth?: string;
   gender?: string;
   bio?: string;
-  image?: string;
+  image?: Buffer | null;
   socialMedia?: ISocialMedia | null;
   id?: 1;
 }

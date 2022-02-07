@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import style from './UserFormInfo.module.scss';
+import style from './UserForm.module.scss';
 
 interface IProps {
   isEdit: boolean;
@@ -10,7 +10,7 @@ interface IProps {
   type?: string;
 }
 
-const UserFormInfo: FC<IProps> = React.memo(
+const UserForm: FC<IProps> = React.memo(
   ({ isEdit, value, onChange, label, name, type }) => {
     return (
       <div className={style.user__info_wrapper}>
@@ -32,4 +32,4 @@ const UserFormInfo: FC<IProps> = React.memo(
   },
 );
 
-export default UserFormInfo;
+export default UserForm;

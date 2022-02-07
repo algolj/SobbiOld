@@ -15,6 +15,7 @@
   }
 
   &__avatar {
+    position: relative;
     border-radius: 50%;
     border: 2px solid $brown;
     width: 300px;
@@ -23,11 +24,53 @@
     justify-content: center;
     align-items: center;
     background: $wheat;
+    overflow: hidden;
+
+    &_edit {
+      position: absolute;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0);
+      opacity: 0;
+      transition: 0.2s;
+      cursor: pointer;
+
+      &:before,
+      &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 4px;
+        height: 30%;
+        background: $wheat;
+        border-radius: 5px;
+      }
+
+      &:before {
+        width: 30%;
+        height: 4px;
+      }
+
+    }
+
+    &:hover {
+      .user__avatar_edit {
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 1;
+
+      }
+    }
   }
 
+  &__file {
+    display: none;
+  }
 
   &__photo {
-    width: 200px;
+    object-fit: cover;
   }
 
 
