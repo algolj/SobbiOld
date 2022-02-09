@@ -10,6 +10,19 @@ export interface IAuthResponse {
   data: ILoginUser[];
 }
 
+export interface IUserForm {
+  formUsername: string;
+  formEmail: string;
+  formFirstName: string;
+  formLastName: string;
+  formBio: string;
+  formSocialMedia: string;
+  formPicked: string;
+  formGender: string;
+  formDateOfBirth: string;
+  formImage: Buffer;
+}
+
 export enum SocialMediaEnum {
   linkedIn = 'linkedIn',
   facebook = 'facebook',
@@ -44,6 +57,7 @@ export interface IUser {
 }
 
 export type IUserInfo = Omit<IUser, 'username' | 'email' | 'password'>;
+export type IUserLogin = Pick<IUser, 'username' | 'email'>;
 
 export interface ILoginUser {
   login: string;
@@ -54,6 +68,8 @@ export interface IUserState {
   user: IUser | null;
   isAuth: boolean;
   error: null | string;
+  isEditBio: boolean;
+  isEdit: boolean;
 }
 
 export enum UsersActionType {
@@ -64,4 +80,6 @@ export enum UsersActionType {
   CHANGE_USER_LOGIN = 'CHANGE_USER_LOGIN',
   CHANGE_USER_EMAIL = 'CHANGE_USER_EMAIL',
   CHANGE_USER_INFO = 'CHANGE_USER_INFO',
+  IS_EDIT = 'IS_EDIT',
+  IS_EDIT_BIO = 'IS_EDIT_BIO',
 }

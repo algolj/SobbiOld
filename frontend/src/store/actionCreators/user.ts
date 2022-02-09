@@ -13,6 +13,8 @@ import {
   createUserAction,
   loginUserAction,
   logoutUserAction,
+  setIsEditAction,
+  setIsEditBioAction,
 } from '../reducers/userReducer/actions';
 import $api from '../../http/http';
 
@@ -111,7 +113,7 @@ export const changeUserInfo = (user: IUserInfo) => {
         dateOfBirth: user.dateOfBirth,
         gender: user.gender,
         bio: user.bio,
-        image: user.image,
+        image: '',
         socialMedia: {
           linkedIn: user.socialMedia?.linkedIn,
           facebook: user.socialMedia?.facebook,
@@ -120,6 +122,25 @@ export const changeUserInfo = (user: IUserInfo) => {
       });
       console.log(response.data.socialMedia);
       dispatch(changeUserInfoAction(response.data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const setIsEdit = (isEdit: boolean) => {
+  return async (dispatch: Dispatch<ActionTypesUsers>) => {
+    try {
+      dispatch(setIsEditAction(isEdit));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+export const setIsEditBio = (isEditBio: boolean) => {
+  return async (dispatch: Dispatch<ActionTypesUsers>) => {
+    try {
+      dispatch(setIsEditBioAction(isEditBio));
     } catch (e) {
       console.log(e);
     }

@@ -1,4 +1,4 @@
-import { IUser, IUserInfo, UsersActionType } from '../../../types/userTypes';
+import { IUser, UsersActionType } from '../../../types/userTypes';
 
 export const createUserAction = (user: IUser) =>
   ({
@@ -38,4 +38,16 @@ export const changeUserInfoAction = (info: IUser) =>
   ({
     type: UsersActionType.CHANGE_USER_INFO,
     payload: info,
+  } as const);
+
+export const setIsEditAction = (isEdit: boolean) =>
+  ({
+    type: UsersActionType.IS_EDIT,
+    payload: isEdit,
+  } as const);
+
+export const setIsEditBioAction = (isEditBio: boolean) =>
+  ({
+    type: UsersActionType.IS_EDIT_BIO,
+    payload: isEditBio,
   } as const);

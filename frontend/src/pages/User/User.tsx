@@ -1,137 +1,57 @@
-import React, { FC, useRef, useState } from 'react';
-import Title from '../../components/UI/Title/Title';
-import colors from '../../styles/index.scss';
+import React, { FC, useState } from 'react';
 import style from './User.module.scss';
-import styleTitle from '../../components/UI/Title/Title.module.scss';
 import FeedbackShortcut from '../../components/FeedbackShortcut/FeedbackShortcut';
-import InfoItem from '../../components/UI/InfoItem/InfoItem';
 import Button from '../../components/UI/Button/Button';
-import UserForm from '../../components/UserForm/UserForm';
 import Modal from '../../components/UI/Modal/Modal';
-import FormInput from '../../components/UI/inputs/FormInput/FormInput';
-import * as Yup from 'yup';
-import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
 import { useActions } from '../../hooks/useActions';
-import { GenderEnum, SocialMediaEnum } from '../../types/userTypes';
+import { IUserInfo, IUserLogin } from '../../types/userTypes';
 import UserBasicInfo from '../../components/UserBasicInfo/UserBasicInfo';
 
 const User: FC = () => {
   const {
-    logoutUser,
+    isEdit,
+    user: { username, email },
+  } = useTypeSelector((state) => state.user);
+  const {
     deleteUser,
     changeUserName,
     changeUserEmail,
     changeUserInfo,
+    setIsEdit,
+    setIsEditBio,
   } = useActions();
 
-  const { github, linkedIn, facebook } = SocialMediaEnum;
-  const socialMediaArray = [github, linkedIn, facebook];
-
-  const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [isEditBio, setIsEditBio] = useState<boolean>(false);
-  const [visibility, setVisibility] = useState<boolean>(false);
+  const [updateUserInfo, setUpdateUserInfo] = useState<IUserInfo>({});
+  const [updateUserLogin, setUpdateUserLogin] = useState<IUserLogin>({
+    username: username,
+    email: email,
+  });
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
-  // const userUpdate: any = {
-  //   socialMedia: {},
-  //   gender: formGender,
-  //   firstName: formFirstName,
-  //   lastName: formLastName,
-  //   dateOfBirth: formDateOfBirth,
-  //   bio: formBio,
-  //   image: formImage,
-  // };
-
-  const changeUserInfoHandler = async (
-    remove?: boolean,
-    userInfo: any = userUpdate,
-  ) => {
-    userInfo.socialMedia![
-      formPicked
-    ] = `https://${formPicked}.com/${formSocialMedia}`;
-
-    if (remove) {
-      delete userInfo.socialMedia![formPicked];
-    }
-    await changeUserInfo(userInfo);
-  };
-
   const userEdit = async () => {
-    if (!isEdit) return setIsEdit(!isEdit);
+    if (!isEdit) return setIsEdit(true);
     else {
-      await changeUserInfoHandler();
-      await changeUserName(userForm.values.formUsername);
-      await changeUserEmail(userForm.values.formEmail);
+      console.log(updateUserInfo);
+      await changeUserInfo(updateUserInfo);
+      await changeUserName(updateUserLogin.username);
+      await changeUserEmail(updateUserLogin.email);
       setIsEdit(false);
       setIsEditBio(false);
     }
   };
-
-  const imageReader = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const reader = new FileReader();
-    reader.onload = (progress) => {
-      userForm.setFieldValue('formImage', progress.target!.result);
-    };
-    if (e.currentTarget.files?.length) {
-      reader.readAsDataURL(e.currentTarget.files[0]);
-    }
-  };
-  const fileInput = useRef() as any;
+  console.log(updateUserInfo);
   return (
-    <form onSubmit={(e) => e.preventDefault()} className={style.user}>
-      <Modal
-        title={'Add new'}
-        visibility={visibility}
-        setVisibility={setVisibility}
-      >
-        <div className="">
-          <FormInput
-            name={'formSocialMedia'}
-            label={'Name'}
-            value={formSocialMedia}
-            onChange={userForm.handleChange}
-          />
-          {socialMediaArray.map((media) => (
-            <label htmlFor={media} key={media}>
-              <InfoItem
-                isEdit={isEdit}
-                name={media}
-                isButton={true}
-                checked={formPicked}
-              />
-              <input
-                className={style.modal__radio}
-                id={media}
-                type={'radio'}
-                name={'formPicked'}
-                value={media}
-                // onChange={userForm.handleChange}
-              />
-            </label>
-          ))}
-          <Button onClick={() => changeUserInfoHandler()}>Add</Button>
-        </div>
-      </Modal>
-      <Title color={colors.white}>
-        {isEdit ? (
-          <input
-            className={styleTitle.title}
-            name={'formUsername'}
-            value={formUsername}
-            onChange={userForm.handleChange}
-          />
-        ) : (
-          formUsername
-        )}
-      </Title>
-      <UserBasicInfo />
+    <div onSubmit={(e) => e.preventDefault()} className={style.user}>
+      <UserBasicInfo
+        setUpdateUserInfo={setUpdateUserInfo}
+        setUpdateUserLogin={setUpdateUserLogin}
+      />
       <div className={style.user__feedbacks}>
         <div className={style.user__title}>Feedbacks</div>
         <FeedbackShortcut />
       </div>
-
       <Modal
         visibility={showDeleteModal}
         title={'Are you sure?'}
@@ -159,7 +79,7 @@ const User: FC = () => {
           </Button>
         </div>
       </div>
-    </form>
+    </div>
   );
 };
 
