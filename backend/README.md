@@ -415,7 +415,7 @@ User registration on the platform.
 
 ```JSON
 {
-    "delete": true
+    "changed": true
 }
 ```
 
