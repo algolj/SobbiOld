@@ -375,8 +375,6 @@ User registration on the platform.
 
 #### 11. Delete room
 
-**⚠️ Subsequently, it will be executed through authorization or through the password of the interviewer**
-
 **Request type:** DELETE
 
 **Required header:** Authorization (Bearer `CREATOR_JWT_TOKEN`).
@@ -394,8 +392,6 @@ User registration on the platform.
 ```
 
 #### 12. Change room date
-
-**⚠️ Subsequently, it will be executed through authorization or through the password of the interviewer**
 
 **Request type:** PUT
 
@@ -437,7 +433,7 @@ User registration on the platform.
 
 ```JSON
 {
-    "login": "test",
+    "room": "test",
     "password": "123456"
 }
 ```
