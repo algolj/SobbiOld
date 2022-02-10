@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { JwtService } from '@nestjs/jwt';
 
 import {
   NOT_ALLOWED_USERNAME,
@@ -9,7 +10,11 @@ import {
 } from '@app/common/global.constants';
 import { CreateRoomDto } from './dto/createRoom.dto';
 import { RoomUserEntity } from './room-user.entity';
-import { ROOM_NAME_ALREADY_EXISTS } from './room.constants';
+import {
+  ROOM_NAME_ALREADY_EXISTS,
+  ROOM_NAME_OR_PASSWORD_INCORRECT,
+  YOUR_ARE_NOT_CREATOR_THIS_ROOM,
+} from './room.constants';
 import { RoomEntity } from './room.entity';
 import { IRoomUser } from '../common/createRoomUser.interface';
 import { UserEntity } from '@app/user/user.entity';
@@ -20,6 +25,11 @@ import { IRoomUserAndPassword } from './types/roomUserAndPassword.interface';
 import { IRoomUserResponce } from './types/roomUserResponce.interface';
 import { IChanged } from '@app/common/changed.interface';
 import { MailService } from '@app/mail/mail.service';
+import { loginRoomDto } from './dto/loginRoom.dto';
+import { ERoomRole } from '@app/common/room-role.enum';
+import { compare } from 'bcryptjs';
+import { ITokenResponce } from '@app/common/tokenResponce.interface';
+import { IRoomAuthUser } from './types/roomAuthUser.interface';
 
 @Injectable()
 export class RoomService {
@@ -31,6 +41,7 @@ export class RoomService {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     private mailService: MailService,
+    private readonly jwtService: JwtService,
   ) {}
 
   private isEmail = (key: string): boolean => REGULAR_CHECK_IS_EMAIL.test(key);
@@ -221,43 +232,118 @@ export class RoomService {
     return await this.roomRepository.find();
   }
 
-  async deleteRoom(roomId: string): Promise<IDeleteResponce> {
-    const key = REGULAR_CHECK_IS_ID.test(roomId)
-      ? {
-          id: +roomId.slice(2),
-        }
-      : {
-          name: roomId,
-        };
+  async deleteRoom(
+    roomUser: IRoomAuthUser,
+    roomName: string,
+  ): Promise<IDeleteResponce> {
+    const room = await this.getCreatorsRoom(roomName, roomUser.userId);
+
+    const deleteRoom =
+      room && !!(await this.roomRepository.remove(room as RoomEntity));
+
+    if (deleteRoom) {
+      await this.mailService.sendMailAboutDeleteRoom(room as RoomEntity);
+    }
 
     return {
-      delete:
-        roomId &&
-        !!(await this.roomRepository.remove(
-          await this.roomRepository.findOne(key),
-        )),
+      delete: deleteRoom,
     };
   }
 
-  async changeDate(roomId: string, newDate: string): Promise<IChanged> {
-    const key = REGULAR_CHECK_IS_ID.test(roomId)
+  async getCreatorsRoom(
+    roomName: string,
+    userId: number,
+  ): Promise<RoomEntity | boolean> {
+    const key = REGULAR_CHECK_IS_ID.test(roomName)
       ? {
-          id: +roomId.slice(2),
+          id: +roomName.slice(2),
         }
       : {
-          name: roomId,
+          name: roomName,
         };
 
     const room = await this.roomRepository.findOne(key);
 
-    room.date = new Date(newDate);
+    const user = await this.roomUserRepository.findOne({ id: userId });
+
+    return room.creator.email === user.email && room;
+  }
+
+  async changeDate(
+    roomUser: IRoomAuthUser,
+    roomName: string,
+    newDate: string,
+  ): Promise<IChanged> {
+    const room = await this.getCreatorsRoom(roomName, roomUser.userId);
+
+    const changed =
+      room &&
+      !!(await this.roomRepository.save({
+        ...(room as RoomEntity),
+        date: new Date(newDate),
+      }));
+
+    if (changed) {
+      await this.mailService.sendMailAboutChangeDate(
+        room as RoomEntity,
+        new Date(newDate),
+      );
+    }
 
     return {
-      changed: roomId && !!(await this.roomRepository.save(room)),
+      changed,
     };
   }
 
   async getRoomUser() {
     return await this.roomUserRepository.find();
+  }
+
+  private async whatIsTheRole(
+    room: RoomEntity,
+    password: string,
+  ): Promise<Omit<IRoomAuthUser, 'roomId'> | null> {
+    const isCorrectPassword = async (hash) => await compare(password, hash);
+
+    const roles = ['creator', 'interviewee', 'interviewer', 'watcher'];
+
+    for (const role of roles) {
+      const users = room[role];
+
+      if (Array.isArray(users)) {
+        for (const user of users) {
+          const result = await isCorrectPassword(user.password);
+          if (result) return { role: role as ERoomRole, userId: user.id };
+        }
+      } else {
+        const result = await isCorrectPassword(users.password);
+        if (result) return { role: role as ERoomRole, userId: users.id };
+      }
+    }
+
+    return null;
+  }
+
+  async validateUserInRoom(loginData: loginRoomDto): Promise<IRoomAuthUser> {
+    const notAuth = () => {
+      throw new HttpException(
+        ROOM_NAME_OR_PASSWORD_INCORRECT,
+        HttpStatus.UNAUTHORIZED,
+      );
+    };
+
+    const room =
+      (await this.roomRepository.findOne({ name: loginData.room }, {})) ||
+      notAuth();
+
+    const userRole =
+      (await this.whatIsTheRole(room, loginData.password)) || notAuth();
+
+    return { roomId: room.id, ...userRole };
+  }
+
+  async authUserInRoom(loginData: loginRoomDto): Promise<ITokenResponce> {
+    const authData = await this.validateUserInRoom(loginData);
+    return { token: await this.jwtService.signAsync(authData) };
   }
 }

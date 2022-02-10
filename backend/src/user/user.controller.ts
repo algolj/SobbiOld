@@ -60,7 +60,6 @@ export class UserController {
   @UsePipes(new ValidationPipe())
   @UseGuards(JwtUserGuard)
   @Put('change/email')
-  @Put('change/username')
   async changeUserEmail(
     @User() user: IUser,
     @Body() newValue: TLoginKey,

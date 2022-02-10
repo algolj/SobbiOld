@@ -379,6 +379,8 @@ User registration on the platform.
 
 **Request type:** DELETE
 
+**Required header:** Authorization (Bearer `CREATOR_JWT_TOKEN`).
+
 **Route:** /api/room/id`number` or /api/room/`roomname`
 
 [**Error**](#error-response)
@@ -399,7 +401,9 @@ User registration on the platform.
 
 **Route:** /api/room/id`number` or /api/room/`roomname`
 
-**Required parameters:** date (Date)
+**Required header:** Authorization (Bearer `CREATOR_JWT_TOKEN`).
+
+**Required parameters:** date (string)
 
 [**Error**](#error-response)
 
@@ -416,6 +420,33 @@ User registration on the platform.
 ```JSON
 {
     "delete": true
+}
+```
+
+#### 13. Authorization user in room
+
+**Request type:** POST
+
+**Route:** /api/room/login
+
+**Required parameters:** room (id or room name), password (string).
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "login": "test",
+    "password": "123456"
+}
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6InVzZXJOYW1lMSIsInBhc3N3b3JkIjoiMTIzNDU2IiwiaWF0IjoxNTE2MjM5MDIyfQ.6L_6G4xTG2ZWElesHV1syP1s50ZsJasit4pQNTUp4CQ"
 }
 ```
 

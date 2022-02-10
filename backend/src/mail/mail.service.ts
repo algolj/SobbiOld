@@ -5,7 +5,7 @@ import { ERoomRole } from '@app/common/room-role.enum';
 import { RoomUserEntity } from '@app/room/room-user.entity';
 import { RoomEntity } from '@app/room/room.entity';
 import { IRoomUserAndPassword } from '@app/room/types/roomUserAndPassword.interface';
-import { subjectFromRole } from './constants';
+import { changeTime, deleteRoom, subjectFromRole } from './constants';
 import { ISendMail } from './types/send-mail.interface';
 
 @Injectable()
@@ -46,6 +46,7 @@ export class MailService {
         watcher,
       );
     }
+
     // send email to Interviewee,Interviewers,Watchers
     await [
       { type: 'Interviewee', users: interviewee },
@@ -180,6 +181,66 @@ export class MailService {
       },
     };
 
+    await this.sendMail(MailConfig);
+  }
+
+  private getEmailAllUser(room: RoomEntity): string[] {
+    return ['creator', 'interviewee', 'interviewer', 'watcher'].reduce(
+      (acc, role) => {
+        const users = room[role];
+
+        if (Array.isArray(users)) {
+          users.forEach((user) => {
+            if (user.email) {
+              acc.push(user.email);
+            }
+          });
+        } else {
+          if (users.email) {
+            acc.push(users.email);
+          }
+        }
+
+        return acc;
+      },
+      [],
+    );
+  }
+
+  async sendMailAboutChangeDate(room: RoomEntity, newDate: Date) {
+    const { time: oldTime, date: oldDate } = this.getUTCDateAndTime(room.date);
+    const { time, date } = this.getUTCDateAndTime(newDate);
+
+    const MailConfig = {
+      to: this.getEmailAllUser(room),
+      from: 'Alexander from Sobbi sobbi@algolj.it',
+      subject: changeTime,
+      template: 'change-time',
+      context: {
+        roomName: room.name,
+        date,
+        time,
+        oldTime,
+        oldDate,
+      },
+    };
+    await this.sendMail(MailConfig);
+  }
+
+  async sendMailAboutDeleteRoom(room: RoomEntity) {
+    const { time, date } = this.getUTCDateAndTime(room.date);
+
+    const MailConfig = {
+      to: this.getEmailAllUser(room),
+      from: 'Alexander from Sobbi sobbi@algolj.it',
+      subject: deleteRoom,
+      template: 'delete-room',
+      context: {
+        roomName: room.name,
+        date,
+        time,
+      },
+    };
     await this.sendMail(MailConfig);
   }
 
