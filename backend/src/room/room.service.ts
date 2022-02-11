@@ -30,6 +30,8 @@ import { ERoomRole } from '@app/common/room-role.enum';
 import { compare } from 'bcryptjs';
 import { ITokenResponce } from '@app/common/tokenResponce.interface';
 import { IRoomAuthUser } from './types/roomAuthUser.interface';
+import { IDeleteRoomUser } from './types/deleteRoomUser.interface';
+import { IAddUserInRoom } from './types/addUserInRoom.interface';
 
 @Injectable()
 export class RoomService {
@@ -45,6 +47,8 @@ export class RoomService {
   ) {}
 
   private isEmail = (key: string): boolean => REGULAR_CHECK_IS_EMAIL.test(key);
+  private passwordGenerator = () =>
+    (~~(Math.random() * Math.pow(36, 6))).toString(36);
 
   private async userAccount(userKey: string): Promise<UserEntity | undefined> {
     return await this.userRepository.findOne({
@@ -55,13 +59,10 @@ export class RoomService {
   private async createRoomUser(
     usersArr: IRoomUser,
   ): Promise<IRoomUserAndPassword> {
-    const passwordGenerator = () =>
-      (~~(Math.random() * Math.pow(36, 6))).toString(36);
-
     const createUser = async (userKey: string) => {
       const user: ICreateRoomUser = {
         email: null,
-        password: passwordGenerator(),
+        password: this.passwordGenerator(),
       };
 
       const userInDatabase = userKey
@@ -211,13 +212,17 @@ export class RoomService {
     const createdRoom = await this.roomRepository.save(room);
 
     // sending out invitations
-    await this.mailService.sendMailAboutCreateRoom(
-      createdRoom,
-      creator,
-      interviewee,
-      interviewer,
-      watcher,
-    );
+    try {
+      await this.mailService.sendMailAboutCreateRoom(
+        createdRoom,
+        creator,
+        interviewee,
+        interviewer,
+        watcher,
+      );
+    } catch (e) {
+      console.error('Mail error', e);
+    }
 
     return this.roomResultConvertor(
       createdRoom,
@@ -228,8 +233,8 @@ export class RoomService {
     );
   }
 
-  async getRoom() {
-    return await this.roomRepository.find();
+  async getRoom(name: string) {
+    return await this.roomRepository.findOne({ name });
   }
 
   async deleteRoom(
@@ -345,5 +350,123 @@ export class RoomService {
   async authUserInRoom(loginData: loginRoomDto): Promise<ITokenResponce> {
     const authData = await this.validateUserInRoom(loginData);
     return { token: await this.jwtService.signAsync(authData) };
+  }
+
+  async changeNameInRoom(userId: number, name: string): Promise<IChanged> {
+    const user = await this.roomUserRepository.findOne({ id: userId });
+
+    user.name = name;
+
+    return { changed: (await this.roomUserRepository.save(user)).name == name };
+  }
+
+  async removableUserFromRoom(
+    user: IRoomAuthUser,
+    removableUser: IDeleteRoomUser,
+  ): Promise<IDeleteResponce> {
+    const room = await this.roomRepository.findOne({ id: user.roomId });
+
+    let removableUserData;
+
+    const deleteUserInRoom = async (roleInRoom, userInRoom) => {
+      userInRoom = userInRoom || null;
+      const key =
+        userInRoom == null || Number.isNaN(+userInRoom) ? 'email' : 'id';
+
+      if (Array.isArray(room[roleInRoom])) {
+        removableUserData = room[roleInRoom].find(
+          (userWithRole) => userWithRole[key] == userInRoom,
+        );
+        room[roleInRoom].splice(
+          room[roleInRoom].findIndex(
+            (userWithRole) => userWithRole[key] === userInRoom,
+          ),
+          1,
+        );
+      } else {
+        if (room[roleInRoom][key] == userInRoom) {
+          removableUserData = room[roleInRoom];
+          const newUser = new RoomUserEntity();
+          newUser.password = this.passwordGenerator();
+          room[roleInRoom] = await this.roomUserRepository.save(newUser);
+        }
+      }
+    };
+
+    if (user.role.toLowerCase() == 'creator') {
+      await deleteUserInRoom(removableUser.role, removableUser.user);
+    } else {
+      await deleteUserInRoom(user.role, user.userId);
+    }
+
+    const deleteUser =
+      (await this.roomRepository.save(room)) &&
+      !!(await this.roomUserRepository.delete(removableUserData)).affected;
+
+    if (deleteUser) {
+      try {
+        await this.mailService.sendMailCreatorAboutDeleteUser(
+          room.name,
+          new Date(room.date),
+          room.creator.email,
+          removableUserData.email || ' ',
+        );
+
+        if (removableUserData.email) {
+          await this.mailService.sendMailAboutDeleteUser(
+            room.name,
+            new Date(room.date),
+            removableUserData.email || ' ',
+          );
+        }
+      } catch (e) {
+        console.error('Mail error', e);
+      }
+    }
+
+    return {
+      delete: deleteUser,
+    };
+  }
+
+  async addNewUser(
+    creatorDraft: IRoomAuthUser,
+    newUser: IAddUserInRoom,
+  ): Promise<IChanged> {
+    let changed = false;
+    let user;
+
+    const room = await this.roomRepository.findOne({ id: creatorDraft.roomId });
+
+    const creator = await this.roomUserRepository.findOne({
+      id: creatorDraft.userId,
+    });
+
+    if (
+      room.creator.email === creator.email &&
+      newUser.role.toLowerCase() !== 'creator'
+    ) {
+      user = await this.createRoomUser({
+        users: newUser.user,
+        role: newUser.role,
+      });
+
+      room[newUser.role] = Array.isArray(room[newUser.role])
+        ? [...room[newUser.role], user.roomUser]
+        : user.roomUser;
+
+      changed = !!(await this.roomRepository.save(room));
+    }
+
+    if (changed && user.roomUser.email) {
+      await this.mailService.addNewUser(
+        newUser.role,
+        room,
+        user.roomUser.email,
+        user.roomPassword,
+      );
+    }
+
+    return { changed };
   }
 }

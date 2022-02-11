@@ -5,7 +5,13 @@ import { ERoomRole } from '@app/common/room-role.enum';
 import { RoomUserEntity } from '@app/room/room-user.entity';
 import { RoomEntity } from '@app/room/room.entity';
 import { IRoomUserAndPassword } from '@app/room/types/roomUserAndPassword.interface';
-import { changeTime, deleteRoom, subjectFromRole } from './constants';
+import {
+  changeTime,
+  creatorDeleteUserFromRoom,
+  deleteRoom,
+  deleteUserFromRoom,
+  subjectFromRole,
+} from './constants';
 import { ISendMail } from './types/send-mail.interface';
 
 @Injectable()
@@ -246,5 +252,67 @@ export class MailService {
 
   private async sendMail(mailOptions: ISendMail): Promise<void> {
     await this.mailerService.sendMail(mailOptions);
+  }
+
+  async sendMailAboutDeleteUser(
+    roomName: string,
+    draftDate: Date,
+    email: string,
+  ) {
+    const { time, date } = this.getUTCDateAndTime(draftDate);
+
+    const MailConfig = {
+      to: email,
+      from: 'Alexander from Sobbi sobbi@algolj.it',
+      subject: deleteUserFromRoom,
+      template: 'remove-user-from-room',
+      context: {
+        roomName,
+        date,
+        time,
+      },
+    };
+    await this.sendMail(MailConfig);
+  }
+
+  async sendMailCreatorAboutDeleteUser(
+    roomName: string,
+    draftDate: Date,
+    email: string,
+    user: string,
+  ) {
+    const { time, date } = this.getUTCDateAndTime(draftDate);
+
+    const MailConfig = {
+      to: email,
+      from: 'Alexander from Sobbi sobbi@algolj.it',
+      subject: creatorDeleteUserFromRoom,
+      template: 'remove-creator-from-room',
+      context: {
+        user,
+        roomName,
+        date,
+        time,
+      },
+    };
+    await this.sendMail(MailConfig);
+  }
+
+  async addNewUser(
+    role: string,
+    room: RoomEntity,
+    email: string,
+    password: string,
+  ) {
+    const { time, date } = this.getUTCDateAndTime(room.date);
+
+    await this.sendAnInvitationPersonally(
+      (role[0].toUpperCase() + role.slice(1)) as ERoomRole,
+      room.name,
+      date,
+      time,
+      email,
+      password,
+    );
   }
 }

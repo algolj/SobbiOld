@@ -21,6 +21,8 @@ import { CreateRoomDto } from './dto/createRoom.dto';
 import { loginRoomDto } from './dto/loginRoom.dto';
 import { JwtUserInRoomGuard } from './guards/jwt.guard';
 import { RoomService } from './room.service';
+import { IAddUserInRoom } from './types/addUserInRoom.interface';
+import { IDeleteRoomUser } from './types/deleteRoomUser.interface';
 import { IRoomAuthUser } from './types/roomAuthUser.interface';
 import { IRoomResponce } from './types/roomResponce.interface';
 
@@ -32,6 +34,45 @@ export class RoomController {
   @Post()
   async createRoom(@Body() room: CreateRoomDto): Promise<IRoomResponce> {
     return await this.roomService.createRoom(room);
+  }
+
+  @UsePipes(new ValidationPipe())
+  @Post('login')
+  async loginInRoom(@Body() authData: loginRoomDto): Promise<ITokenResponce> {
+    return await this.roomService.authUserInRoom(authData);
+  }
+
+  @UsePipes(new ValidationPipe())
+  @UseGuards(JwtUserInRoomGuard)
+  @Put('user')
+  async changeName(
+    @RoomUser() roomUser: IRoomAuthUser,
+    @Body('name') name: string,
+  ): Promise<IChanged> {
+    return await this.roomService.changeNameInRoom(roomUser.userId, name);
+  }
+
+  @UsePipes(new ValidationPipe())
+  @UseGuards(JwtUserInRoomGuard)
+  @Post('user')
+  async addUser(
+    @RoomUser() roomUser: IRoomAuthUser,
+    @Body() newUser: IAddUserInRoom,
+  ): Promise<IChanged> {
+    return await this.roomService.addNewUser(roomUser, newUser);
+  }
+
+  @UsePipes(new ValidationPipe())
+  @UseGuards(JwtUserInRoomGuard)
+  @Delete('user')
+  async removableUserFromRoom(
+    @RoomUser() roomUser: IRoomAuthUser,
+    @Body() removableUser: IDeleteRoomUser,
+  ): Promise<IDeleteResponce> {
+    return await this.roomService.removableUserFromRoom(
+      roomUser,
+      removableUser,
+    );
   }
 
   @UsePipes(new ValidationPipe())
@@ -60,14 +101,8 @@ export class RoomController {
     return await this.roomService.getRoomUser();
   }
 
-  @Get('room')
-  async getRoom() {
-    return await this.roomService.getRoom();
-  }
-
-  @UsePipes(new ValidationPipe())
-  @Post('login')
-  async loginInRoom(@Body() authData: loginRoomDto): Promise<ITokenResponce> {
-    return await this.roomService.authUserInRoom(authData);
+  @Get('room/:name')
+  async getRoom(@Param('name') name: string) {
+    return await this.roomService.getRoom(name);
   }
 }

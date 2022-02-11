@@ -6,3 +6,5 @@ export const subjectFromRole = {
 };
 export const changeTime = "Umm, we've changed the interview time a bit 👉⌚️";
 export const deleteRoom = 'Do you want an interview? It got canceled 🤷‍♂️';
+export const deleteUserFromRoom = 'You have successfully exited the interview';
+export const creatorDeleteUserFromRoom = 'Someone left the interview room';

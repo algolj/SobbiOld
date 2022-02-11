@@ -446,6 +446,96 @@ User registration on the platform.
 }
 ```
 
+#### 14. Change room date
+
+**Request type:** PUT
+
+**Route:** /api/room/user
+
+**Required header:** Authorization (Bearer `USER_JWT_TOKEN`).
+
+**Required parameters:** name (string)
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "name": "Orest"
+}
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "changed": true
+}
+```
+
+#### 15. Deleting a user in a room
+
+**Request type:** DELETE
+
+**Route:** /api/room/user
+
+**Required header:** Authorization (Bearer `USER_JWT_TOKEN` or `CREATOR_JWT_TOKEN`)\*.
+
+\* The user can remove himself from the room or the creator can remove any user.
+
+**Required parameters:** role (string )\*\*, user (email or id)\*\*.
+
+\*\* only for creator.
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "room": "test",
+    "user": "dog@example.com"
+}
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "delete": true
+}
+```
+
+#### 16. Adding a new user to the room
+
+**Request type:** POST
+
+**Route:** /api/room/user
+
+**Required header:** Authorization (Bearer `CREATOR_JWT_TOKEN`).
+
+**Required parameters:** role (string ), user (email or username).
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "role": "interviewer",
+    "user": "dog@example.com"
+}
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "changed": true
+}
+```
+
 #### Error response
 
 Gets JSON with two parameters:
