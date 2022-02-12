@@ -536,6 +536,34 @@ User registration on the platform.
 }
 ```
 
+#### 17. Adding profile image
+
+**Request type:** POST
+
+**Route:** /api/profile/image
+
+**Required header:** Authorization (Bearer `USER_JWT_TOKEN`).
+
+**Required body(form data):** file.
+
+[**Error**](#error-response)
+
+**Response Body (JSON type):**
+
+```JSON
+{
+     "path": "pr-img-cahadm-jdtg8c-1644691494187.jfif"
+}
+```
+
+#### 18. Profile image
+
+**Request type:** GET
+
+**Route:** /api/profile/image/`imgname`
+
+[**Error**](#error-response)
+
 #### Error response
 
 Gets JSON with two parameters:

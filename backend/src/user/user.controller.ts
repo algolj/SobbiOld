@@ -84,14 +84,6 @@ export class UserController {
     return await this.userService.emailOrUsernameExists(authKay);
   }
 
-  @UsePipes(new ValidationPipe())
-  @UseGuards(JwtUserGuard)
-  @Post('profile-image')
-  async l(@User() user: IUser) {
-    console.log(user);
-    return user;
-  }
-
   // delete on release ⚠️
   @Get('all')
   async dd() {
