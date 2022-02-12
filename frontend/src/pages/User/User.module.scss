@@ -14,58 +14,34 @@
     margin-bottom: 15px;
   }
 
-  &__avatar {
-    border-radius: 50%;
-    border: 2px solid $brown;
-    width: 300px;
-    height: 300px;
+  &__settings {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background: $wheat;
+    justify-content: right;
   }
 
-  &__photo {
-    width: 200px;
-  }
-
-
-  &__gender {
-    &_wrapper {
-      display: flex;
-      flex-direction: row;
-      gap: 10px;
-    }
-  }
-
-  &__info {
-    width: 300px;
+  &__buttons {
     display: flex;
     flex-direction: column;
     gap: 20px;
-
-    &_wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-    }
-
-    &_media {
-      display: flex;
-      flex-direction: row;
-      gap: 10px;
-    }
+    width: 120px;
+    height: 120px;
   }
 
-  &__description {
-    max-width: 700px;
-    overflow-wrap: break-word;
-    hyphens: manual;
+  &__delete {
 
-    &_text {
-      margin: 0 0 0 10px;
-      font-size: $SFont;
+    &_modal {
+      width: 100%;
+      height: 100%;
+    }
+
+    &_wrapper {
+      height: 45px;
+      margin: 60px auto 10px auto;
+      width: 50%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 30px;
     }
   }
 
@@ -76,19 +52,5 @@
   }
 }
 
-.modal {
-  &__radio {
-    //display: none;
-  }
-}
 
-@media screen and (min-width: 768px) {
-  .user {
-    &__info {
-      &_wrapper {
-        flex-direction: row-reverse;
-        justify-content: space-between;
-      }
-    }
-  }
-}
+

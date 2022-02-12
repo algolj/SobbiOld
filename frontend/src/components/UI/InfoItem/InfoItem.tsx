@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import style from './InfoItem.module.scss';
+import { useTypeSelector } from '../../../hooks/useTypeSelector';
 
 interface IProps {
   name: string;
   referral?: string;
   onClick?: () => void;
-  onRemove?: () => void;
+  onRemove?: (event?: React.MouseEvent<HTMLElement>) => void;
   isReferral?: boolean;
-  isEdit: boolean;
   isAdd?: boolean;
   isButton?: boolean;
   checked?: string;
@@ -19,7 +19,6 @@ const InfoItem: FC<IProps> = React.memo(
     onClick,
     name,
     referral,
-    isEdit,
     isAdd,
     isButton,
     checked,
@@ -27,7 +26,7 @@ const InfoItem: FC<IProps> = React.memo(
     onRemove,
     isClickable = true,
   }) => {
-    // console.log(name, checked);
+    const { isEdit } = useTypeSelector((state) => state.user);
     return (
       <div onClick={onClick} className={style.info__wrapper}>
         {isButton ? (

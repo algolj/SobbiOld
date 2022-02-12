@@ -52,7 +52,7 @@ const RegistrationModal: FC<IProps> = React.memo(
       if (localStorage.getItem('token')) checkAuth();
     }, []);
 
-    const [isRegistration, setIsRegistration] = useState<boolean>(true);
+    const [isRegistration, setIsRegistration] = useState<boolean>(false);
     const formTitle = isRegistration ? 'Register' : 'Log In';
     const formik = isRegistration ? registerForm : loginForm;
     return (

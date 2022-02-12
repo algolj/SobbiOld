@@ -4,6 +4,8 @@
   text-align: center;
   font-size: 50px;
   text-transform: uppercase;
+  color: $white;
+  caret-color: $black;
   text-shadow: $black 3px 0 0,
   $black 2.83487px 0.981584px 0,
   $black 2.35766px 1.85511px 0,
@@ -23,7 +25,6 @@
   $black 1.74541px -2.43999px 0,
   $black 2.44769px -1.73459px 0,
   $black 2.88051px -0.838247px 0;
-
 }
 
 @media screen and (min-width: 768px) {

@@ -10,6 +10,8 @@ const initialState: IUserState = {
     email: '',
     password: '',
   },
+  isEdit: false,
+  isEditBio: false,
   isAuth: false,
   error: null,
 };
@@ -26,8 +28,10 @@ export const userReducer = (state = initialState, action: ActionTypesUsers) => {
       return { ...state, user: { ...state.user, username: action.payload } };
     case UsersActionType.CHANGE_USER_EMAIL:
       return { ...state, user: { ...state.user, email: action.payload } };
-    case UsersActionType.CHANGE_USER_INFO:
-      return { ...state, user: action.payload };
+    case UsersActionType.IS_EDIT:
+      return { ...state, isEdit: action.payload };
+    case UsersActionType.IS_EDIT_BIO:
+      return { ...state, isEditBio: action.payload };
     default:
       return state;
   }

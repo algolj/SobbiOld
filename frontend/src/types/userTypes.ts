@@ -10,10 +10,18 @@ export interface IAuthResponse {
   data: ILoginUser[];
 }
 
-export interface ISocialMedia {
-  linkedIn?: string;
-  facebook?: string;
-  github?: string;
+export interface IUserForm {
+  formUsername: string;
+  formEmail: string;
+  formFirstName: string;
+  formLastName: string;
+  formBio: string;
+  formSocialMedia: string;
+  formPicked: string;
+  formGender: string;
+  formDateOfBirth: string;
+  formCountry: string;
+  formImage: Buffer;
 }
 
 export enum SocialMediaEnum {
@@ -21,10 +29,17 @@ export enum SocialMediaEnum {
   facebook = 'facebook',
   github = 'github',
 }
+
 export enum GenderEnum {
   Male = 'Male',
   Female = 'Female',
   Other = 'Other',
+}
+
+export interface ISocialMedia {
+  linkedIn?: string;
+  facebook?: string;
+  github?: string;
 }
 
 export interface IUser {
@@ -37,12 +52,13 @@ export interface IUser {
   dateOfBirth?: string;
   gender?: string;
   bio?: string;
-  image?: string;
+  image?: Buffer | null;
   socialMedia?: ISocialMedia | null;
   id?: 1;
 }
 
 export type IUserInfo = Omit<IUser, 'username' | 'email' | 'password'>;
+export type IUserLogin = Pick<IUser, 'username' | 'email'>;
 
 export interface ILoginUser {
   login: string;
@@ -53,6 +69,8 @@ export interface IUserState {
   user: IUser | null;
   isAuth: boolean;
   error: null | string;
+  isEditBio: boolean;
+  isEdit: boolean;
 }
 
 export enum UsersActionType {
@@ -63,4 +81,6 @@ export enum UsersActionType {
   CHANGE_USER_LOGIN = 'CHANGE_USER_LOGIN',
   CHANGE_USER_EMAIL = 'CHANGE_USER_EMAIL',
   CHANGE_USER_INFO = 'CHANGE_USER_INFO',
+  IS_EDIT = 'IS_EDIT',
+  IS_EDIT_BIO = 'IS_EDIT_BIO',
 }

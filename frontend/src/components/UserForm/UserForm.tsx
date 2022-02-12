@@ -1,21 +1,23 @@
 import React, { FC } from 'react';
-import style from './UserFormInfo.module.scss';
+import style from './UserForm.module.scss';
+import { useTypeSelector } from '../../hooks/useTypeSelector';
 
 interface IProps {
-  isEdit: boolean;
   value: string;
-  onChange: any;
+  onChange?: any;
   label: string;
-  name: string;
+  name?: string;
   type?: string;
+  ableToChange?: boolean;
 }
 
-const UserFormInfo: FC<IProps> = React.memo(
-  ({ isEdit, value, onChange, label, name, type }) => {
+const UserForm: FC<IProps> = React.memo(
+  ({ value, onChange, label, name, type, ableToChange = true }) => {
+    const { isEdit } = useTypeSelector((state) => state.user);
     return (
       <div className={style.user__info_wrapper}>
         <div className={style.user__info_title}>{label}</div>
-        {isEdit ? (
+        {isEdit && ableToChange ? (
           <input
             name={name}
             value={value}
@@ -32,4 +34,4 @@ const UserFormInfo: FC<IProps> = React.memo(
   },
 );
 
-export default UserFormInfo;
+export default UserForm;

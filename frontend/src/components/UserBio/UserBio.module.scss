@@ -1,0 +1,41 @@
+@import "../../styles/index";
+
+.user {
+  &__title {
+    font-size: $XLFont;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+
+  &__description {
+    max-width: 700px;
+    overflow-wrap: break-word;
+    hyphens: manual;
+    margin-left: 5px;
+
+    &_button {
+      width: 200px;
+      height: 70px;
+    }
+
+    &_text {
+      margin: 0 0 0 10px;
+      font-size: $SFont;
+
+      &area {
+        border-radius: 10px;
+        outline: 1px solid $black;
+        resize: none;
+        margin: 0 5px 0 10px;
+        padding: 10px;
+        font-size: $SFont;
+        max-width: 95%;
+
+        &:focus {
+          outline: 1px solid $black;
+
+        }
+      }
+    }
+  }
+}

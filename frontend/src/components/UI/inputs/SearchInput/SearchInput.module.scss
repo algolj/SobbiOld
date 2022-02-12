@@ -7,8 +7,9 @@
   border-radius: 7px;
   color: $black;
   font-size: $SFont;
-  max-width: 450px;
 
+  word-wrap: break-word;
+  word-break: break-all;
   &::placeholder {
     color: $grey;
   }
