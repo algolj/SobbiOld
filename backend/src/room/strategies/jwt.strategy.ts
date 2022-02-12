@@ -18,11 +18,7 @@ export class JWTSRoomUsertrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate({
-    userId,
-    roomId,
-    role,
-  }: IRoomAuthUser): Promise<IRoomAuthUser> {
+  async validate({ userId, roomId, role }): Promise<IRoomAuthUser> {
     return { userId, roomId, role };
   }
 }

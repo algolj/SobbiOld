@@ -12,6 +12,8 @@ import { RoomEntity } from './room.entity';
 import { RoomService } from './room.service';
 import { JWTSRoomUsertrategy } from './strategies/jwt.strategy';
 import { JWTRoomConfig } from '@app/configs/jwt-room.config';
+import { PassportModule } from '@nestjs/passport';
+import { JWTStrategy } from '@app/user/strategies/jwt.strategy';
 
 @Module({
   imports: [
@@ -22,8 +24,10 @@ import { JWTRoomConfig } from '@app/configs/jwt-room.config';
       inject: [ConfigService],
       useFactory: JWTRoomConfig,
     }),
+    PassportModule,
   ],
   controllers: [RoomController],
-  providers: [RoomService, JWTSRoomUsertrategy],
+  // providers: [RoomService, JWTSRoomUsertrategy],
+  providers: [RoomService],
 })
 export class RoomModule {}

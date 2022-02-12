@@ -13,7 +13,6 @@ import { RoomUserEntity } from './room-user.entity';
 import {
   ROOM_NAME_ALREADY_EXISTS,
   ROOM_NAME_OR_PASSWORD_INCORRECT,
-  YOUR_ARE_NOT_CREATOR_THIS_ROOM,
 } from './room.constants';
 import { RoomEntity } from './room.entity';
 import { IRoomUser } from '../common/createRoomUser.interface';
@@ -247,7 +246,11 @@ export class RoomService {
       room && !!(await this.roomRepository.remove(room as RoomEntity));
 
     if (deleteRoom) {
-      await this.mailService.sendMailAboutDeleteRoom(room as RoomEntity);
+      try {
+        await this.mailService.sendMailAboutDeleteRoom(room as RoomEntity);
+      } catch (e) {
+        console.error('Mail send error', e);
+      }
     }
 
     return {
@@ -289,10 +292,14 @@ export class RoomService {
       }));
 
     if (changed) {
-      await this.mailService.sendMailAboutChangeDate(
-        room as RoomEntity,
-        new Date(newDate),
-      );
+      try {
+        await this.mailService.sendMailAboutChangeDate(
+          room as RoomEntity,
+          new Date(newDate),
+        );
+      } catch (e) {
+        console.error('Mail send error ', e);
+      }
     }
 
     return {
@@ -459,12 +466,16 @@ export class RoomService {
     }
 
     if (changed && user.roomUser.email) {
-      await this.mailService.addNewUser(
-        newUser.role,
-        room,
-        user.roomUser.email,
-        user.roomPassword,
-      );
+      try {
+        await this.mailService.addNewUser(
+          newUser.role,
+          room,
+          user.roomUser.email,
+          user.roomPassword,
+        );
+      } catch (e) {
+        console.error('Mail send error', e);
+      }
     }
 
     return { changed };

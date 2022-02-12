@@ -2,7 +2,6 @@ import { IChanged } from '@app/common/changed.interface';
 import { IDeleteResponce } from '@app/common/deleteResponce.interface';
 import { ITokenResponce } from '@app/common/tokenResponce.interface';
 import { RoomUser } from '@app/decorators/room-user.decorator';
-import { JwtUserGuard } from '@app/user/guards/jwt.guard';
 import {
   Body,
   Controller,
@@ -15,7 +14,6 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ChangeDateDto } from './dto/changeDate.dto';
 
 import { CreateRoomDto } from './dto/createRoom.dto';
 import { loginRoomDto } from './dto/loginRoom.dto';
