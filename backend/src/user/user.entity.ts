@@ -45,8 +45,8 @@ export class UserEntity {
   @Column({ nullable: true })
   bio: string;
 
-  @Column({ type: 'bytea', nullable: true })
-  image: Blob;
+  @Column({ nullable: true })
+  image: string;
 
   @Column({ type: 'json', nullable: true })
   socialMedia: ISocialMedia;

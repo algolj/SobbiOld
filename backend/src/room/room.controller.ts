@@ -96,11 +96,13 @@ export class RoomController {
     return await this.roomService.deleteRoom(roomUser, roomId);
   }
 
+  // delete on release ⚠️
   @Get('user')
   async getUser() {
     return await this.roomService.getRoomUser();
   }
 
+  // delete on release ⚠️
   @Get('room/:name')
   async getRoom(@Param('name') name: string) {
     return await this.roomService.getRoom(name);

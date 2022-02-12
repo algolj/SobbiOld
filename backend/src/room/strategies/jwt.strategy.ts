@@ -10,8 +10,11 @@ export class JWTSRoomUsertrategy extends PassportStrategy(Strategy) {
   constructor(private readonly configService: ConfigService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: true,
+      ignoreExpiration: false,
       secretOrKey: configService.get('JWT_SECRET'),
+      signOptions: {
+        expiresIn: '1m',
+      },
     });
   }
 

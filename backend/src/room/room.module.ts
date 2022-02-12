@@ -3,7 +3,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { JWTConfig } from '@app/configs/jwt.config';
 import { MailModule } from '@app/mail/mail.module';
 import { UserEntity } from '@app/user/user.entity';
 
@@ -12,6 +11,7 @@ import { RoomController } from './room.controller';
 import { RoomEntity } from './room.entity';
 import { RoomService } from './room.service';
 import { JWTSRoomUsertrategy } from './strategies/jwt.strategy';
+import { JWTRoomConfig } from '@app/configs/jwt-room.config';
 
 @Module({
   imports: [
@@ -20,7 +20,7 @@ import { JWTSRoomUsertrategy } from './strategies/jwt.strategy';
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: JWTConfig,
+      useFactory: JWTRoomConfig,
     }),
   ],
   controllers: [RoomController],

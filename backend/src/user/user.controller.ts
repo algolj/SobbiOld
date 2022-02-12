@@ -84,6 +84,7 @@ export class UserController {
     return await this.userService.emailOrUsernameExists(authKay);
   }
 
+  // delete on release ⚠️
   @Get('all')
   async dd() {
     return await this.userService.getAllUser();
