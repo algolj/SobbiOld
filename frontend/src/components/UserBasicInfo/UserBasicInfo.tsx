@@ -17,6 +17,9 @@ import {
 } from '../../types/userTypes';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
 import { useFormik } from 'formik';
+import Select from '../UI/Select/Select';
+import { IOptions } from '../../types/types';
+import uniqid from 'uniqid';
 
 interface IProps {
   setUpdateUserInfo: any;
@@ -36,6 +39,7 @@ const UserBasicInfo: FC<IProps> = React.memo(
         socialMedia,
         gender,
         dateOfBirth,
+        country,
         image,
       },
       isEdit,
@@ -43,9 +47,11 @@ const UserBasicInfo: FC<IProps> = React.memo(
     const fileInput = useRef() as any;
     const { Male, Female, Other } = GenderEnum;
     const genderArray = [Male, Female, Other];
+    const [formCountry, setFromCountry] = useState<string>(country);
     const [socialMediaObject, setSocialMediaObject] = useState<ISocialMedia>(
       {},
     );
+    console.log(formCountry);
     const userForm = useFormik({
       enableReinitialize: true,
       initialValues: {
@@ -58,6 +64,7 @@ const UserBasicInfo: FC<IProps> = React.memo(
         formPicked: '',
         formGender: gender,
         formDateOfBirth: dateOfBirth,
+        formCountry: country,
         formImage: image,
       },
       validationSchema: Yup.object({
@@ -78,6 +85,7 @@ const UserBasicInfo: FC<IProps> = React.memo(
       formPicked,
       formGender,
       formDateOfBirth,
+      // formCountry,
       formImage,
     }: IUserForm = userForm.values;
 
@@ -91,13 +99,14 @@ const UserBasicInfo: FC<IProps> = React.memo(
       }
     };
     const userInfoUpdate: IUserInfo = {
-      socialMedia: {},
+      socialMedia: socialMediaObject,
       gender: formGender,
       firstName: formFirstName,
       lastName: formLastName,
       dateOfBirth: formDateOfBirth,
       bio: formBio,
-      image: formImage,
+      country: formCountry,
+      // image: formImage,
     };
     const userLoginUpdate: IUserLogin = {
       email: formEmail,
@@ -105,7 +114,19 @@ const UserBasicInfo: FC<IProps> = React.memo(
     };
     setUpdateUserInfo(userInfoUpdate);
     setUpdateUserLogin(userLoginUpdate);
-
+    const countryOptions: IOptions[] = [
+      {
+        title: 'Czech',
+        value: 'Czech',
+        id: uniqid(),
+      },
+      {
+        title: 'Ukraine',
+        value: 'Ukraine',
+        id: uniqid(),
+      },
+    ];
+    console.log(formCountry);
     return (
       <form className={style.user}>
         <Title color={colors.white}>
@@ -121,15 +142,8 @@ const UserBasicInfo: FC<IProps> = React.memo(
           )}
         </Title>
         <div className={style.user__info_wrapper}>
-          <SocialMediaModal
-            onChange={userForm.handleChange}
-            value={formSocialMedia}
-            currentChecked={formPicked}
-            socialMedia={socialMediaObject}
-            setSocialMedia={setSocialMediaObject}
-          />
           <div className={style.user__avatar}>
-            <img className={style.user__photo} src={''} alt="avatar" />
+            <img className={style.user__photo} src={'avatar'} alt="avatar" />
             <div
               onClick={() => fileInput.current.click()}
               className={isEdit ? style.user__avatar_edit : null}
@@ -139,21 +153,17 @@ const UserBasicInfo: FC<IProps> = React.memo(
               className={style.user__file}
               type="file"
               onChange={imageReader}
-              name=""
-              id=""
             />
           </div>
           <div className={style.user__info}>
             <div className={style.user__info_name}>
               <UserForm
-                isEdit={isEdit}
                 value={formFirstName}
                 onChange={userForm.handleChange}
                 label={'First name'}
                 name={'formFirstName'}
               />
               <UserForm
-                isEdit={isEdit}
                 value={formLastName}
                 onChange={userForm.handleChange}
                 label={'Last name'}
@@ -161,14 +171,12 @@ const UserBasicInfo: FC<IProps> = React.memo(
               />
             </div>
             <UserForm
-              isEdit={isEdit}
               value={formEmail}
               onChange={userForm.handleChange}
               label={'E-mail'}
               name={'formEmail'}
             />
             <UserForm
-              isEdit={isEdit}
               value={formDateOfBirth}
               onChange={userForm.handleChange}
               label={'Birth'}
@@ -200,28 +208,27 @@ const UserBasicInfo: FC<IProps> = React.memo(
                 <InfoItem isClickable={false} name={formGender} />
               )}
             </div>
-            {/*<div className={style.user__info_media}>*/}
-            {/*  {socialMedia*/}
-            {/*    ? Object.keys(socialMedia).map((media, index) => (*/}
-            {/*        <InfoItem*/}
-            {/*          key={media}*/}
-            {/*          onRemove={() => changeUserInfoHandler(true)}*/}
-            {/*          referral={`https://${media}/${*/}
-            {/*            Object.values(socialMedia)[index]*/}
-            {/*          }`}*/}
-            {/*          name={media}*/}
-            {/*        />*/}
-            {/*      ))*/}
-            {/*    : null}*/}
-            {/*  {isEdit ? (*/}
-            {/*    <InfoItem*/}
-            {/*      onClick={() => setVisibility(true)}*/}
-            {/*      isAdd={true}*/}
-            {/*      isButton={true}*/}
-            {/*      name={'gitHub'}*/}
-            {/*    />*/}
-            {/*  ) : null}*/}
-            {/*</div>*/}
+            <SocialMediaModal
+              onChange={userForm.handleChange}
+              value={formSocialMedia}
+              currentChecked={formPicked}
+              socialMedia={socialMediaObject}
+              setSocialMedia={setSocialMediaObject}
+            />
+            {isEdit ? (
+              <Select
+                title={'Country'}
+                options={countryOptions}
+                onChange={setFromCountry}
+                name={'formCountry'}
+              />
+            ) : (
+              <UserForm
+                label={'Country'}
+                ableToChange={false}
+                value={formCountry}
+              />
+            )}
           </div>
         </div>
         <UserBio

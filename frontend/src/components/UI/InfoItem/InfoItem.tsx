@@ -6,7 +6,7 @@ interface IProps {
   name: string;
   referral?: string;
   onClick?: () => void;
-  onRemove?: () => void;
+  onRemove?: (event?: React.MouseEvent<HTMLElement>) => void;
   isReferral?: boolean;
   isAdd?: boolean;
   isButton?: boolean;

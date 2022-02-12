@@ -41,7 +41,7 @@ const User: FC = () => {
       setIsEditBio(false);
     }
   };
-  console.log(updateUserInfo);
+  // console.log(updateUserInfo.socialMedia);
   return (
     <div onSubmit={(e) => e.preventDefault()} className={style.user}>
       <UserBasicInfo

@@ -9,3 +9,9 @@ export interface IPopupValues {
   link?: string;
   onClick?: any;
 }
+
+export interface IOptions {
+  title: string;
+  value: string;
+  id: string;
+}

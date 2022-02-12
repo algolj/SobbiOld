@@ -20,6 +20,7 @@ export interface IUserForm {
   formPicked: string;
   formGender: string;
   formDateOfBirth: string;
+  formCountry: string;
   formImage: Buffer;
 }
 
