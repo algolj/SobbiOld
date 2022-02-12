@@ -3,11 +3,11 @@ import style from './User.module.scss';
 import FeedbackShortcut from '../../components/FeedbackShortcut/FeedbackShortcut';
 import Button from '../../components/UI/Button/Button';
 import Modal from '../../components/UI/Modal/Modal';
+import UserBasicInfo from '../../components/UserBasicInfo/UserBasicInfo';
 import { Link } from 'react-router-dom';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
 import { useActions } from '../../hooks/useActions';
 import { IUserInfo, IUserLogin } from '../../types/userTypes';
-import UserBasicInfo from '../../components/UserBasicInfo/UserBasicInfo';
 
 const User: FC = () => {
   const {
