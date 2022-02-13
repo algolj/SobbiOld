@@ -21,7 +21,7 @@ export class RoomUserEntity {
   @Column({ nullable: true })
   name: string;
 
-  @Column({ select: false })
+  @Column()
   password: string;
 
   @BeforeInsert()

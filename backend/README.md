@@ -313,7 +313,7 @@ User registration on the platform.
 
 **Route:** /api/room
 
-**Required parameters:** name (string), date (Date), interviewee (string[]\*), interviewer (string[]\*), watcher (string[]\*).
+**Required parameters:** name (string), date (Date),creator (string\*), interviewee (string\*), interviewer (string[]\*), watcher (string[]\*).
 
 \* email, username or ''.
 
@@ -325,6 +325,7 @@ User registration on the platform.
 {
     "name": "test-room",
     "date": "2014-04-05 05:00:00+02",
+    "creator":"vovk@gmail.com",
     "interviewee": "sobaka@ffff.com",
     "interviewer": ["", "fiass1srs1tsd12", "aiss1s1@dssa.com"],
     "watcher": "dsds@dda.co"
@@ -337,6 +338,11 @@ User registration on the platform.
 {
     "name": "test-room",
     "date": "2014-04-05 05:00:00+02",
+    "creator": {
+        "username": "",
+        "email": "vovk@gmail.com",
+        "password": "S23v9p"
+    },
     "interviewee": {
         "username": "",
         "email": "sobaka@ffff.com",
@@ -369,9 +375,9 @@ User registration on the platform.
 
 #### 11. Delete room
 
-**⚠️ Subsequently, it will be executed through authorization or through the password of the interviewer**
-
 **Request type:** DELETE
+
+**Required header:** Authorization (Bearer `CREATOR_JWT_TOKEN`).
 
 **Route:** /api/room/id`number` or /api/room/`roomname`
 
@@ -387,13 +393,13 @@ User registration on the platform.
 
 #### 12. Change room date
 
-**⚠️ Subsequently, it will be executed through authorization or through the password of the interviewer**
-
 **Request type:** PUT
 
 **Route:** /api/room/id`number` or /api/room/`roomname`
 
-**Required parameters:** date (Date)
+**Required header:** Authorization (Bearer `CREATOR_JWT_TOKEN`).
+
+**Required parameters:** date (string)
 
 [**Error**](#error-response)
 
@@ -409,9 +415,154 @@ User registration on the platform.
 
 ```JSON
 {
+    "changed": true
+}
+```
+
+#### 13. Authorization user in room
+
+**Request type:** POST
+
+**Route:** /api/room/login
+
+**Required parameters:** room (id or room name), password (string).
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "room": "test",
+    "password": "123456"
+}
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6InVzZXJOYW1lMSIsInBhc3N3b3JkIjoiMTIzNDU2IiwiaWF0IjoxNTE2MjM5MDIyfQ.6L_6G4xTG2ZWElesHV1syP1s50ZsJasit4pQNTUp4CQ"
+}
+```
+
+#### 14. Change room date
+
+**Request type:** PUT
+
+**Route:** /api/room/user
+
+**Required header:** Authorization (Bearer `USER_JWT_TOKEN`).
+
+**Required parameters:** name (string)
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "name": "Orest"
+}
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "changed": true
+}
+```
+
+#### 15. Deleting a user in a room
+
+**Request type:** DELETE
+
+**Route:** /api/room/user
+
+**Required header:** Authorization (Bearer `USER_JWT_TOKEN` or `CREATOR_JWT_TOKEN`)\*.
+
+\* The user can remove himself from the room or the creator can remove any user.
+
+**Required parameters:** role (string )\*\*, user (email or id)\*\*.
+
+\*\* only for creator.
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "room": "test",
+    "user": "dog@example.com"
+}
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
     "delete": true
 }
 ```
+
+#### 16. Adding a new user to the room
+
+**Request type:** POST
+
+**Route:** /api/room/user
+
+**Required header:** Authorization (Bearer `CREATOR_JWT_TOKEN`).
+
+**Required parameters:** role (string ), user (email or username).
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "role": "interviewer",
+    "user": "dog@example.com"
+}
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "changed": true
+}
+```
+
+#### 17. Adding profile image
+
+**Request type:** POST
+
+**Route:** /api/profile/image
+
+**Required header:** Authorization (Bearer `USER_JWT_TOKEN`).
+
+**Required body(form data):** file.
+
+[**Error**](#error-response)
+
+**Response Body (JSON type):**
+
+```JSON
+{
+     "path": "pr-img-cahadm-jdtg8c-1644691494187.jfif"
+}
+```
+
+#### 18. Profile image
+
+**Request type:** GET
+
+**Route:** /api/profile/image/`imgname`
+
+[**Error**](#error-response)
 
 #### Error response
 
