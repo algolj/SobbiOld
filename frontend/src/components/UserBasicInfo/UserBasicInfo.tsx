@@ -5,7 +5,7 @@ import styleTitle from '../UI/Title/Title.module.scss';
 import UserForm from '../UserForm/UserForm';
 import InfoItem from '../UI/InfoItem/InfoItem';
 import UserBio from '../UserBio/UserBio';
-import SocialMediaModal from '../SocialMediaModal/SocialMediaModal';
+import SocialMedia from '../SocialMediaModal/SocialMedia';
 import Title from '../UI/Title/Title';
 import * as Yup from 'yup';
 import {
@@ -183,6 +183,21 @@ const UserBasicInfo: FC<IProps> = React.memo(
               name={'formDateOfBirth'}
               type={'date'}
             />
+            {isEdit ? (
+              <Select
+                value={formCountry}
+                title={'Country'}
+                options={countryOptions}
+                onChange={setFromCountry}
+                name={'formCountry'}
+              />
+            ) : (
+              <UserForm
+                label={'Country'}
+                ableToChange={false}
+                value={formCountry}
+              />
+            )}
             <div className={style.user__gender}>
               {isEdit ? (
                 <div className={style.user__gender_wrapper}>
@@ -194,7 +209,7 @@ const UserBasicInfo: FC<IProps> = React.memo(
                         name={genderItem}
                       />
                       <input
-                        className={style.modal__radio}
+                        className={style.user__gender_radio}
                         id={'formGender'}
                         type={'radio'}
                         name={'formGender'}
@@ -208,27 +223,13 @@ const UserBasicInfo: FC<IProps> = React.memo(
                 <InfoItem isClickable={false} name={formGender} />
               )}
             </div>
-            <SocialMediaModal
+            <SocialMedia
               onChange={userForm.handleChange}
               value={formSocialMedia}
               currentChecked={formPicked}
               socialMedia={socialMediaObject}
               setSocialMedia={setSocialMediaObject}
             />
-            {isEdit ? (
-              <Select
-                title={'Country'}
-                options={countryOptions}
-                onChange={setFromCountry}
-                name={'formCountry'}
-              />
-            ) : (
-              <UserForm
-                label={'Country'}
-                ableToChange={false}
-                value={formCountry}
-              />
-            )}
           </div>
         </div>
         <UserBio

@@ -37,7 +37,7 @@ export const loginUser = (user: ILoginUser) => {
 
 export const createUser = (user: IUser) => {
   return async (dispatch: Dispatch<ActionTypesUsers>) => {
-    const registerResponse = await $api.post('http://localhost:3000/api/user', {
+    const registerResponse = await $api.post('user', {
       username: user.username,
       email: user.email,
       password: user.password,

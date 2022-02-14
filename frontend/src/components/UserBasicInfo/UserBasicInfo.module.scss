@@ -30,10 +30,12 @@
       opacity: 0;
       transition: 0.2s;
       cursor: pointer;
-      &:hover{
+
+      &:hover {
         background: rgba(0, 0, 0, 0.5);
         opacity: 1;
       }
+
       &:before,
       &:after {
         content: '';
@@ -90,6 +92,10 @@
   }
 
   &__gender {
+    &_radio {
+      display: none;
+    }
+
     &_wrapper {
       display: flex;
       flex-direction: row;

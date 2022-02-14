@@ -20,7 +20,7 @@
     background: $white;
     border: 2px solid $black;
     transition: 0.2s;
-
+    cursor: pointer;
     &_checked {
       background: $brown;
       transform: translate(-2px, -2px);
