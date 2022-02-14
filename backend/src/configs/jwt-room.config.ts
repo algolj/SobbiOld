@@ -6,6 +6,6 @@ export const JWTRoomConfig = async (
 ): Promise<JwtModuleOptions> => ({
   secret: configService.get('JWT_SECRET'),
   signOptions: {
-    expiresIn: '1m',
+    expiresIn: '1d',
   },
 });

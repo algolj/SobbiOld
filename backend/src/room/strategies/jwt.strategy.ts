@@ -13,7 +13,7 @@ export class JWTSRoomUsertrategy extends PassportStrategy(Strategy) {
       ignoreExpiration: false,
       secretOrKey: configService.get('JWT_SECRET'),
       signOptions: {
-        expiresIn: '1m',
+        expiresIn: '1d',
       },
     });
   }

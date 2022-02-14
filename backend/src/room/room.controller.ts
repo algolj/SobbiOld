@@ -1,15 +1,20 @@
 import { IChanged } from '@app/common/changed.interface';
 import { IDeleteResponce } from '@app/common/deleteResponce.interface';
 import { ITokenResponce } from '@app/common/tokenResponce.interface';
+import { IUser } from '@app/common/user.interface';
 import { RoomUser } from '@app/decorators/room-user.decorator';
+import { User } from '@app/decorators/user.decorator';
 import {
   Body,
   Controller,
   Delete,
   Get,
+  HttpException,
+  HttpStatus,
   Param,
   Post,
   Put,
+  Req,
   UseGuards,
   UsePipes,
   ValidationPipe,
@@ -28,9 +33,25 @@ import { IRoomResponce } from './types/roomResponce.interface';
 export class RoomController {
   constructor(private readonly roomService: RoomService) {}
 
-  @UsePipes(new ValidationPipe())
   @Post()
-  async createRoom(@Body() room: CreateRoomDto): Promise<IRoomResponce> {
+  @UsePipes(new ValidationPipe())
+  async createRoom(
+    @User() user: IUser,
+    @Body() draftRoom: CreateRoomDto,
+  ): Promise<IRoomResponce> {
+    const room = { ...draftRoom };
+
+    if (!room?.creator) {
+      if (user?.username) {
+        room.creator = user.username;
+      } else {
+        throw new HttpException(
+          'creator should not be empty',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+    }
+
     return await this.roomService.createRoom(room);
   }
 
@@ -84,6 +105,13 @@ export class RoomController {
     return await this.roomService.changeDate(roomUser, roomId, date);
   }
 
+  @Post('room-name-exists')
+  async existsAuthData(
+    @Body('name') name: string,
+  ): Promise<{ exists: boolean }> {
+    return await this.roomService.roomNameExists(name);
+  }
+
   @UsePipes(new ValidationPipe())
   @UseGuards(JwtUserInRoomGuard)
   @Delete(':id')
@@ -94,6 +122,12 @@ export class RoomController {
     return await this.roomService.deleteRoom(roomUser, roomId);
   }
 
+  @Get()
+  @UseGuards(JwtUserInRoomGuard)
+  async getRoom(@RoomUser() roomUser: IRoomAuthUser) {
+    return await this.roomService.getInfoRoom(roomUser);
+  }
+
   // delete on release ⚠️
   @Get('user')
   async getUser() {
@@ -101,8 +135,8 @@ export class RoomController {
   }
 
   // delete on release ⚠️
-  @Get('room/:name')
-  async getRoom(@Param('name') name: string) {
-    return await this.roomService.getRoom(name);
-  }
+  // @Get('room/:name')
+  // async getRoom(@Param('name') name: string) {
+  //   return await this.roomService.getRoom(name);
+  // }
 }

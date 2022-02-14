@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -10,10 +10,9 @@ import { RoomUserEntity } from './room-user.entity';
 import { RoomController } from './room.controller';
 import { RoomEntity } from './room.entity';
 import { RoomService } from './room.service';
-import { JWTSRoomUsertrategy } from './strategies/jwt.strategy';
 import { JWTRoomConfig } from '@app/configs/jwt-room.config';
 import { PassportModule } from '@nestjs/passport';
-import { JWTStrategy } from '@app/user/strategies/jwt.strategy';
+import { getUserMiddleware } from '@app/user/middlewares/user.middleware';
 
 @Module({
   imports: [
@@ -25,9 +24,16 @@ import { JWTStrategy } from '@app/user/strategies/jwt.strategy';
       useFactory: JWTRoomConfig,
     }),
     PassportModule,
+    getUserMiddleware,
   ],
   controllers: [RoomController],
-  // providers: [RoomService, JWTSRoomUsertrategy],
   providers: [RoomService],
 })
-export class RoomModule {}
+export class RoomModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(getUserMiddleware).forRoutes({
+      path: '/room',
+      method: RequestMethod.POST,
+    });
+  }
+}

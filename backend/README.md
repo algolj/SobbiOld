@@ -311,11 +311,15 @@ User registration on the platform.
 
 **Request type:** POST
 
+**Required header\*:** Authorization (Bearer `USER_JWT_TOKEN`). \* optional parameter.
+
 **Route:** /api/room
 
-**Required parameters:** name (string), date (Date),creator (string\*), interviewee (string\*), interviewer (string[]\*), watcher (string[]\*).
+**Required parameters:** name (string), date (Date),creator (string\*\*), interviewee (string\*\*\*), interviewer (string[]\*\*\*), watcher (string[]\*\*\*).
 
-\* email, username or ''.
+\*\* not required if the user is logged in, but if the field is filled, it is taken over by the creator.
+
+\*\*\* email, username or ''.
 
 [**Error**](#error-response)
 
@@ -563,6 +567,105 @@ User registration on the platform.
 **Route:** /api/profile/image/`imgname`
 
 [**Error**](#error-response)
+
+#### 19. Checking if the room name exists
+
+**Request type:** POST
+
+**Route:** /api/room/room-name-exists
+
+**Required parameters:** name (string).
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "name": "test-name"
+}
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "exists": false
+}
+```
+
+#### 20. Get room info
+
+**Request type:** GET
+
+**Required header:** Authorization (Bearer `USER_IN_ROOM_JWT_TOKEN` or `CREATOR_JWT_TOKEN`)
+
+**Route:** /api/room
+
+[**Error**](#error-response)
+
+**Response Body (JSON type):\***
+
+```JSON
+{
+    "name": "test-room",
+    "userName": "Tom",
+    "role": "creator",
+    "date": "2022-02-04T13:02:00.000Z",
+    "creator": {
+        "name": "Tom",
+        "email": "example@ddssa.com"
+    },
+    "interviewee": {
+        "name": null,
+        "email": "example@gmail.com"
+    },
+    "interviewer": [
+        {
+            "name": null,
+            "email": null
+        },
+        {
+            "name": "Eva",
+            "email": "example@example.com"
+        },
+        {
+            "name": null,
+            "email": "email-test@gmail.com"
+        },
+        {
+            "name": "Lisa",
+            "email": null
+        }
+    ],
+    "watcher": [
+        {
+            "name": null,
+            "email": "name@site.com"
+        }
+    ]
+}
+}
+```
+
+\* creator
+
+**Response Body (JSON type):\***
+
+```JSON
+    {
+    "name": "test-room",
+    "userName": "John",
+    "role": "interviewee",
+    "date": "2022-02-04T13:02:00.000Z",
+    "creator": {
+        "name": null,
+        "email": "example@example.com"
+    }
+
+```
+
+\* room user
 
 #### Error response
 

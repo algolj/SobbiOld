@@ -480,4 +480,45 @@ export class RoomService {
 
     return { changed };
   }
+
+  async roomNameExists(name: string): Promise<{ exists: boolean }> {
+    return { exists: !!(await this.roomRepository.findOne({ name }))?.id };
+  }
+
+  async getInfoRoom(roomUser: IRoomAuthUser) {
+    const roomInfo = {
+      name: '',
+      userName: '',
+    };
+
+    const room = await this.roomRepository.findOne({ id: roomUser.roomId });
+
+    roomInfo.name = room.name;
+    roomInfo['date'] = room.date;
+    roomInfo['role'] = roomUser.role.toLowerCase();
+
+    const getUserInfo = (currentUser) => ({
+      name: currentUser?.name || null,
+      email: currentUser?.email || null,
+    });
+
+    roomInfo['creator'] = getUserInfo(room.creator);
+
+    const getUsers = (role) =>
+      Array.isArray(room[role])
+        ? room[role].map((user) => getUserInfo(user))
+        : getUserInfo(room[role]);
+
+    roomInfo.userName = Array.isArray(room[roomUser.role])
+      ? room[roomUser.role].find(({ id }) => id === roomUser.userId).name
+      : room[roomUser.role].name;
+
+    if (roomUser.role.toLowerCase() === 'creator') {
+      ['interviewee', 'interviewer', 'watcher'].forEach((role) => {
+        roomInfo[role] = getUsers(role);
+      });
+    }
+
+    return roomInfo;
+  }
 }

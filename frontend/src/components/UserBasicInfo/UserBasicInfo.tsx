@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import style from './UserBasicInfo.module.scss';
 import colors from '../../styles/index.scss';
 import styleTitle from '../UI/Title/Title.module.scss';
@@ -51,7 +51,6 @@ const UserBasicInfo: FC<IProps> = React.memo(
     const [socialMediaObject, setSocialMediaObject] = useState<ISocialMedia>(
       {},
     );
-    console.log(formCountry);
     const userForm = useFormik({
       enableReinitialize: true,
       initialValues: {
@@ -126,7 +125,6 @@ const UserBasicInfo: FC<IProps> = React.memo(
         id: uniqid(),
       },
     ];
-    console.log(formCountry);
     return (
       <form className={style.user}>
         <Title color={colors.white}>
@@ -221,6 +219,7 @@ const UserBasicInfo: FC<IProps> = React.memo(
                 options={countryOptions}
                 onChange={setFromCountry}
                 name={'formCountry'}
+                value={formCountry}
               />
             ) : (
               <UserForm
