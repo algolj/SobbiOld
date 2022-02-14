@@ -7,6 +7,8 @@ import Button from '../../components/UI/Button/Button';
 import Footer from '../../components/Footer/Footer';
 import Modal from '../../components/UI/Modal/Modal';
 import room from '../Room/Room';
+import FormInput from '../../components/UI/inputs/FormInput/FormInput';
+import RoomModal from '../../components/RoomModal/RoomModal';
 
 const Home: FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -54,27 +56,7 @@ const Home: FC = () => {
   // });
   return (
     <div className={style.home}>
-      <Modal setVisibility={setIsVisible} title={'Room'} visibility={isVisible}>
-        <div className={style.create__form}>
-          <div className={style.create__time}>
-            <div className={style.create__date}>
-              {/*<FormInput type={'date'} label={'Date'} />*/}
-            </div>
-            <div className={style.create__hours}>
-              {/*<FormInput type={'time'} label={'Time'} />*/}
-            </div>
-          </div>
-          {/*<FormInput label={'Room name'} />*/}
-          {/*<FormInput label={'E-mail'} />*/}
-          {/*<FormInput label={'Interviewer'} />*/}
-          {/*<FormInput label={'Interviewee'} />*/}
-          {/*<FormInput label={'Spectators'} />*/}
-          <div className={style.create__button}>
-            <Button onClick={() => setIsVisible(false)}>Create</Button>
-          </div>
-        </div>
-      </Modal>
-
+      <RoomModal setIsVisible={setIsVisible} isVisible={isVisible} />
       <div ref={sidebarRef} className={style.sidebar}>
         <a href={'#home'} className={style.sidebar__link}>
           Home

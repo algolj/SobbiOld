@@ -1,5 +1,5 @@
 import React, { FC, SetStateAction, useState } from 'react';
-import style from '../../pages/User/User.module.scss';
+import style from './SocialMedia.module.scss';
 import FormInput from '../UI/inputs/FormInput/FormInput';
 import InfoItem from '../UI/InfoItem/InfoItem';
 import Button from '../UI/Button/Button';
@@ -15,7 +15,7 @@ interface IProps {
   setSocialMedia: React.Dispatch<SetStateAction<ISocialMedia>>;
 }
 
-const SocialMediaModal: FC<IProps> = React.memo(
+const SocialMedia: FC<IProps> = React.memo(
   ({ value, onChange, currentChecked, setSocialMedia, socialMedia }) => {
     const { isEdit } = useTypeSelector((state) => state.user);
     const { github, linkedIn, facebook } = SocialMediaEnum;
@@ -24,12 +24,12 @@ const SocialMediaModal: FC<IProps> = React.memo(
     const [socialMediaObject, setSocialMediaObject] = useState<ISocialMedia>(
       {},
     );
+    console.log(socialMediaObject);
     const setSocialMediaHandler = (
       // oldSocialMedia: ISocialMedia,
       event?: React.MouseEvent<HTMLElement>,
     ): ISocialMedia => {
       setSocialMedia({ github: 'asdas' });
-      console.log(socialMedia);
       switch (currentChecked) {
         case 'linkedIn': {
           setSocialMediaObject({
@@ -58,8 +58,7 @@ const SocialMediaModal: FC<IProps> = React.memo(
     };
     return (
       <div>
-        {' '}
-        <div className={style.user__info_media}>
+        <div className={style.media}>
           {socialMedia
             ? Object.keys(socialMedia).map((media, index) => (
                 <InfoItem
@@ -86,33 +85,37 @@ const SocialMediaModal: FC<IProps> = React.memo(
           visibility={visibility}
           setVisibility={setVisibility}
         >
-          <div className="">
+          <div className={style.media__modal}>
             <FormInput
               name={'formSocialMedia'}
               label={'Name'}
               value={value}
               onChange={onChange}
             />
-            {socialMediaArray.map((media) => (
-              <label htmlFor={media} key={media}>
-                <InfoItem
-                  name={media}
-                  isButton={true}
-                  checked={currentChecked}
-                />
-                <input
-                  className={style.modal__radio}
-                  id={media}
-                  type={'radio'}
-                  name={'formPicked'}
-                  value={media}
-                  onChange={onChange}
-                />
-              </label>
-            ))}
-            <Button onClick={() => setSocialMedia(setSocialMediaHandler())}>
-              Add
-            </Button>
+            <div className={style.media__wrapper}>
+              {socialMediaArray.map((media) => (
+                <label htmlFor={media} key={media}>
+                  <InfoItem
+                    name={media}
+                    isButton={true}
+                    checked={currentChecked}
+                  />
+                  <input
+                    className={style.media__radio}
+                    id={media}
+                    type={'radio'}
+                    name={'formPicked'}
+                    value={media}
+                    onChange={onChange}
+                  />
+                </label>
+              ))}
+            </div>
+            <div className={style.media__button}>
+              <Button onClick={() => setSocialMedia(setSocialMediaHandler())}>
+                Add
+              </Button>
+            </div>
           </div>
         </Modal>
       </div>
@@ -120,4 +123,4 @@ const SocialMediaModal: FC<IProps> = React.memo(
   },
 );
 
-export default SocialMediaModal;
+export default SocialMedia;

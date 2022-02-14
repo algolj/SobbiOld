@@ -3,7 +3,7 @@ import style from './Button.module.scss';
 
 interface IProps {
   children?: React.ReactChild;
-  onClick?: () => void;
+  onClick?: (e?: React.FormEvent<any>) => void;
   active?: boolean;
   props?: any;
   isRed?: boolean;

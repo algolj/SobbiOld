@@ -30,7 +30,7 @@ const InfoItem: FC<IProps> = React.memo(
     return (
       <div onClick={onClick} className={style.info__wrapper}>
         {isButton ? (
-          <button
+          <div
             className={`${style.info__item} ${
               checked === name ? style.info__item_checked : null
             }`}
@@ -42,7 +42,7 @@ const InfoItem: FC<IProps> = React.memo(
               src={`./assets/icon/${name}.svg`}
               alt={name}
             />
-          </button>
+          </div>
         ) : (
           <div
             className={`${style.info__item} ${

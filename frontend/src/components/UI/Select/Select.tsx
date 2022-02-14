@@ -51,11 +51,11 @@ const Select: FC<IProps> = React.memo(
                     onChange={() => {
                       if (onChange) onChange(option.value);
                     }}
+                    checked={value === option.value}
                     value={option.value}
                     className={style.select__input}
                     type="radio"
                     id={option.id}
-                    checked={value === option.value}
                   />
                   <label className={style.select__label} htmlFor={option.id}>
                     {option.title}
