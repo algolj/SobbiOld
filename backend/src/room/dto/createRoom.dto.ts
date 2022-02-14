@@ -8,6 +8,7 @@ export class CreateRoomDto {
   @IsDateString()
   readonly date: string;
 
+  readonly creator: string;
   readonly interviewee: string;
   readonly interviewer: string | string[];
   readonly watcher: string | string[];

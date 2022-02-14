@@ -60,7 +60,6 @@ export class UserController {
   @UsePipes(new ValidationPipe())
   @UseGuards(JwtUserGuard)
   @Put('change/email')
-  @Put('change/username')
   async changeUserEmail(
     @User() user: IUser,
     @Body() newValue: TLoginKey,
@@ -85,6 +84,7 @@ export class UserController {
     return await this.userService.emailOrUsernameExists(authKay);
   }
 
+  // delete on release ⚠️
   @Get('all')
   async dd() {
     return await this.userService.getAllUser();

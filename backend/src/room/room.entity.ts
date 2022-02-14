@@ -24,6 +24,12 @@ export class RoomEntity {
     eager: true,
   })
   @JoinColumn()
+  creator: RoomUserEntity;
+
+  @OneToOne(() => RoomUserEntity, {
+    eager: true,
+  })
+  @JoinColumn()
   interviewee: RoomUserEntity;
 
   @OneToMany(() => RoomUserEntity, (roomUser) => roomUser.interviewerRoom, {

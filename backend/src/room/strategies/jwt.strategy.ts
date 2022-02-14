@@ -1,13 +1,12 @@
-import { IRoomAuthUser } from '@app/room/types/roomAuthUser.interface';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
-import { TLoginData } from '../types/login-data.type';
+import { IRoomAuthUser } from '../types/roomAuthUser.interface';
 
 @Injectable()
-export class JWTStrategy extends PassportStrategy(Strategy) {
+export class JWTSRoomUsertrategy extends PassportStrategy(Strategy) {
   constructor(private readonly configService: ConfigService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -19,11 +18,7 @@ export class JWTStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(req): Promise<IRoomAuthUser | TLoginData> {
-    if (req.email && req.username)
-      return { email: req.email, username: req.username };
-
-    if (req.userId && req.roomId && req.role)
-      return { userId: req.userId, roomId: req.roomId, role: req.role };
+  async validate({ userId, roomId, role }): Promise<IRoomAuthUser> {
+    return { userId, roomId, role };
   }
 }
