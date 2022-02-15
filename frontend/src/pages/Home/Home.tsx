@@ -5,13 +5,13 @@ import sprite from '../../assets/sprite.svg';
 import Title from '../../components/UI/Title/Title';
 import Button from '../../components/UI/Button/Button';
 import Footer from '../../components/Footer/Footer';
-import Modal from '../../components/UI/Modal/Modal';
 import room from '../Room/Room';
-import FormInput from '../../components/UI/inputs/FormInput/FormInput';
-import RoomModal from '../../components/RoomModal/RoomModal';
+import CreateRoom from '../../components/CreateRoom/CreateRoom';
+import EnterRoom from '../../components/EnterRoom/EnterRoom';
 
 const Home: FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isVisibleEnter, setIsVisibleEnter] = useState<boolean>(false);
   const [isAnim, setIsAnim] = useState<boolean>(false);
   const roomRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const homeRef = useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -56,7 +56,8 @@ const Home: FC = () => {
   // });
   return (
     <div className={style.home}>
-      <RoomModal setIsVisible={setIsVisible} isVisible={isVisible} />
+      <CreateRoom setIsVisible={setIsVisible} isVisible={isVisible} />
+      <EnterRoom setIsVisible={setIsVisibleEnter} isVisible={isVisibleEnter} />
       <div ref={sidebarRef} className={style.sidebar}>
         <a href={'#home'} className={style.sidebar__link}>
           Home
@@ -117,7 +118,7 @@ const Home: FC = () => {
               <Button onClick={() => setIsVisible(true)}>Create</Button>
             </div>
             <div className={style.room__button_wrapper}>
-              <Button>Enter</Button>
+              <Button onClick={() => setIsVisibleEnter(true)}>Enter</Button>
             </div>
           </div>
         </div>

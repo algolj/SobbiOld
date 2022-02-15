@@ -1,7 +1,17 @@
-import { ActionTypesRoom, IRoom } from '../../../types/roomTypes';
+import {
+  ActionTypesRoomEnum,
+  IAuthRoom,
+  IRoom,
+} from '../../../types/roomTypes';
 
 export const createRoomAction = (room: IRoom) =>
   ({
-    type: ActionTypesRoom.CREATE_ROOM,
+    type: ActionTypesRoomEnum.CREATE_ROOM,
     payload: room,
+  } as const);
+
+export const enterRoomAction = (isAuthRoom: boolean) =>
+  ({
+    type: ActionTypesRoomEnum.ENTER_ROOM,
+    payload: isAuthRoom,
   } as const);

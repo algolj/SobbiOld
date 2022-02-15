@@ -5,7 +5,7 @@ import styleTitle from '../UI/Title/Title.module.scss';
 import UserForm from '../UserForm/UserForm';
 import InfoItem from '../UI/InfoItem/InfoItem';
 import UserBio from '../UserBio/UserBio';
-import SocialMedia from '../SocialMediaModal/SocialMedia';
+import SocialMedia from '../SocialMedia/SocialMedia';
 import Title from '../UI/Title/Title';
 import * as Yup from 'yup';
 import {

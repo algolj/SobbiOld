@@ -179,34 +179,6 @@
   }
 }
 
-.create {
-  &__time {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: 5%;
-
-  }
-  &__date{
-    width: 55%;
-  }  &__hours{
-    width: 40%;
-  }
-  &__form {
-    margin: -30px auto;
-    transform: scale(0.75);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    max-width: 400px;
-  }
-
-  &__button {
-    width: 100%;
-    height: 80px;
-  }
-}
 
 @media screen and (min-width: 500px) {
   .home {

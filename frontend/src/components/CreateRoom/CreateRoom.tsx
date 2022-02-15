@@ -1,6 +1,6 @@
-import React, { FC, SetStateAction } from 'react';
+import React, { FC, SetStateAction, useEffect, useState } from 'react';
 import Modal from '../UI/Modal/Modal';
-import style from '../../pages/Home/Home.module.scss';
+import style from './CreateRoom.module.scss';
 import FormInput from '../UI/inputs/FormInput/FormInput';
 import Button from '../UI/Button/Button';
 import { useFormik } from 'formik';
@@ -14,9 +14,37 @@ interface IProps {
   isVisible: boolean;
 }
 
-const RoomModal: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
+const CreateRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
   const { room } = useTypeSelector((state) => state.room);
+  const { isAuth } = useTypeSelector((state) => state.user);
   const { createRoom } = useActions();
+
+  const {
+    creatorLabel,
+    IntervieweeLabel,
+    InterviewerLabel,
+    roomNameLabel,
+    SpectatorsLabel,
+    DateLabel,
+    TimeLabel,
+  } = RoomInputLabels;
+  const [inputLabels, setInputLabels] = useState<RoomInputLabels[]>([
+    roomNameLabel,
+    creatorLabel,
+    InterviewerLabel,
+    IntervieweeLabel,
+    SpectatorsLabel,
+  ]);
+  const checkingIsAuth = async () => {
+    if (isAuth) {
+      const x = inputLabels.filter((label: string) => label === creatorLabel);
+      console.log(x);
+    }
+    console.log(isAuth);
+  };
+  useEffect(() => {
+    checkingIsAuth();
+  }, []);
   const roomForm = useFormik({
     initialValues: {
       name: '',
@@ -31,17 +59,8 @@ const RoomModal: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
       console.log('s');
     },
   });
-  const {
-    emailLabel,
-    Interviewee,
-    Interviewer,
-    roomName,
-    Spectators,
-    Date,
-    Time,
-  } = RoomInputLabels;
-  const inputLabels: RoomInputLabels[] = [Interviewer, Interviewee, Spectators];
-  const { name, creator, interviewer, interviewee, watcher, date, time } =
+
+  const { creator, name, interviewer, interviewee, watcher, date, time } =
     roomForm.values;
 
   // let currentTime: Date = new Date();
@@ -49,7 +68,7 @@ const RoomModal: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
 
   const newRoom: IRoom = {
     name: name,
-    creator: 'algoj',
+    creator: creator,
     date: `${date} ${time}:00+01`,
     watcher: watcher,
     interviewee: interviewee,
@@ -60,7 +79,11 @@ const RoomModal: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
     createRoom(newRoom);
   };
   return (
-    <Modal setVisibility={setIsVisible} title={'Room'} visibility={isVisible}>
+    <Modal
+      setVisibility={setIsVisible}
+      title={'Create Room'}
+      visibility={isVisible}
+    >
       <div className={style.create__form}>
         <div className={style.create__time}>
           <div className={style.create__date}>
@@ -86,15 +109,6 @@ const RoomModal: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
             />
           </div>
         </div>
-        <FormInput
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            roomForm.handleChange(e)
-          }
-          value={creator}
-          name={'creator'}
-          label={emailLabel}
-          isAdd={true}
-        />
         {inputLabels.map((label, index) => (
           <FormInput
             key={index}
@@ -115,4 +129,4 @@ const RoomModal: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
   );
 });
 
-export default RoomModal;
+export default CreateRoom;

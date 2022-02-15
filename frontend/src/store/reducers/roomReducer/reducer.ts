@@ -1,4 +1,8 @@
-import { ActionTypesRoom, IRoomState } from '../../../types/roomTypes';
+import {
+  ActionTypesRoom,
+  ActionTypesRoomEnum,
+  IRoomState,
+} from '../../../types/roomTypes';
 
 const initialState: IRoomState = {
   room: {
@@ -9,13 +13,16 @@ const initialState: IRoomState = {
     name: '',
     watcher: '',
   },
+  isAuthRoom: false,
   error: null,
 };
 
-export const roomReducer = (state = initialState, action: any) => {
+export const roomReducer = (state = initialState, action: ActionTypesRoom) => {
   switch (action.type) {
-    case ActionTypesRoom.CREATE_ROOM:
+    case ActionTypesRoomEnum.CREATE_ROOM:
       return { ...state, room: action.payload, error: null };
+    case ActionTypesRoomEnum.ENTER_ROOM:
+      return { ...state, isAuthRoom: true, error: null };
     default:
       return state;
   }
