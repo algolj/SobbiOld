@@ -26,7 +26,7 @@ const InfoItem: FC<IProps> = React.memo(
     onRemove,
     isClickable = true,
   }) => {
-    const { isEdit } = useTypeSelector((state) => state.user);
+    const { isEditUser } = useTypeSelector((state) => state.user);
     return (
       <div onClick={onClick} className={style.info__wrapper}>
         {isButton ? (
@@ -49,14 +49,14 @@ const InfoItem: FC<IProps> = React.memo(
               isClickable ? null : style.info__item_disable
             }`}
           >
-            {referral && isEdit ? (
+            {referral && isEditUser ? (
               <div onClick={onRemove} className={style.info__item_remove} />
             ) : null}
             <a
               target={'_blank'}
               href={referral}
               className={`${style.info__item_ref} ${
-                referral && !isEdit ? null : style.info__item_disable
+                referral && !isEditUser ? null : style.info__item_disable
               }`}
             >
               <img

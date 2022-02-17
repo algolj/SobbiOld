@@ -1,6 +1,5 @@
 import React, { FC, SetStateAction } from 'react';
 import style from './LoginAvatar.module.scss';
-import { Link } from 'react-router-dom';
 import sprite from '../../assets/sprite.svg';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
 

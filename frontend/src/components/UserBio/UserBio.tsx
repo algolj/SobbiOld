@@ -12,7 +12,7 @@ interface IProps {
 const UserBio: FC<IProps> = React.memo(({ value, onChange }) => {
   const {
     isEditBio,
-    isEdit,
+    isEditUser,
     user: { bio },
   } = useTypeSelector((state) => state.user);
   const { setIsEditBio } = useActions();
@@ -21,7 +21,7 @@ const UserBio: FC<IProps> = React.memo(({ value, onChange }) => {
       {value || isEditBio ? (
         <div className={style.user__description}>
           <div className={style.user__title}>About me</div>
-          {isEdit ? (
+          {isEditUser ? (
             <textarea
               className={style.user__description_textarea}
               name={'formBio'}
@@ -34,7 +34,7 @@ const UserBio: FC<IProps> = React.memo(({ value, onChange }) => {
             <div className={style.user__description_text}>{value}</div>
           )}
         </div>
-      ) : isEdit ? (
+      ) : isEditUser ? (
         isEditBio ? null : (
           <div className={style.user__description_button}>
             <Button onClick={() => setIsEditBio(true)}>

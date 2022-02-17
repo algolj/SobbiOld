@@ -15,7 +15,6 @@ interface IProps {
 }
 
 const CreateRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
-  const { room } = useTypeSelector((state) => state.room);
   const { isAuth } = useTypeSelector((state) => state.user);
   const { createRoom } = useActions();
 
@@ -38,9 +37,7 @@ const CreateRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
   const checkingIsAuth = async () => {
     if (isAuth) {
       const x = inputLabels.filter((label: string) => label === creatorLabel);
-      console.log(x);
     }
-    console.log(isAuth);
   };
   useEffect(() => {
     checkingIsAuth();
@@ -56,7 +53,7 @@ const CreateRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
       time: '',
     },
     onSubmit: (values: IRoom) => {
-      console.log('s');
+      return;
     },
   });
 
@@ -102,7 +99,7 @@ const CreateRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 roomForm.handleChange(e)
               }
-              value={time}
+              value={time ? time : ''}
               name={'time'}
               type={'time'}
               label={'Time'}

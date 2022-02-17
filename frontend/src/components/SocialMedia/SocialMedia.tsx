@@ -17,14 +17,13 @@ interface IProps {
 
 const SocialMedia: FC<IProps> = React.memo(
   ({ value, onChange, currentChecked, setSocialMedia, socialMedia }) => {
-    const { isEdit } = useTypeSelector((state) => state.user);
+    const { isEditUser } = useTypeSelector((state) => state.user);
     const { github, linkedIn, facebook } = SocialMediaEnum;
     const socialMediaArray = [github, linkedIn, facebook];
     const [visibility, setVisibility] = useState<boolean>(false);
     const [socialMediaObject, setSocialMediaObject] = useState<ISocialMedia>(
       {},
     );
-    console.log(socialMediaObject);
     const setSocialMediaHandler = (
       // oldSocialMedia: ISocialMedia,
       event?: React.MouseEvent<HTMLElement>,
@@ -71,7 +70,7 @@ const SocialMedia: FC<IProps> = React.memo(
                 />
               ))
             : null}
-          {isEdit ? (
+          {isEditUser ? (
             <InfoItem
               onClick={() => setVisibility(true)}
               isAdd={true}

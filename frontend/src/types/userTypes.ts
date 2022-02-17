@@ -21,7 +21,7 @@ export interface IUserForm {
   formGender: string;
   formDateOfBirth: string;
   formCountry: string;
-  formImage: Buffer;
+  formImage: string;
 }
 
 export enum SocialMediaEnum {
@@ -52,7 +52,7 @@ export interface IUser {
   dateOfBirth?: string;
   gender?: string;
   bio?: string;
-  image?: Buffer | null;
+  image?: string;
   socialMedia?: ISocialMedia | null;
   id?: 1;
 }
@@ -70,7 +70,7 @@ export interface IUserState {
   isAuth: boolean;
   error: null | string;
   isEditBio: boolean;
-  isEdit: boolean;
+  isEditUser: boolean;
 }
 
 export enum UsersActionType {
@@ -81,6 +81,7 @@ export enum UsersActionType {
   CHANGE_USER_LOGIN = 'CHANGE_USER_LOGIN',
   CHANGE_USER_EMAIL = 'CHANGE_USER_EMAIL',
   CHANGE_USER_INFO = 'CHANGE_USER_INFO',
-  IS_EDIT = 'IS_EDIT',
+  IS_EDIT_USER = 'IS_EDIT_USER',
   IS_EDIT_BIO = 'IS_EDIT_BIO',
+  CHANGE_USER_AVATAR = 'CHANGE_USER_AVATAR',
 }

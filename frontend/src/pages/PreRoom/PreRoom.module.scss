@@ -1,0 +1,53 @@
+@import "../../styles/index";
+
+.preroom {
+  &__wrapper {
+    padding: 10px;
+    border: 2px solid $black;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  &__name {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    font-size: $SFont;
+    color: $black;
+
+
+    &_text {
+      font-weight: 700;
+    }
+
+    &_input {
+      font-size: $SFont;
+      text-align: center;
+      font-weight: 500;
+
+      &::placeholder {
+        font-weight: 500;
+        color: $grey;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .preroom {
+    &__name {
+      font-size: $MFont;
+      flex-direction: row;
+
+      &_input {
+        text-align: left;
+        font-size: $MFont;
+      }
+    }
+  }
+}

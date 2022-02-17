@@ -15,18 +15,19 @@ import {
   logoutUserAction,
   setIsEditAction,
   setIsEditBioAction,
+  setUserAvatarAction,
 } from '../reducers/userReducer/actions';
-import $api from '../../http/http';
+import $userApi from '../../http/roomService';
 
 export const loginUser = (user: ILoginUser) => {
   return async (dispatch: Dispatch<ActionTypesUsers>) => {
     try {
-      const response = await $api.post<IAuthResponse>('/user/login', {
+      const response = await $userApi.post<IAuthResponse>('/user/login', {
         login: user.login,
         password: user.password,
       });
       localStorage.setItem('token', response.data.token);
-      $api.get('/profile').then((res) => {
+      $userApi.get('/profile').then((res) => {
         dispatch(loginUserAction(res.data));
       });
     } catch (e) {
@@ -37,11 +38,7 @@ export const loginUser = (user: ILoginUser) => {
 
 export const createUser = (user: IUser) => {
   return async (dispatch: Dispatch<ActionTypesUsers>) => {
-    const registerResponse = await $api.post('user', {
-      username: user.username,
-      email: user.email,
-      password: user.password,
-    });
+    const registerResponse = await $userApi.post('user', user);
     dispatch(createUserAction(registerResponse.data));
   };
 };
@@ -54,10 +51,10 @@ export const logoutUser = () => {
 export const checkAuth = () => {
   return async (dispatch: Dispatch<ActionTypesUsers>) => {
     try {
-      const res = await $api.get('/profile');
+      const response = await $userApi.get('/profile');
       const token = localStorage.getItem('token');
       localStorage.setItem('token', token!);
-      dispatch(loginUserAction(res.data));
+      dispatch(loginUserAction(response.data));
     } catch (e) {
       console.log(e);
     }
@@ -67,7 +64,7 @@ export const checkAuth = () => {
 export const deleteUser = () => {
   return async (dispatch: Dispatch<ActionTypesUsers>) => {
     try {
-      await $api.delete('user');
+      await $userApi.delete('user');
       localStorage.removeItem('token');
       dispatch(logoutUserAction());
     } catch (e) {
@@ -76,12 +73,10 @@ export const deleteUser = () => {
   };
 };
 
-export const changeUserEmail = (email: string, type?: string) => {
+export const changeUserEmail = (email: string) => {
   return async (dispatch: Dispatch<ActionTypesUsers>) => {
     try {
-      const response = await $api.put('user/change/email', {
-        email: email,
-      });
+      const response = await $userApi.put('user/change/email', email);
       localStorage.setItem('token', response.data.token);
       dispatch(changeUserEmailAction(email));
     } catch (e) {
@@ -89,12 +84,10 @@ export const changeUserEmail = (email: string, type?: string) => {
     }
   };
 };
-export const changeUserName = (username: string, type?: string) => {
+export const changeUserName = (username: string) => {
   return async (dispatch: Dispatch<ActionTypesUsers>) => {
     try {
-      const response = await $api.put('user/change/email', {
-        username: username,
-      });
+      const response = await $userApi.put('user/change/email', username);
       localStorage.setItem('token', response.data.token);
       dispatch(changeUserNameAction(username));
     } catch (e) {
@@ -106,21 +99,7 @@ export const changeUserName = (username: string, type?: string) => {
 export const changeUserInfo = (user: IUserInfo) => {
   return async (dispatch: Dispatch<ActionTypesUsers>) => {
     try {
-      const response = await $api.put('profile', {
-        lastName: user.lastName,
-        firstName: user.firstName,
-        country: user.country,
-        dateOfBirth: user.dateOfBirth,
-        gender: user.gender,
-        bio: user.bio,
-        image: '',
-        socialMedia: {
-          linkedIn: user.socialMedia?.linkedIn,
-          facebook: user.socialMedia?.facebook,
-          github: user.socialMedia?.github,
-        },
-      });
-      console.log(response.data.socialMedia);
+      const response = await $userApi.put('profile', user);
       dispatch(changeUserInfoAction(response.data));
     } catch (e) {
       console.log(e);
@@ -137,10 +116,23 @@ export const setIsEdit = (isEdit: boolean) => {
     }
   };
 };
+
 export const setIsEditBio = (isEditBio: boolean) => {
   return async (dispatch: Dispatch<ActionTypesUsers>) => {
     try {
       dispatch(setIsEditBioAction(isEditBio));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const changeUserAvatar = (avatar: string) => {
+  return async (dispatch: Dispatch<ActionTypesUsers>) => {
+    try {
+      const response = await $userApi.post('/profile/image', avatar);
+      console.log(response.data);
+      dispatch(setUserAvatarAction(response.data));
     } catch (e) {
       console.log(e);
     }

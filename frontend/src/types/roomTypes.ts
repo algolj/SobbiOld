@@ -8,6 +8,8 @@ export type ActionTypesRoom = ReturnType<InferValueTypes<typeof RoomActions>>;
 export interface IRoom {
   name: string;
   date: string;
+  role?: string;
+  time?: string;
   creator: string;
   interviewee: string[] | string;
   interviewer: string[] | string;
@@ -32,10 +34,19 @@ export enum RoomInputLabels {
 export interface IRoomState {
   room: IRoom;
   isAuthRoom: boolean;
+  isEditRoom: boolean;
   error: null | string;
 }
 
 export enum ActionTypesRoomEnum {
   CREATE_ROOM = 'CREATE_ROOM',
   ENTER_ROOM = 'ENTER_ROOM',
+  IS_EDIT_ROOM = 'IS_EDIT_ROOM',
+  GET_ROOM_INFO = 'GET_ROOM_INFO',
+}
+
+export interface IRoomForm {
+  formDate: string;
+  formRoomName: string;
+  formRole: string | undefined;
 }

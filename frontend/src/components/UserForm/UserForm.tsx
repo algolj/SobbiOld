@@ -13,7 +13,9 @@ interface IProps {
 
 const UserForm: FC<IProps> = React.memo(
   ({ value, onChange, label, name, type, ableToChange = true }) => {
-    const { isEdit } = useTypeSelector((state) => state.user);
+    const { isEditUser } = useTypeSelector((state) => state.user);
+    const { isEditRoom } = useTypeSelector((state) => state.room);
+    const isEdit = isEditUser || isEditRoom;
     return (
       <div className={style.user__info_wrapper}>
         <div className={style.user__info_title}>{label}</div>

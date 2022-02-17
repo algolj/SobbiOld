@@ -17,9 +17,9 @@ import {
 } from '../../types/userTypes';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
 import { useFormik } from 'formik';
-import Select from '../UI/Select/Select';
 import { IOptions } from '../../types/types';
 import uniqid from 'uniqid';
+import InfoSelect from '../UI/selects/InfoSelect/InfoSelect';
 
 interface IProps {
   setUpdateUserInfo: any;
@@ -42,7 +42,7 @@ const UserBasicInfo: FC<IProps> = React.memo(
         country,
         image,
       },
-      isEdit,
+      isEditUser,
     } = useTypeSelector((state) => state.user);
     const fileInput = useRef() as any;
     const { Male, Female, Other } = GenderEnum;
@@ -51,7 +51,6 @@ const UserBasicInfo: FC<IProps> = React.memo(
     const [socialMediaObject, setSocialMediaObject] = useState<ISocialMedia>(
       {},
     );
-    console.log(formCountry);
     const userForm = useFormik({
       enableReinitialize: true,
       initialValues: {
@@ -71,7 +70,7 @@ const UserBasicInfo: FC<IProps> = React.memo(
         // login: Yup.string().required('Required'),
       }),
       onSubmit: async (values: IUserForm) => {
-        console.log('');
+        return;
       },
     });
 
@@ -90,12 +89,8 @@ const UserBasicInfo: FC<IProps> = React.memo(
     }: IUserForm = userForm.values;
 
     const imageReader = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const reader = new FileReader();
-      reader.onload = (progress) => {
-        userForm.setFieldValue('formImage', progress.target!.result);
-      };
-      if (e.currentTarget.files?.length) {
-        reader.readAsDataURL(e.currentTarget.files[0]);
+      if (e.currentTarget.files) {
+        userForm.setFieldValue('formImage', e.currentTarget.files[0].name);
       }
     };
     const userInfoUpdate: IUserInfo = {
@@ -106,7 +101,7 @@ const UserBasicInfo: FC<IProps> = React.memo(
       dateOfBirth: formDateOfBirth,
       bio: formBio,
       country: formCountry,
-      // image: formImage,
+      image: formImage,
     };
     const userLoginUpdate: IUserLogin = {
       email: formEmail,
@@ -126,11 +121,10 @@ const UserBasicInfo: FC<IProps> = React.memo(
         id: uniqid(),
       },
     ];
-    console.log(formCountry);
     return (
       <form className={style.user}>
         <Title color={colors.white}>
-          {isEdit ? (
+          {isEditUser ? (
             <input
               className={styleTitle.title}
               name={'formUsername'}
@@ -146,7 +140,7 @@ const UserBasicInfo: FC<IProps> = React.memo(
             <img className={style.user__photo} src={'avatar'} alt="avatar" />
             <div
               onClick={() => fileInput.current.click()}
-              className={isEdit ? style.user__avatar_edit : null}
+              className={isEditUser ? style.user__avatar_edit : null}
             />
             <input
               ref={fileInput}
@@ -183,8 +177,8 @@ const UserBasicInfo: FC<IProps> = React.memo(
               name={'formDateOfBirth'}
               type={'date'}
             />
-            {isEdit ? (
-              <Select
+            {isEditUser ? (
+              <InfoSelect
                 value={formCountry}
                 title={'Country'}
                 options={countryOptions}
@@ -199,7 +193,7 @@ const UserBasicInfo: FC<IProps> = React.memo(
               />
             )}
             <div className={style.user__gender}>
-              {isEdit ? (
+              {isEditUser ? (
                 <div className={style.user__gender_wrapper}>
                   {genderArray.map((genderItem) => (
                     <label key={genderItem}>

@@ -5,6 +5,7 @@ import Home from '../pages/Home/Home';
 import Header from '../components/Header/Header';
 import User from '../pages/User/User';
 import Room from '../pages/Room/Room';
+import PreRoom from '../pages/PreRoom/PreRoom';
 
 const RoutesPage: FC = () => (
   <BrowserRouter>
@@ -13,6 +14,7 @@ const RoutesPage: FC = () => (
       <Route path="/" element={<Home />} />
       <Route path="/user" element={<User />} />
       <Route path="/room" element={<Room />} />
+      <Route path="/preroom" element={<PreRoom />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   </BrowserRouter>

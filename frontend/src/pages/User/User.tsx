@@ -11,7 +11,7 @@ import { IUserInfo, IUserLogin } from '../../types/userTypes';
 
 const User: FC = () => {
   const {
-    isEdit,
+    isEditUser,
     user: { username, email },
   } = useTypeSelector((state) => state.user);
   const {
@@ -21,6 +21,7 @@ const User: FC = () => {
     changeUserInfo,
     setIsEdit,
     setIsEditBio,
+    changeUserAvatar,
   } = useActions();
 
   const [updateUserInfo, setUpdateUserInfo] = useState<IUserInfo>({});
@@ -31,12 +32,12 @@ const User: FC = () => {
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
   const userEdit = async () => {
-    if (!isEdit) return setIsEdit(true);
+    if (!isEditUser) return setIsEdit(true);
     else {
-      console.log(updateUserInfo);
       await changeUserInfo(updateUserInfo);
       await changeUserName(updateUserLogin.username);
       await changeUserEmail(updateUserLogin.email);
+      await changeUserAvatar(updateUserInfo.image!);
       setIsEdit(false);
       setIsEditBio(false);
     }
@@ -68,7 +69,7 @@ const User: FC = () => {
       </Modal>
       <div className={style.user__settings}>
         <div className={style.user__buttons}>
-          <Button onClick={userEdit}>{isEdit ? 'Save' : 'Edit'}</Button>
+          <Button onClick={userEdit}>{isEditUser ? 'Save' : 'Edit'}</Button>
           <Button
             isRed={true}
             onClick={() => {

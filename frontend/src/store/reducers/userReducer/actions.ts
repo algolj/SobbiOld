@@ -42,7 +42,7 @@ export const changeUserInfoAction = (info: IUser) =>
 
 export const setIsEditAction = (isEdit: boolean) =>
   ({
-    type: UsersActionType.IS_EDIT,
+    type: UsersActionType.IS_EDIT_USER,
     payload: isEdit,
   } as const);
 
@@ -50,4 +50,10 @@ export const setIsEditBioAction = (isEditBio: boolean) =>
   ({
     type: UsersActionType.IS_EDIT_BIO,
     payload: isEditBio,
+  } as const);
+
+export const setUserAvatarAction = (avatar: string) =>
+  ({
+    type: UsersActionType.CHANGE_USER_AVATAR,
+    payload: avatar,
   } as const);

@@ -13,6 +13,7 @@ const initialState: IRoomState = {
     name: '',
     watcher: '',
   },
+  isEditRoom: false,
   isAuthRoom: false,
   error: null,
 };
@@ -23,6 +24,10 @@ export const roomReducer = (state = initialState, action: ActionTypesRoom) => {
       return { ...state, room: action.payload, error: null };
     case ActionTypesRoomEnum.ENTER_ROOM:
       return { ...state, isAuthRoom: true, error: null };
+    case ActionTypesRoomEnum.IS_EDIT_ROOM:
+      return { ...state, isEditRoom: true, error: null };
+    case ActionTypesRoomEnum.GET_ROOM_INFO:
+      return { ...state, room: action.payload, error: null };
     default:
       return state;
   }
