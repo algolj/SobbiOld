@@ -684,7 +684,10 @@ Gets JSON with two parameters:
 
 ## Work with socket.io
 
+<br/>
+
 **Handshake path:** /room-chat
+**Port:** 3100
 
 #### Chat. Chat connections
 
@@ -699,12 +702,6 @@ Gets JSON with two parameters:
 **Required parameters:** any.
 
 [**Error**](#error-response)
-
-**Request Body (JSON type):**
-
-```JSON
-
-```
 
 **Response Body all chat (JSON type):**
 
@@ -735,12 +732,6 @@ Gets JSON with two parameters:
 **Required parameters:** any.
 
 [**Error**](#error-response)
-
-**Request Body (JSON type):**
-
-```JSON
-
-```
 
 **Response Body all chat (JSON type):**
 
@@ -789,5 +780,90 @@ Gets JSON with two parameters:
     "name": "userName",
     "image": "pr-img-cahaam-ddtg3c-1644591494137.jpg",
     "message": "Hello, world!"
+}
+```
+
+<br/>
+
+**Handshake path:** /room-live-coding
+**Port:** 3100
+
+#### live-coding. Live coding connections
+
+**Required header:** Authorization (Bearer `USER_IN_ROOM_JWT_TOKEN`)
+
+**Route:** /room-live-coding
+
+**Event name:** joinLiveCoding
+
+**Response listener:** joinLiveCoding
+
+**Required parameters:** any.
+
+[**Error**](#error-response)
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "connect": "room-102-live-coding"
+}
+```
+
+#### live-coding. Live coding disconnections
+
+**Required header:** Authorization (Bearer `USER_IN_ROOM_JWT_TOKEN`)
+
+**Route:** /room-chat
+
+**Event name:** leaveLiveCoding
+
+**Response listener:** leaveLiveCoding
+
+**Required parameters:** any.
+
+[**Error**](#error-response)
+
+**Response Body all chat (JSON type):**
+
+```JSON
+{
+    "disconnect": "room-102-live-coding"
+}
+```
+
+#### live-coding. Live coding
+
+**Required header:** Authorization (Bearer `USER_IN_ROOM_JWT_TOKEN`)
+
+**Route:** /room-chat
+
+**Event name:** live-coding
+
+**Response listener:** live-coding
+
+**Required parameters:** caretPosition (number), text (string).
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "caretPosition": 2,
+    "text": "code"
+}
+
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "userId": 484,
+    "name": "Alex",
+    "role": "interviewee",
+    "caretPosition": 2,
+    "text": "code"
 }
 ```

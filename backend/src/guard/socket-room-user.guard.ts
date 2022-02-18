@@ -31,17 +31,17 @@ export class socketRoomUserGuard implements CanActivate {
       )) as IRoomAuthUser;
 
       const user = await this.roomUserRepository.findOne({ id: userId });
-
       context.switchToWs().getClient().user = {
         roomId,
         role,
         userId,
         name:
           user.name ||
-          user?.userInRoom.username ||
-          user?.userInRoom.firstName ||
-          user.email,
-        image: user?.userInRoom.image,
+          user?.userInRoom?.username ||
+          user?.userInRoom?.firstName ||
+          user.email ||
+          '',
+        image: user?.userInRoom?.image || '',
       };
     } catch (err) {
       context.switchToWs().getClient().user = null;
@@ -50,7 +50,6 @@ export class socketRoomUserGuard implements CanActivate {
     if (!context.switchToWs().getClient().user) {
       throw new WsException('UNAUTHORIZED');
     }
-
     return true;
   }
 }
