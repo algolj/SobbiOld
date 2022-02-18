@@ -71,6 +71,7 @@ export class RoomService {
       if (userInDatabase) {
         user.email = userInDatabase.email;
         user.userInRoom = userInDatabase;
+        user.name = userInDatabase.firstName;
       } else {
         if (this.isEmail(userKey)) {
           user.email = userKey;
