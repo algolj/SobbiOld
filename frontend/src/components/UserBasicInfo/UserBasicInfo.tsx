@@ -47,7 +47,7 @@ const UserBasicInfo: FC<IProps> = React.memo(
     const fileInput = useRef() as any;
     const { Male, Female, Other } = GenderEnum;
     const genderArray = [Male, Female, Other];
-    const [formCountry, setFromCountry] = useState<string>(country);
+    const [formCountry, setFormCountry] = useState<string>(country);
     const [socialMediaObject, setSocialMediaObject] = useState<ISocialMedia>(
       {},
     );
@@ -182,7 +182,7 @@ const UserBasicInfo: FC<IProps> = React.memo(
                 value={formCountry}
                 title={'Country'}
                 options={countryOptions}
-                onChange={setFromCountry}
+                onChange={setFormCountry}
                 name={'formCountry'}
               />
             ) : (

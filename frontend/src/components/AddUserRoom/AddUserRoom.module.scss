@@ -1,0 +1,29 @@
+@import '../../styles/index';
+
+.form {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px 15px 10px;
+    gap: 30px;
+    border-radius: 12px;
+    border: 2px solid $black;
+  }
+
+  &__title {
+    font-size: $LFont;
+    font-weight: 600;
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__button {
+    margin: 0 auto;
+    width: 120px;
+    height: 50px;
+  }
+}

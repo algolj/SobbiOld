@@ -1,6 +1,12 @@
 import { Dispatch } from 'react';
-import { ActionTypesRoom, IAuthRoom, IRoom } from '../../types/roomTypes';
 import {
+  ActionTypesRoom,
+  IAuthRoom,
+  INewUser,
+  IRoom,
+} from '../../types/roomTypes';
+import {
+  addUserAction,
   changeRoomDateAction,
   changeRoomUsernameAction,
   createRoomAction,
@@ -74,6 +80,17 @@ export const setIsEditRoom = (isEditRoom: boolean) => {
   return async (dispatch: Dispatch<ActionTypesRoom>) => {
     try {
       dispatch(setIsEditRoomAction(isEditRoom));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const addUser = (user: INewUser) => {
+  return async (dispatch: Dispatch<ActionTypesRoom>) => {
+    try {
+      await $roomApi.post('room/user', user);
+      dispatch(addUserAction(user));
     } catch (e) {
       console.log(e);
     }

@@ -7,7 +7,7 @@
   border: 2px solid $black;
   font-size: $LFont;
   border-radius: 10px;
-  padding: 10px;
+  padding: 11px;
   width: 100%;
 
   &:focus ~ .input__label {
@@ -51,7 +51,7 @@
 
   &__label {
     position: absolute;
-    z-index: 2;
+    z-index: 1;
     left: 20px;
     top: 0;
     border-radius: 3px;

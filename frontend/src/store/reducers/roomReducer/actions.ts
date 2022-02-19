@@ -1,6 +1,7 @@
 import {
   ActionTypesRoomEnum,
   IAuthRoom,
+  INewUser,
   IRoom,
 } from '../../../types/roomTypes';
 
@@ -38,4 +39,10 @@ export const changeRoomUsernameAction = (username: string) =>
   ({
     type: ActionTypesRoomEnum.CHANGE_ROOM_USERNAME,
     payload: username,
+  } as const);
+
+export const addUserAction = (user: INewUser) =>
+  ({
+    type: ActionTypesRoomEnum.ADD_USER,
+    payload: user,
   } as const);

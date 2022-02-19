@@ -45,9 +45,15 @@ export enum ActionTypesRoomEnum {
   GET_ROOM_INFO = 'GET_ROOM_INFO',
   CHANGE_ROOM_DATE = 'CHANGE_ROOM_DATE',
   CHANGE_ROOM_USERNAME = 'CHANGE_ROOM_USERNAME',
+  ADD_USER = 'ADD_USER',
 }
 
 export interface IRoomForm {
   formDate: string;
   formUserName: string;
+}
+
+export interface INewUser {
+  role: string;
+  user: string;
 }
