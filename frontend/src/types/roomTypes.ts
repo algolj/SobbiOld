@@ -43,10 +43,11 @@ export enum ActionTypesRoomEnum {
   ENTER_ROOM = 'ENTER_ROOM',
   IS_EDIT_ROOM = 'IS_EDIT_ROOM',
   GET_ROOM_INFO = 'GET_ROOM_INFO',
+  CHANGE_ROOM_DATE = 'CHANGE_ROOM_DATE',
+  CHANGE_ROOM_USERNAME = 'CHANGE_ROOM_USERNAME',
 }
 
 export interface IRoomForm {
   formDate: string;
-  formRoomName: string;
-  formRole: string | undefined;
+  formUserName: string;
 }

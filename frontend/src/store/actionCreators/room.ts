@@ -1,6 +1,8 @@
 import { Dispatch } from 'react';
 import { ActionTypesRoom, IAuthRoom, IRoom } from '../../types/roomTypes';
 import {
+  changeRoomDateAction,
+  changeRoomUsernameAction,
   createRoomAction,
   enterRoomAction,
   getRoomInfoAction,
@@ -36,6 +38,32 @@ export const getRoomInfo = () => {
     try {
       const response = await $roomApi.get('room');
       dispatch(getRoomInfoAction(response.data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const changeRoomDate = (date: string, roomName: string) => {
+  return async (dispatch: Dispatch<ActionTypesRoom>) => {
+    try {
+      await $roomApi.put(`room/${roomName}`, {
+        date: date,
+      });
+      dispatch(changeRoomDateAction(date));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const changeRoomUsername = (username: string) => {
+  return async (dispatch: Dispatch<ActionTypesRoom>) => {
+    try {
+      await $roomApi.put('room/user', {
+        name: username,
+      });
+      dispatch(changeRoomUsernameAction(username));
     } catch (e) {
       console.log(e);
     }

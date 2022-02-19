@@ -27,3 +27,15 @@ export const getRoomInfoAction = (room: IRoom) =>
     type: ActionTypesRoomEnum.GET_ROOM_INFO,
     payload: room,
   } as const);
+
+export const changeRoomDateAction = (date: string) =>
+  ({
+    type: ActionTypesRoomEnum.CHANGE_ROOM_DATE,
+    payload: date,
+  } as const);
+
+export const changeRoomUsernameAction = (username: string) =>
+  ({
+    type: ActionTypesRoomEnum.CHANGE_ROOM_USERNAME,
+    payload: username,
+  } as const);

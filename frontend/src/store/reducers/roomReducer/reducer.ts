@@ -28,6 +28,18 @@ export const roomReducer = (state = initialState, action: ActionTypesRoom) => {
       return { ...state, isEditRoom: true, error: null };
     case ActionTypesRoomEnum.GET_ROOM_INFO:
       return { ...state, room: action.payload, error: null };
+    case ActionTypesRoomEnum.CHANGE_ROOM_DATE:
+      return {
+        ...state,
+        room: { ...state, date: action.payload },
+        error: null,
+      };
+    // case ActionTypesRoomEnum.CHANGE_ROOM_USERNAME:
+    //   return {
+    //     ...state,
+    //     room: { ...state, date: action.payload },
+    //     error: null,
+    //   };
     default:
       return state;
   }

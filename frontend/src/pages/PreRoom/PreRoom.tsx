@@ -2,80 +2,36 @@ import React, { FC, useEffect, useState } from 'react';
 import style from './PreRoom.module.scss';
 import Title from '../../components/UI/Title/Title';
 import Button from '../../components/UI/Button/Button';
-import { useFormik } from 'formik';
-import UserForm from '../../components/UserForm/UserForm';
-import * as Yup from 'yup';
-import { IRoomForm } from '../../types/roomTypes';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
 import { useActions } from '../../hooks/useActions';
+import PreRoomForm from '../../components/PreRoomForm/PreRoomForm';
+import { IRoomForm } from '../../types/roomTypes';
 
 const PreRoom: FC = () => {
   const {
     isEditRoom,
     room: { date, name, role },
   } = useTypeSelector((state) => state.room);
-  const { setIsEditRoom, getRoomInfo } = useActions();
+  const { setIsEditRoom, getRoomInfo, changeRoomDate, changeRoomUsername } =
+    useActions();
   useEffect(() => {
     getRoomInfo();
-    console.log(date, name, role);
   }, []);
-  const [userName, setUserName] = useState<string>('');
-  const roomForm = useFormik({
-    enableReinitialize: true,
-    initialValues: {
-      formDate: date,
-      formRoomName: name,
-      formRole: role,
-    },
-    validationSchema: Yup.object({
-      // login: Yup.string().required('Required'),
-    }),
-    onSubmit: async (values: IRoomForm) => {
-      return;
-    },
+  const [roomInfo, setRoomInfo] = useState<IRoomForm>({
+    formDate: '',
+    formUserName: '',
   });
-  const { formRole, formRoomName, formDate } = roomForm.values;
-
   const changeIsEdit = () => {
+    setIsEditRoom(!isEditRoom);
     if (isEditRoom) {
-      setIsEditRoom(false);
-    } else {
-      console.log(true);
-      setIsEditRoom(true);
+      changeRoomDate(roomInfo.formDate, name);
+      changeRoomUsername(roomInfo.formUserName);
     }
   };
   return (
     <div className={style.preroom__wrapper}>
       <Title>OKAY, ARE YOU READY?</Title>
-      <div className={style.preroom__name}>
-        <span className={style.preroom__name_text}>YOUR NAME:</span>
-        <input
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}
-          type="text"
-          placeholder={'WRITE YOUR NAME'}
-          className={style.preroom__name_input}
-        />
-      </div>
-      <UserForm
-        value={formRole ? formRole : ''}
-        name={'formRole'}
-        onChange={roomForm.handleChange}
-        label={'Role'}
-      />
-      <UserForm
-        value={formRoomName}
-        name={'formRoomName'}
-        onChange={roomForm.handleChange}
-        label={'Room name'}
-      />
-      <UserForm
-        value={formDate}
-        name={'formDate'}
-        onChange={roomForm.handleChange}
-        label={'Date'}
-        type={'date'}
-      />
+      <PreRoomForm setRoomInfo={setRoomInfo} />
       <img src="" alt="" />
       <div className={style.preroom__button}>
         <Button onClick={() => changeIsEdit()}>
