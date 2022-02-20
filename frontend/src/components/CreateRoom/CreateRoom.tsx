@@ -45,10 +45,22 @@ const CreateRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
   const roomForm = useFormik({
     initialValues: {
       name: '',
-      creator: '',
-      interviewer: '',
-      interviewee: '',
-      watcher: '',
+      creator: {
+        name: '',
+        email: '',
+      },
+      interviewer: {
+        name: '',
+        email: '',
+      },
+      interviewee: {
+        name: '',
+        email: '',
+      },
+      watcher: {
+        name: '',
+        email: '',
+      },
       date: '',
       time: '',
     },

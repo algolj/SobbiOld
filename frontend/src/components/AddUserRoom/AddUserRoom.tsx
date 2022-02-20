@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, SetStateAction, useState } from 'react';
 import style from './AddUserRoom.module.scss';
 import FormInput from '../UI/inputs/FormInput/FormInput';
 import InfoSelect from '../UI/selects/InfoSelect/InfoSelect';
@@ -7,8 +7,14 @@ import uniqid from 'uniqid';
 import Button from '../UI/Button/Button';
 import { useActions } from '../../hooks/useActions';
 import { INewUser } from '../../types/roomTypes';
+import Modal from '../UI/Modal/Modal';
 
-const AddUserRoom: FC = React.memo(() => {
+interface IProps {
+  isVisible: boolean;
+  setIsVisible: React.Dispatch<SetStateAction<boolean>>;
+}
+
+const AddUserRoom: FC<IProps> = React.memo(({ isVisible, setIsVisible }) => {
   const { addUser } = useActions();
 
   const [userName, setUserName] = useState<string>('');
@@ -17,7 +23,6 @@ const AddUserRoom: FC = React.memo(() => {
     user: userName,
     role: userRole,
   };
-  console.log(user);
   const selectOptions: IOptions[] = [
     {
       title: 'Interview',
@@ -36,7 +41,11 @@ const AddUserRoom: FC = React.memo(() => {
     },
   ];
   return (
-    <div>
+    <Modal
+      visibility={isVisible}
+      setVisibility={setIsVisible}
+      title={'Add new user'}
+    >
       <div className={style.form__wrapper}>
         <div className={style.form__title}>Add user</div>
         <div className={style.form__inputs}>
@@ -61,7 +70,7 @@ const AddUserRoom: FC = React.memo(() => {
           <Button onClick={() => addUser(user)}>Add</Button>
         </div>
       </div>
-    </div>
+    </Modal>
   );
 });
 

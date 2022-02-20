@@ -2,6 +2,7 @@ import { Dispatch } from 'react';
 import {
   ActionTypesRoom,
   IAuthRoom,
+  IDeleteUserRoom,
   INewUser,
   IRoom,
 } from '../../types/roomTypes';
@@ -91,6 +92,17 @@ export const addUser = (user: INewUser) => {
     try {
       await $roomApi.post('room/user', user);
       dispatch(addUserAction(user));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const deleteUserRoom = (user: IDeleteUserRoom) => {
+  return async (dispatch: Dispatch<ActionTypesRoom>) => {
+    try {
+      await $roomApi.delete('room/user', { data: user });
+      // dispatch(deleteUserRoomAction(user));
     } catch (e) {
       console.log(e);
     }

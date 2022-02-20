@@ -7,11 +7,23 @@ import {
 const initialState: IRoomState = {
   room: {
     date: '',
-    creator: '',
-    interviewee: '',
-    interviewer: '',
+    creator: {
+      name: '',
+      email: '',
+    },
+    interviewee: {
+      name: '',
+      email: '',
+    },
+    interviewer: {
+      name: '',
+      email: '',
+    },
     name: '',
-    watcher: '',
+    watcher: {
+      name: '',
+      email: '',
+    },
   },
   isEditRoom: false,
   isAuthRoom: false,

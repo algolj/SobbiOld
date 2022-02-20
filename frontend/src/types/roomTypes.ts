@@ -10,11 +10,23 @@ export interface IRoom {
   date: string;
   role?: string;
   time?: string;
-  creator: string;
-  interviewee: string[] | string;
-  interviewer: string[] | string;
-  watcher: string[] | string;
+  creator: IRoomUser;
+  interviewee: IRoomUser[] | IRoomUser;
+  interviewer: IRoomUser[] | IRoomUser;
+  watcher: IRoomUser[] | IRoomUser;
 }
+
+export interface IRoomObject {
+  room: IRoom;
+}
+
+export interface IRoomUser {
+  name: string | null;
+  email: string;
+  password?: string;
+}
+
+export type IRoomRoles = IRoomUser[] | IRoomUser;
 
 export interface IAuthRoom {
   room: string;
@@ -56,4 +68,15 @@ export interface IRoomForm {
 export interface INewUser {
   role: string;
   user: string;
+}
+
+export interface IDeleteUserRoom {
+  room: string;
+  user: string;
+}
+
+export enum InputLabels {
+  interviewer = 'Interviewer',
+  interviewee = 'Interviewee',
+  watcher = 'Watcher',
 }

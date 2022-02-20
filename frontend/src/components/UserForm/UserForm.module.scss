@@ -1,10 +1,12 @@
 @import "../../styles/index";
 
 .user__info {
+  position: relative;
   font-size: $SFont;
   color: $black;
   font-weight: 600;
   word-wrap: break-word;
+
 
   &::-webkit-calendar-picker-indicator {
     margin: 0;
@@ -19,6 +21,40 @@
     border-radius: 10px;
     @include boxShadow;
     transform: translateX(-3px);
+    &_hide{
+      display: none;
+    }
+  }
+
+  &_button {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: $SFont;
+    cursor: pointer;
+    transition: 0.2s;
+    user-select: none;
+    border: 2px solid $red;
+    color: $red;
+
+    &:hover {
+      border: 2px solid $red;
+      background: $wheat;
+      color: $red;
+    }
+
+    &:active {
+      transform: translateY(-50%) rotate(45deg) scale(0.95);
+    }
   }
 
   &_title {

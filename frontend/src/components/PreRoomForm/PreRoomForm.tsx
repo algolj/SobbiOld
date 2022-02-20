@@ -1,13 +1,10 @@
-import React, { FC, SetStateAction, useEffect, useState } from 'react';
+import React, { FC, SetStateAction, useState } from 'react';
 import style from '../../pages/PreRoom/PreRoom.module.scss';
 import UserForm from '../UserForm/UserForm';
-import FormInput from '../UI/inputs/FormInput/FormInput';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
-import { useActions } from '../../hooks/useActions';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import { IRoomForm } from '../../types/roomTypes';
 import AddUserRoom from '../AddUserRoom/AddUserRoom';
+import RoomUserList from '../RoomUserList/RoomUserList';
 
 interface IProps {
   setRoomInfo: React.Dispatch<SetStateAction<IRoomForm>>;
@@ -17,6 +14,7 @@ const PreRoomForm: FC<IProps> = React.memo(({ setRoomInfo }) => {
   const {
     room: { date, name, role },
   } = useTypeSelector((state) => state.room);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
   const [roomDate, setRoomDate] = useState<string>(date);
   const [roomUserName, setRoomUserName] = useState<string>('');
   setRoomInfo({
@@ -49,7 +47,8 @@ const PreRoomForm: FC<IProps> = React.memo(({ setRoomInfo }) => {
         label={'Date'}
         type={'date'}
       />
-      <AddUserRoom />
+      <RoomUserList />
+      <AddUserRoom isVisible={isVisible} setIsVisible={setIsVisible} />
     </div>
   );
 });
