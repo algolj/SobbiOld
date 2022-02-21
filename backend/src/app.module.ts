@@ -6,6 +6,9 @@ import { RoomModule } from './room/room.module';
 import { UserModule } from './user/user.module';
 import { ProfileModule } from './profile/profile.module';
 import { MailModule } from './mail/mail.module';
+import { TasksModule } from './tasks/tasks.module';
+import { TagsModule } from './tags/tags.module';
+import { TestsModule } from './tests/tests.module';
 
 import config from './ormconfig';
 
@@ -17,6 +20,9 @@ import config from './ormconfig';
     UserModule,
     ProfileModule,
     MailModule,
+    TasksModule,
+    TagsModule,
+    TestsModule,
   ],
 })
 export class AppModule {}
