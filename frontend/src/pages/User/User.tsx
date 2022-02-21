@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import style from './User.module.scss';
 import FeedbackShortcut from '../../components/FeedbackShortcut/FeedbackShortcut';
 import Button from '../../components/UI/Button/Button';
@@ -12,7 +12,7 @@ import { IUserInfo, IUserLogin } from '../../types/userTypes';
 const User: FC = () => {
   const {
     isEditUser,
-    user: { username, email },
+    user: { username, email, imagePath },
   } = useTypeSelector((state) => state.user);
   const {
     deleteUser,
@@ -22,6 +22,7 @@ const User: FC = () => {
     setIsEdit,
     setIsEditBio,
     changeUserAvatar,
+    getUserAvatar,
   } = useActions();
 
   const [updateUserInfo, setUpdateUserInfo] = useState<IUserInfo>({});
@@ -30,21 +31,31 @@ const User: FC = () => {
     email: email,
   });
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
-
   const userEdit = async () => {
     if (!isEditUser) return setIsEdit(true);
     else {
       await changeUserInfo(updateUserInfo);
       await changeUserName(updateUserLogin.username);
       await changeUserEmail(updateUserLogin.email);
-      await changeUserAvatar(updateUserInfo.image!);
+      if (updateUserInfo.imageFile) {
+        await changeUserAvatar(updateUserInfo.imageFile);
+      }
+      if (imagePath) {
+        await getUserAvatar(imagePath);
+      }
+
       setIsEdit(false);
       setIsEditBio(false);
     }
   };
-  // console.log(updateUserInfo.socialMedia);
   return (
-    <div onSubmit={(e) => e.preventDefault()} className={style.user}>
+    <div
+      onClick={() => {
+        console.log(imagePath);
+      }}
+      onSubmit={(e) => e.preventDefault()}
+      className={style.user}
+    >
       <UserBasicInfo
         setUpdateUserInfo={setUpdateUserInfo}
         setUpdateUserLogin={setUpdateUserLogin}

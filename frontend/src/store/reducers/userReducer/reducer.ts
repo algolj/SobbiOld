@@ -29,6 +29,8 @@ export const userReducer = (state = initialState, action: ActionTypesUsers) => {
     case UsersActionType.CHANGE_USER_EMAIL:
       return { ...state, user: { ...state.user, email: action.payload } };
     case UsersActionType.CHANGE_USER_AVATAR:
+      return { ...state, user: { ...state.user, imagePath: action.payload } };
+    case UsersActionType.GET_USER_AVATAR:
       return { ...state, user: { ...state.user, image: action.payload } };
     case UsersActionType.IS_EDIT_USER:
       return { ...state, isEditUser: action.payload };

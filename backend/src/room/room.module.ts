@@ -13,6 +13,8 @@ import { RoomService } from './room.service';
 import { JWTRoomConfig } from '@app/configs/jwt-room.config';
 import { PassportModule } from '@nestjs/passport';
 import { getUserMiddleware } from '@app/user/middlewares/user.middleware';
+import { RoomChatModule } from '@app/room-chat/room-chat.module';
+import { RoomLiveCodingModule } from '@app/room-live-coding/room-live-coding.module';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { getUserMiddleware } from '@app/user/middlewares/user.middleware';
     }),
     PassportModule,
     getUserMiddleware,
+    RoomChatModule,
+    RoomLiveCodingModule,
   ],
   controllers: [RoomController],
   providers: [RoomService],

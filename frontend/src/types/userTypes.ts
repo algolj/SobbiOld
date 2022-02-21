@@ -21,7 +21,6 @@ export interface IUserForm {
   formGender: string;
   formDateOfBirth: string;
   formCountry: string;
-  formImage: string;
 }
 
 export enum SocialMediaEnum {
@@ -52,7 +51,9 @@ export interface IUser {
   dateOfBirth?: string;
   gender?: string;
   bio?: string;
-  image?: string;
+  image?: any;
+  imagePath?: string;
+  imageFile?: FormData;
   socialMedia?: ISocialMedia | null;
   id?: 1;
 }
@@ -84,4 +85,5 @@ export enum UsersActionType {
   IS_EDIT_USER = 'IS_EDIT_USER',
   IS_EDIT_BIO = 'IS_EDIT_BIO',
   CHANGE_USER_AVATAR = 'CHANGE_USER_AVATAR',
+  GET_USER_AVATAR = 'GET_USER_AVATAR',
 }

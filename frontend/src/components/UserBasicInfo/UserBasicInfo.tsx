@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import style from './UserBasicInfo.module.scss';
 import colors from '../../styles/index.scss';
 import styleTitle from '../UI/Title/Title.module.scss';
@@ -11,6 +11,7 @@ import * as Yup from 'yup';
 import {
   GenderEnum,
   ISocialMedia,
+  IUser,
   IUserForm,
   IUserInfo,
   IUserLogin,
@@ -20,6 +21,7 @@ import { useFormik } from 'formik';
 import { IOptions } from '../../types/types';
 import uniqid from 'uniqid';
 import InfoSelect from '../UI/selects/InfoSelect/InfoSelect';
+import { useActions } from '../../hooks/useActions';
 
 interface IProps {
   setUpdateUserInfo: any;
@@ -40,10 +42,12 @@ const UserBasicInfo: FC<IProps> = React.memo(
         gender,
         dateOfBirth,
         country,
+        imagePath,
         image,
       },
       isEditUser,
     } = useTypeSelector((state) => state.user);
+    const { getUserAvatar } = useActions();
     const fileInput = useRef() as any;
     const { Male, Female, Other } = GenderEnum;
     const genderArray = [Male, Female, Other];
@@ -64,7 +68,6 @@ const UserBasicInfo: FC<IProps> = React.memo(
         formGender: gender,
         formDateOfBirth: dateOfBirth,
         formCountry: country,
-        formImage: image,
       },
       validationSchema: Yup.object({
         // login: Yup.string().required('Required'),
@@ -84,13 +87,13 @@ const UserBasicInfo: FC<IProps> = React.memo(
       formPicked,
       formGender,
       formDateOfBirth,
-      // formCountry,
-      formImage,
-    }: IUserForm = userForm.values;
+    }: // formCountry,
+    IUserForm = userForm.values;
+    const formData = new FormData();
 
     const imageReader = (e: React.ChangeEvent<HTMLInputElement>) => {
       if (e.currentTarget.files) {
-        userForm.setFieldValue('formImage', e.currentTarget.files[0].name);
+        formData.append('file', e.currentTarget.files[0]);
       }
     };
     const userInfoUpdate: IUserInfo = {
@@ -101,7 +104,7 @@ const UserBasicInfo: FC<IProps> = React.memo(
       dateOfBirth: formDateOfBirth,
       bio: formBio,
       country: formCountry,
-      image: formImage,
+      imageFile: formData,
     };
     const userLoginUpdate: IUserLogin = {
       email: formEmail,
@@ -121,6 +124,12 @@ const UserBasicInfo: FC<IProps> = React.memo(
         id: uniqid(),
       },
     ];
+    useEffect(() => {
+      if (imagePath) {
+        getUserAvatar(imagePath);
+      }
+    }, []);
+
     return (
       <form className={style.user}>
         <Title color={colors.white}>
@@ -137,7 +146,7 @@ const UserBasicInfo: FC<IProps> = React.memo(
         </Title>
         <div className={style.user__info_wrapper}>
           <div className={style.user__avatar}>
-            <img className={style.user__photo} src={'avatar'} alt="avatar" />
+            <img className={style.user__photo} src={image} alt="avatar" />
             <div
               onClick={() => fileInput.current.click()}
               className={isEditUser ? style.user__avatar_edit : null}

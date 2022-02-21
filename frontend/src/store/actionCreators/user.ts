@@ -11,6 +11,7 @@ import {
   changeUserInfoAction,
   changeUserNameAction,
   createUserAction,
+  getUserAvatarAction,
   loginUserAction,
   logoutUserAction,
   setIsEditAction,
@@ -127,12 +128,22 @@ export const setIsEditBio = (isEditBio: boolean) => {
   };
 };
 
-export const changeUserAvatar = (avatar: string) => {
+export const changeUserAvatar = (formData: FormData) => {
   return async (dispatch: Dispatch<ActionTypesUsers>) => {
     try {
-      const response = await $userApi.post('/profile/image', avatar);
-      console.log(response.data);
-      dispatch(setUserAvatarAction(response.data));
+      const response = await $userApi.post('/profile/image', formData);
+      dispatch(setUserAvatarAction(response.data.path));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const getUserAvatar = (name: string) => {
+  return async (dispatch: Dispatch<ActionTypesUsers>) => {
+    try {
+      const response = await $userApi.get(`profile/image/${name}`);
+      dispatch(getUserAvatarAction(response.data));
     } catch (e) {
       console.log(e);
     }

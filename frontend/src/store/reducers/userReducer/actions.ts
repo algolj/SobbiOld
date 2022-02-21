@@ -57,3 +57,9 @@ export const setUserAvatarAction = (avatar: string) =>
     type: UsersActionType.CHANGE_USER_AVATAR,
     payload: avatar,
   } as const);
+
+export const getUserAvatarAction = (avatar: any) =>
+  ({
+    type: UsersActionType.GET_USER_AVATAR,
+    payload: avatar,
+  } as const);

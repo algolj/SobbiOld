@@ -101,7 +101,10 @@ export const addUser = (user: INewUser) => {
 export const deleteUserRoom = (user: IDeleteUserRoom) => {
   return async (dispatch: Dispatch<ActionTypesRoom>) => {
     try {
-      await $roomApi.delete('room/user', { data: user });
+      await $roomApi.delete('room/user', {
+        data: user,
+      });
+      console.log(user.user);
       // dispatch(deleteUserRoomAction(user));
     } catch (e) {
       console.log(e);

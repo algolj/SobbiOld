@@ -399,7 +399,7 @@ User registration on the platform.
 
 **Request type:** PUT
 
-**Route:** /api/room/id`number` or /api/room/`roomname`
+**Route:** /api/room/change/date/id`number` or /api/room/change/date/`roomname`
 
 **Required header:** Authorization (Bearer `CREATOR_JWT_TOKEN`).
 
@@ -450,7 +450,7 @@ User registration on the platform.
 }
 ```
 
-#### 14. Change room date
+#### 14. Change room user name
 
 **Request type:** PUT
 
@@ -645,7 +645,6 @@ User registration on the platform.
         }
     ]
 }
-}
 ```
 
 \* creator
@@ -680,5 +679,191 @@ Gets JSON with two parameters:
 {
     "statusCode": 422,
     "message": "A user with the same username already exists."
+}
+```
+
+## Work with socket.io
+
+<br/>
+
+**Handshake path:** /room-chat
+**Port:** 3100
+
+#### Chat. Chat connections
+
+**Required header:** Authorization (Bearer `USER_IN_ROOM_JWT_TOKEN`)
+
+**Route:** /room-chat
+
+**Event name:** joinRooms
+
+**Response listener:** joinRooms
+
+**Required parameters:** any.
+
+[**Error**](#error-response)
+
+**Response Body all chat (JSON type):**
+
+```JSON
+{
+    "connect": "room-102-all"
+}
+```
+
+**Response Body interviewer and watcher chat(JSON type):**
+
+```JSON
+{
+    "connect": "room-102-interviewer"
+}
+```
+
+#### Chat. Chat disconnections
+
+**Required header:** Authorization (Bearer `USER_IN_ROOM_JWT_TOKEN`)
+
+**Route:** /room-chat
+
+**Event name:** leaveRooms
+
+**Response listener:** leaveRooms
+
+**Required parameters:** any.
+
+[**Error**](#error-response)
+
+**Response Body all chat (JSON type):**
+
+```JSON
+{
+    "disconnect": "room-102-all"
+}
+```
+
+**Response Body interviewer and watcher chat(JSON type):**
+
+```JSON
+{
+    "disconnect": "room-102-interviewer"
+}
+```
+
+#### Chat. Sending a message
+
+**Required header:** Authorization (Bearer `USER_IN_ROOM_JWT_TOKEN`)
+
+**Route:** /room-chat
+
+**Event name:** message-all or message-interviewer
+
+**Response listener:** message-all or message-interviewer
+
+**Required parameters:** text.
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "message": "Hello, world!"
+}
+
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "userId": 483,
+    "name": "userName",
+    "image": "pr-img-cahaam-ddtg3c-1644591494137.jpg",
+    "message": "Hello, world!"
+}
+```
+
+<br/>
+
+**Handshake path:** /room-live-coding
+**Port:** 3100
+
+#### live-coding. Live coding connections
+
+**Required header:** Authorization (Bearer `USER_IN_ROOM_JWT_TOKEN`)
+
+**Route:** /room-live-coding
+
+**Event name:** joinLiveCoding
+
+**Response listener:** joinLiveCoding
+
+**Required parameters:** any.
+
+[**Error**](#error-response)
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "connect": "room-102-live-coding"
+}
+```
+
+#### live-coding. Live coding disconnections
+
+**Required header:** Authorization (Bearer `USER_IN_ROOM_JWT_TOKEN`)
+
+**Route:** /room-chat
+
+**Event name:** leaveLiveCoding
+
+**Response listener:** leaveLiveCoding
+
+**Required parameters:** any.
+
+[**Error**](#error-response)
+
+**Response Body all chat (JSON type):**
+
+```JSON
+{
+    "disconnect": "room-102-live-coding"
+}
+```
+
+#### live-coding. Live coding
+
+**Required header:** Authorization (Bearer `USER_IN_ROOM_JWT_TOKEN`)
+
+**Route:** /room-chat
+
+**Event name:** live-coding
+
+**Response listener:** live-coding
+
+**Required parameters:** caretPosition (number), text (string).
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "caretPosition": 2,
+    "text": "code"
+}
+
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "userId": 484,
+    "name": "Alex",
+    "role": "interviewee",
+    "caretPosition": 2,
+    "text": "code"
 }
 ```
