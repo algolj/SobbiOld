@@ -47,7 +47,6 @@ const AddUserRoom: FC<IProps> = React.memo(({ isVisible, setIsVisible }) => {
       title={'Add new user'}
     >
       <div className={style.form__wrapper}>
-        <div className={style.form__title}>Add user</div>
         <div className={style.form__inputs}>
           <InfoSelect
             title={'Role'}

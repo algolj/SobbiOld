@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import style from './RoomUserList.module.scss';
 import { useActions } from '../../hooks/useActions';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
 import UserForm from '../UserForm/UserForm';
 import { InputLabels, IRoomObject, IRoomRoles } from '../../types/roomTypes';
 import uniqid from 'uniqid';
+import Button from '../UI/Button/Button';
+import AddUserRoom from '../AddUserRoom/AddUserRoom';
 
 const RoomUserList = () => {
   const {
@@ -15,46 +18,57 @@ const RoomUserList = () => {
   }, []);
   const roleLabels = InputLabels;
   const roleArray: IRoomRoles[] = [interviewer, interviewee, watcher];
-  console.log(interviewer);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
   return (
-    <div>
-      <UserForm
-        onDelete={() => deleteUserRoom({ room: name, user: creator.email })}
-        name={'creator'}
-        value={creator.email}
-        ableToChange={false}
-        ableToDelete={true}
-        label={'Creator'}
-      />
-      {roleArray.map((group, index) => {
-        console.log(Array.isArray(group), group);
-        return Array.isArray(group) ? (
-          group.map((user) => {
-            return user.email ? (
+    <div className={style.list}>
+      <div className={style.list__wrapper}>
+        <div className={style.list__title}>User list</div>
+        <div className={style.list__users}>
+          <UserForm
+            onDelete={() => deleteUserRoom({ room: name, user: creator.email })}
+            name={'creator'}
+            value={creator.email}
+            ableToChange={false}
+            ableToDelete={true}
+            label={'Creator'}
+          />
+          {roleArray.map((group, index) => {
+            console.log(Array.isArray(group), group);
+            return Array.isArray(group) ? (
+              group.map((user) => {
+                return user.email ? (
+                  <UserForm
+                    key={uniqid()}
+                    name={Object.values(roleLabels)[index]}
+                    value={user.email}
+                    ableToChange={false}
+                    ableToDelete={true}
+                    onDelete={() =>
+                      deleteUserRoom({ room: name, user: user.email })
+                    }
+                    label={Object.values(roleLabels)[index]}
+                  />
+                ) : null;
+              })
+            ) : group.email ? (
               <UserForm
-                key={uniqid()}
-                name={Object.values(roleLabels)[index]}
-                value={user.email}
-                ableToChange={false}
-                ableToDelete={true}
                 onDelete={() =>
-                  deleteUserRoom({ room: name, user: user.email })
+                  deleteUserRoom({ room: name, user: group.email })
                 }
+                ableToDelete={true}
+                name={Object.values(roleLabels)[index]}
+                value={group.email}
+                ableToChange={false}
                 label={Object.values(roleLabels)[index]}
               />
             ) : null;
-          })
-        ) : group.email ? (
-          <UserForm
-            onDelete={() => deleteUserRoom({ room: name, user: group.email })}
-            ableToDelete={true}
-            name={Object.values(roleLabels)[index]}
-            value={group.email}
-            ableToChange={false}
-            label={Object.values(roleLabels)[index]}
-          />
-        ) : null;
-      })}
+          })}
+        </div>
+      </div>
+      <div className={style.list__button}>
+        <Button onClick={() => setIsVisible(true)}>Add user</Button>
+      </div>
+      <AddUserRoom isVisible={isVisible} setIsVisible={setIsVisible} />
     </div>
   );
 };

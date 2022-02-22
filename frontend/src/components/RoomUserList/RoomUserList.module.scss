@@ -1,0 +1,36 @@
+@import "../../styles/index";
+
+.list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+  border: 2px solid $black;
+  border-radius: 10px;
+  &__title {
+    width: 100%;
+    font-size: $LFont;
+    color: $black;
+    font-weight: 600;
+  }
+  &__wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  &__users {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  &__button {
+    width: 140px;
+    height: 50px;
+  }
+}
