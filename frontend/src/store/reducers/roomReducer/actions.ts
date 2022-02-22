@@ -1,9 +1,4 @@
-import {
-  ActionTypesRoomEnum,
-  IAuthRoom,
-  INewUser,
-  IRoom,
-} from '../../../types/roomTypes';
+import { ActionTypesRoomEnum, INewUser, IRoom } from '../../../types/roomTypes';
 
 export const createRoomAction = (room: IRoom) =>
   ({
@@ -41,8 +36,20 @@ export const changeRoomUsernameAction = (username: string) =>
     payload: username,
   } as const);
 
-export const addUserAction = (user: INewUser) =>
+export const addInterviewerAction = (user: INewUser) =>
   ({
-    type: ActionTypesRoomEnum.ADD_USER,
+    type: ActionTypesRoomEnum.ADD_INTERVIEWER,
+    payload: user,
+  } as const);
+
+export const addIntervieweeAction = (user: INewUser) =>
+  ({
+    type: ActionTypesRoomEnum.ADD_INTERVIEWEE,
+    payload: user,
+  } as const);
+
+export const addWatcherAction = (user: INewUser) =>
+  ({
+    type: ActionTypesRoomEnum.ADD_WATCHER,
     payload: user,
   } as const);

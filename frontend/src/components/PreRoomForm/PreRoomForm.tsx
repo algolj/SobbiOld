@@ -1,4 +1,4 @@
-import React, { FC, SetStateAction, useState } from 'react';
+import React, { FC, SetStateAction, useEffect, useState } from 'react';
 import style from './PreRoomForm.module.scss';
 import UserForm from '../UserForm/UserForm';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
@@ -18,6 +18,9 @@ const PreRoomForm: FC<IProps> = React.memo(({ setRoomInfo }) => {
   setRoomInfo({
     formDate: roomDate,
     formUserName: roomUserName,
+  });
+  useEffect(() => {
+    if (date) setRoomDate(date);
   });
   return (
     <div className={style.preroom}>

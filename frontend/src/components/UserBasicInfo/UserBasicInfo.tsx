@@ -51,7 +51,6 @@ const UserBasicInfo: FC<IProps> = React.memo(
     const fileInput = useRef() as any;
     const { Male, Female, Other } = GenderEnum;
     const genderArray = [Male, Female, Other];
-    const [formCountry, setFormCountry] = useState<string>(country);
     const [socialMediaObject, setSocialMediaObject] = useState<ISocialMedia>(
       {},
     );
@@ -87,8 +86,8 @@ const UserBasicInfo: FC<IProps> = React.memo(
       formPicked,
       formGender,
       formDateOfBirth,
-    }: // formCountry,
-    IUserForm = userForm.values;
+      formCountry,
+    }: IUserForm = userForm.values;
     const formData = new FormData();
 
     const imageReader = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -191,7 +190,9 @@ const UserBasicInfo: FC<IProps> = React.memo(
                 value={formCountry}
                 title={'Country'}
                 options={countryOptions}
-                onChange={setFormCountry}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  userForm.setFieldValue('formCountry', e.target.value)
+                }
                 name={'formCountry'}
               />
             ) : (

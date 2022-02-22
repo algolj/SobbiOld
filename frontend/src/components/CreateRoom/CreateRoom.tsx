@@ -49,18 +49,9 @@ const CreateRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
         name: '',
         email: '',
       },
-      interviewer: {
-        name: '',
-        email: '',
-      },
-      interviewee: {
-        name: '',
-        email: '',
-      },
-      watcher: {
-        name: '',
-        email: '',
-      },
+      interviewer: [],
+      interviewee: [],
+      watcher: [],
       date: '',
       time: '',
     },
@@ -90,8 +81,8 @@ const CreateRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
   return (
     <Modal
       setVisibility={setIsVisible}
-      title={'Create Room'}
       visibility={isVisible}
+      title={'Create Room'}
     >
       <div className={style.create__form}>
         <div className={style.create__time}>
@@ -124,7 +115,7 @@ const CreateRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               roomForm.handleChange(e)
             }
-            value={Object.values(roomForm.values)[index]}
+            value={Object.values(roomForm.values)[index].email}
             name={`${Object.keys(roomForm.values)[index]}`}
             label={label}
             isAdd={true}

@@ -26,8 +26,8 @@ const EnterRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
   return (
     <Modal
       setVisibility={setIsVisible}
+      title={'Enter Room'}
       visibility={isVisible}
-      title={'Enter room'}
     >
       <div className={style.enter__wrapper}>
         <FormInput

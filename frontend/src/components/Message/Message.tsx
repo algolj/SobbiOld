@@ -4,9 +4,10 @@ import sprite from '../../assets/sprite.svg';
 
 interface IProps {
   isReceiving: boolean;
+  message: string;
 }
 
-const Message: FC<IProps> = React.memo(({ isReceiving }) => {
+const Message: FC<IProps> = React.memo(({ isReceiving, message }) => {
   return (
     <div
       className={
@@ -27,10 +28,7 @@ const Message: FC<IProps> = React.memo(({ isReceiving }) => {
           <svg className={style.message__arrow}>
             <use href={`${sprite}#messageArrow`} />
           </svg>
-          <span className={style.message__text}>
-            Hello, my naa my name is my name is Violanaa my name is my name is
-            Violanaa my name
-          </span>
+          <span className={style.message__text}>{message}</span>
         </div>
       </div>
     </div>

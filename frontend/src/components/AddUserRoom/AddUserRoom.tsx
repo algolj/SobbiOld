@@ -56,7 +56,9 @@ const AddUserRoom: FC<IProps> = React.memo(({ isVisible, setIsVisible }) => {
             title={'Role'}
             options={selectOptions}
             value={userRole}
-            onChange={setUserRole}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setUserRole(e.target.value)
+            }
             isBasic={false}
             defaultDisable={true}
             name={'Role'}

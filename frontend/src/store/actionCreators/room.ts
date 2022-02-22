@@ -7,7 +7,9 @@ import {
   IRoom,
 } from '../../types/roomTypes';
 import {
-  addUserAction,
+  addIntervieweeAction,
+  addInterviewerAction,
+  addWatcherAction,
   changeRoomDateAction,
   changeRoomUsernameAction,
   createRoomAction,
@@ -44,6 +46,10 @@ export const getRoomInfo = () => {
   return async (dispatch: Dispatch<ActionTypesRoom>) => {
     try {
       const response = await $roomApi.get('room');
+      console.log(response.data);
+      if (!Array.isArray(response.data.interviewee)) {
+        response.data.interviewee = [response.data.interviewee];
+      }
       dispatch(getRoomInfoAction(response.data));
     } catch (e) {
       console.log(e);
@@ -91,7 +97,15 @@ export const addUser = (user: INewUser) => {
   return async (dispatch: Dispatch<ActionTypesRoom>) => {
     try {
       await $roomApi.post('room/user', user);
-      dispatch(addUserAction(user));
+      switch (user.role) {
+        case 'interviewer':
+          return dispatch(addInterviewerAction(user));
+        case 'interviewee':
+          return dispatch(addIntervieweeAction(user));
+        case 'watcher': {
+          return dispatch(addWatcherAction(user));
+        }
+      }
     } catch (e) {
       console.log(e);
     }

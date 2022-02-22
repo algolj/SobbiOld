@@ -31,7 +31,9 @@ const UserForm: FC<IProps> = React.memo(
     return (
       <div
         className={
-          isVisible ? style.user__info_wrapper : style.user__info_wrapper_hide
+          isVisible && (value || isEdit)
+            ? style.user__info_wrapper
+            : style.user__info_wrapper_hide
         }
       >
         {ableToDelete ? (

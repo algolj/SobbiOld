@@ -13,6 +13,7 @@ import { socketRoomUserGuard } from '../guard/socket-room-user.guard';
 @WebSocketGateway(3100, {
   namespace: '/room-live-coding',
   cors: {
+    origin: 'http://localhost:3001',
     credentials: true,
   },
 })

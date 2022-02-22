@@ -11,9 +11,9 @@ export interface IRoom {
   role?: string;
   time?: string;
   creator: IRoomUser;
-  interviewee: IRoomUser[] | IRoomUser;
-  interviewer: IRoomUser[] | IRoomUser;
-  watcher: IRoomUser[] | IRoomUser;
+  interviewee: IRoomUser[];
+  interviewer: IRoomUser[];
+  watcher: IRoomUser[];
 }
 
 export interface IRoomObject {
@@ -25,8 +25,6 @@ export interface IRoomUser {
   email: string;
   password?: string;
 }
-
-export type IRoomRoles = IRoomUser[] | IRoomUser;
 
 export interface IAuthRoom {
   room: string;
@@ -57,7 +55,9 @@ export enum ActionTypesRoomEnum {
   GET_ROOM_INFO = 'GET_ROOM_INFO',
   CHANGE_ROOM_DATE = 'CHANGE_ROOM_DATE',
   CHANGE_ROOM_USERNAME = 'CHANGE_ROOM_USERNAME',
-  ADD_USER = 'ADD_USER',
+  ADD_INTERVIEWEE = 'ADD_INTERVIEWEE',
+  ADD_INTERVIEWER = 'ADD_INTERVIEWER',
+  ADD_WATCHER = 'ADD_WATCHER',
 }
 
 export interface IRoomForm {
