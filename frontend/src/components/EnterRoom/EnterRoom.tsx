@@ -44,10 +44,9 @@ const EnterRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
             setRoomPassword(e.target.value)
           }
         />
-        {/*hqhv4q*/}
         <div className={style.enter__button}>
           {isAuthRoom ? (
-            <Link to={`/room/${roomName}`}>
+            <Link to={'/preroom'}>
               <Button onClick={() => onSubmit()}>Enter</Button>
             </Link>
           ) : (

@@ -104,7 +104,6 @@ export const deleteUserRoom = (user: IDeleteUserRoom) => {
       await $roomApi.delete('room/user', {
         data: user,
       });
-      console.log(user.user);
       // dispatch(deleteUserRoomAction(user));
     } catch (e) {
       console.log(e);

@@ -34,15 +34,17 @@ const UserForm: FC<IProps> = React.memo(
           isVisible ? style.user__info_wrapper : style.user__info_wrapper_hide
         }
       >
-        <div
-          onClick={() => {
-            if (onDelete) onDelete();
-            setIsVisible(false);
-          }}
-          className={ableToDelete ? style.user__info_button : null}
-        >
-          +
-        </div>
+        {ableToDelete ? (
+          <div
+            onClick={() => {
+              if (onDelete) onDelete();
+              setIsVisible(false);
+            }}
+            className={style.user__info_button}
+          >
+            +
+          </div>
+        ) : null}
         <div className={style.user__info_title}>{label}</div>
         {isEdit && ableToChange ? (
           <input

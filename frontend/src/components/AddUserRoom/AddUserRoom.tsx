@@ -40,6 +40,10 @@ const AddUserRoom: FC<IProps> = React.memo(({ isVisible, setIsVisible }) => {
       id: uniqid(),
     },
   ];
+  const onSubmit = () => {
+    addUser(user);
+    setIsVisible(false);
+  };
   return (
     <Modal
       visibility={isVisible}
@@ -66,7 +70,7 @@ const AddUserRoom: FC<IProps> = React.memo(({ isVisible, setIsVisible }) => {
           />
         </div>
         <div className={style.form__button}>
-          <Button onClick={() => addUser(user)}>Add</Button>
+          <Button onClick={onSubmit}>Add</Button>
         </div>
       </div>
     </Modal>

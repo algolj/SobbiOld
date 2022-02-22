@@ -71,7 +71,7 @@ export interface INewUser {
 }
 
 export interface IDeleteUserRoom {
-  room: string;
+  role: string;
   user: string;
 }
 

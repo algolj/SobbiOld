@@ -3,7 +3,6 @@ import style from './PreRoomForm.module.scss';
 import UserForm from '../UserForm/UserForm';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
 import { IRoomForm } from '../../types/roomTypes';
-import AddUserRoom from '../AddUserRoom/AddUserRoom';
 import RoomUserList from '../RoomUserList/RoomUserList';
 
 interface IProps {

@@ -25,11 +25,9 @@ const RoomUserList = () => {
         <div className={style.list__title}>User list</div>
         <div className={style.list__users}>
           <UserForm
-            onDelete={() => deleteUserRoom({ room: name, user: creator.email })}
             name={'creator'}
             value={creator.email}
             ableToChange={false}
-            ableToDelete={true}
             label={'Creator'}
           />
           {roleArray.map((group, index) => {
@@ -44,7 +42,10 @@ const RoomUserList = () => {
                     ableToChange={false}
                     ableToDelete={true}
                     onDelete={() =>
-                      deleteUserRoom({ room: name, user: user.email })
+                      deleteUserRoom({
+                        role: Object.values(roleLabels)[index].toLowerCase(),
+                        user: user.email,
+                      })
                     }
                     label={Object.values(roleLabels)[index]}
                   />
@@ -53,7 +54,10 @@ const RoomUserList = () => {
             ) : group.email ? (
               <UserForm
                 onDelete={() =>
-                  deleteUserRoom({ room: name, user: group.email })
+                  deleteUserRoom({
+                    role: Object.values(roleLabels)[index].toLowerCase(),
+                    user: group.email,
+                  })
                 }
                 ableToDelete={true}
                 name={Object.values(roleLabels)[index]}
