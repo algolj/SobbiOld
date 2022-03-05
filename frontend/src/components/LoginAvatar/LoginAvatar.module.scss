@@ -6,29 +6,27 @@
   top: 50%;
   left: 50%;
 
-
   &:active {
     transition: 0.2s;
     opacity: 0.7;
     transform: translate(-50%, -50%) scale(0.97);
   }
+}
 
-  &__wrapper {
-    position: relative;
-    width: 82px;
-    height: 82px;
-    border-radius: 10px;
+.login__wrapper {
+  position: relative;
+  width: 82px;
+  height: 82px;
+  border-radius: 10px;
 
-    &:hover {
-      .login__hover {
-        opacity: 1;
-      }
+  &:hover {
+    .login__hover {
+      opacity: 1;
     }
-
   }
+}
 
-  &__hover {
-    opacity: 0;
-    transition: 0.2s;
-  }
+.login__hover {
+  opacity: 0;
+  transition: 0.2s;
 }

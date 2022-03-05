@@ -12,23 +12,25 @@
   border: 1px solid $black;
   background: $white;
   max-width: 800px;
-  &__title {
-    text-align: center;
-    font-weight: 700;
-    font-size: $XXLFont;
-  }
+}
 
-  &__bg {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 4;
-    background: rgba(0, 0, 0, 0.5);
-    width: 100vw;
-    height: 100vh;
-    &_active{
-      display: block;
-    }
-  }
+.modal__title {
+  text-align: center;
+  font-weight: 700;
+  font-size: $XXLFont;
+}
+
+.modal__bg {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+}
+
+.modal__bg_active {
+  display: block;
 }

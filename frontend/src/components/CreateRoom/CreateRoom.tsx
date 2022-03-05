@@ -5,7 +5,7 @@ import FormInput from '../UI/inputs/FormInput/FormInput';
 import Button from '../UI/Button/Button';
 import { useFormik } from 'formik';
 import { IRoom, RoomInputLabels } from '../../types/roomTypes';
-import userForm from '../UserForm/UserForm';
+import userForm from '../user/UserForm/UserForm';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
 import { useActions } from '../../hooks/useActions';
 

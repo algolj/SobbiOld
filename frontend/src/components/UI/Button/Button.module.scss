@@ -14,22 +14,22 @@
   @include boxShadow;
   transition: 0.2s;
 
-  &_red {
-    background: $red;
-    border: 2px solid $black;
-    box-shadow:  3px 3px $red,  4px 4px 0 1px $black;
-
-  }
-
-  &_active {
-    box-shadow: 0 0 $wheat, 1px 1px 0 1px $black;
-    transform: translate(0, 0);
-    background: $brown;
-    color: $white;
-  }
-
   &:active {
     box-shadow: 0 0 $wheat, 1px 1px 0 1px $black;
     transform: translate(0, 0);
   }
+}
+
+.button_red {
+  background: $red;
+  border: 2px solid $black;
+  box-shadow: 3px 3px $red, 4px 4px 0 1px $black;
+
+}
+
+.button_active {
+  box-shadow: 0 0 $wheat, 1px 1px 0 1px $black;
+  transform: translate(0, 0);
+  background: $brown;
+  color: $white;
 }

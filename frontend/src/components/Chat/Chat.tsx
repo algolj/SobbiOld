@@ -19,11 +19,14 @@ const Chat: FC<IProps> = React.memo(({ isHide }) => {
       message: message,
     });
   };
-  console.log(connectSocket);
   useEffect(() => {
     connectSocket.emit('joinRooms');
     connectSocket.connect();
   }, []);
+  useEffect(() => {
+    console.log('123sa');
+    console.log(connectSocket);
+  }, [connectSocket]);
 
   return (
     <div
@@ -36,6 +39,7 @@ const Chat: FC<IProps> = React.memo(({ isHide }) => {
         ))}
       </div>
       <SearchInput
+        placeholder={'Write a message...'}
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         onKeyUp={onSubmit}

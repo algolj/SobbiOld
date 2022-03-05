@@ -1,46 +1,53 @@
 
 .create {
-  &__time {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: 5%;
 
-  }
+}
 
-  &__date {
-    width: 55%;
-  }
+.create__time {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 5%;
 
-  &__hours {
-    width: 40%;
-  }
+}
 
-  &__form {
-    margin: -30px auto;
-    transform: scale(0.75);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    max-width: 400px;
-  }
+.create__date {
+  width: 55%;
+}
 
-  &__button {
-    width: 100%;
-    height: 80px;
-  }
+.create__hours {
+  width: 40%;
+}
+
+.create__form {
+  margin: -30px auto;
+  transform: scale(0.75);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  max-width: 400px;
+}
+
+.create__button {
+  width: 100%;
+  height: 80px;
 }
 
 @media screen and (min-width: 1024px) {
+
   .create__form {
     margin: 30px auto;
     transform: scale(0.9);
   }
+
 }
+
 @media screen and (min-width: 1920px) {
-  .create__button{
+
+  .create__button {
     margin-top: -60px;
     margin-bottom: 50px;
   }
+
 }

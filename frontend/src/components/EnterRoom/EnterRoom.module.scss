@@ -1,21 +1,20 @@
-.enter {
-  &__wrapper {
-    margin: 0 auto;
-    transform: scale(0.75);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    max-width: 400px;
-  }
+.enter__wrapper {
+  margin: 0 auto;
+  transform: scale(0.75);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  max-width: 400px;
+}
 
-  &__button {
-    width: 100%;
-    height: 80px;
-  }
+.enter__button {
+  width: 100%;
+  height: 80px;
 }
 
 @media screen and (min-width: 1024px) {
+
   .enter__wrapper {
     margin: 10px auto;
     transform: scale(0.9);
@@ -24,9 +23,11 @@
     margin-top: -20px;
     margin-bottom: 50px;
   }
+
 }
 
 @media screen and (min-width: 1920px) {
+
   .enter__wrapper {
     margin: 40px auto;
     transform: scale(0.9);
@@ -35,4 +36,5 @@
     margin-top: -60px;
     margin-bottom: 50px;
   }
+
 }

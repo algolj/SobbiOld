@@ -4,77 +4,73 @@
   width: 100%;
   display: flex;
   justify-content: right;
+}
 
-  &_received {
-    justify-content: left;
+.message_received {
+  justify-content: left;
 
-    .message {
-      &__container {
-        flex-direction: row;
-      }
-
-      &__text {
-        color: $white;
-      }
-
-      &__wrapper {
-        background-color: $brown;
-      }
-
-      &__arrow {
-        fill: $brown;
-        left: 0;
-        bottom: 0;
-        transform: translate(-42.4%, 42.2%) scaleX(-1);
-      }
-    }
-
-
+  .message__container {
+    flex-direction: row;
   }
 
-  &__container {
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: end;
-    gap: 15px;
+  .message__text {
+    color: $white;
   }
 
-  &__wrapper {
-    position: relative;
-    width: 90%;
-    display: flex;
-    align-items: center;
-    background-color: $wheat;
-    border: 1px solid $black;
-    border-radius: 10px;
-    padding: 10px;
-
+  .message__wrapper {
+    background-color: $brown;
   }
 
-  &__arrow {
-    position: absolute;
-    right: 0;
+  .message__arrow {
+    fill: $brown;
+    left: 0;
     bottom: 0;
-    transform: translate(42.4%, 42.2%);
-    width: 30px;
-    height: 30px;
-    fill: $wheat;
+    transform: translate(-42.4%, 42.2%) scaleX(-1);
   }
+}
 
-  &__avatar {
-    transform: translateY(80%);
-    width: 30px;
-    height: 30px;
-    background-size: cover;
-    background-position: center center;
-    border-radius: 50px;
-    background-color: $wheat;
-  }
+.message__container {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: end;
+  gap: 15px;
+}
 
-  &__text {
-    position: relative;
-    font-weight: 500;
-    color: $black;
-    font-size: $SFont;
-  }
+.message__wrapper {
+  position: relative;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  background-color: $wheat;
+  border: 1px solid $black;
+  border-radius: 10px;
+  padding: 10px;
+
+}
+
+.message__arrow {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transform: translate(42.4%, 42.2%);
+  width: 30px;
+  height: 30px;
+  fill: $wheat;
+}
+
+.message__avatar {
+  transform: translateY(80%);
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  background-position: center center;
+  border-radius: 50px;
+  background-color: $wheat;
+}
+
+.message__text {
+  position: relative;
+  font-weight: 500;
+  color: $black;
+  font-size: $SFont;
 }

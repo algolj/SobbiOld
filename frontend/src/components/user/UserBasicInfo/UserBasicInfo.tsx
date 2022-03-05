@@ -1,27 +1,26 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import style from './UserBasicInfo.module.scss';
-import colors from '../../styles/index.scss';
-import styleTitle from '../UI/Title/Title.module.scss';
+import colors from '../../../styles/index.scss';
+import styleTitle from '../../UI/Title/Title.module.scss';
 import UserForm from '../UserForm/UserForm';
-import InfoItem from '../UI/InfoItem/InfoItem';
 import UserBio from '../UserBio/UserBio';
-import SocialMedia from '../SocialMedia/SocialMedia';
-import Title from '../UI/Title/Title';
+import SocialMedia from '../../SocialMedia/SocialMedia';
+import Title from '../../UI/Title/Title';
 import * as Yup from 'yup';
 import {
-  GenderEnum,
   ISocialMedia,
-  IUser,
   IUserForm,
   IUserInfo,
   IUserLogin,
-} from '../../types/userTypes';
-import { useTypeSelector } from '../../hooks/useTypeSelector';
+} from '../../../types/userTypes';
+import { useTypeSelector } from '../../../hooks/useTypeSelector';
 import { useFormik } from 'formik';
-import { IOptions } from '../../types/types';
+import { IOptions } from '../../../types/types';
 import uniqid from 'uniqid';
-import InfoSelect from '../UI/selects/InfoSelect/InfoSelect';
-import { useActions } from '../../hooks/useActions';
+import InfoSelect from '../../UI/selects/InfoSelect/InfoSelect';
+import { useActions } from '../../../hooks/useActions';
+import UserGender from '../UserGender/UserGender';
+import UserAvatar from '../UserAvatar/UserAvatar';
 
 interface IProps {
   setUpdateUserInfo: any;
@@ -48,9 +47,6 @@ const UserBasicInfo: FC<IProps> = React.memo(
       isEditUser,
     } = useTypeSelector((state) => state.user);
     const { getUserAvatar } = useActions();
-    const fileInput = useRef() as any;
-    const { Male, Female, Other } = GenderEnum;
-    const genderArray = [Male, Female, Other];
     const [socialMediaObject, setSocialMediaObject] = useState<ISocialMedia>(
       {},
     );
@@ -67,6 +63,7 @@ const UserBasicInfo: FC<IProps> = React.memo(
         formGender: gender,
         formDateOfBirth: dateOfBirth,
         formCountry: country,
+        formImage: image,
       },
       validationSchema: Yup.object({
         // login: Yup.string().required('Required'),
@@ -87,14 +84,9 @@ const UserBasicInfo: FC<IProps> = React.memo(
       formGender,
       formDateOfBirth,
       formCountry,
+      formImage,
     }: IUserForm = userForm.values;
-    const formData = new FormData();
 
-    const imageReader = (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (e.currentTarget.files) {
-        formData.append('file', e.currentTarget.files[0]);
-      }
-    };
     const userInfoUpdate: IUserInfo = {
       socialMedia: socialMediaObject,
       gender: formGender,
@@ -103,7 +95,7 @@ const UserBasicInfo: FC<IProps> = React.memo(
       dateOfBirth: formDateOfBirth,
       bio: formBio,
       country: formCountry,
-      imageFile: formData,
+      imageFile: formImage,
     };
     const userLoginUpdate: IUserLogin = {
       email: formEmail,
@@ -124,9 +116,7 @@ const UserBasicInfo: FC<IProps> = React.memo(
       },
     ];
     useEffect(() => {
-      if (imagePath) {
-        getUserAvatar(imagePath);
-      }
+      // getUserAvatar(imagePath);
     }, []);
 
     return (
@@ -144,19 +134,10 @@ const UserBasicInfo: FC<IProps> = React.memo(
           )}
         </Title>
         <div className={style.user__info_wrapper}>
-          <div className={style.user__avatar}>
-            <img className={style.user__photo} src={image} alt="avatar" />
-            <div
-              onClick={() => fileInput.current.click()}
-              className={isEditUser ? style.user__avatar_edit : null}
-            />
-            <input
-              ref={fileInput}
-              className={style.user__file}
-              type="file"
-              onChange={imageReader}
-            />
-          </div>
+          <UserAvatar
+            formField={'fromImage'}
+            setFormImage={userForm.setFieldValue}
+          />
           <div className={style.user__info}>
             <div className={style.user__info_name}>
               <UserForm
@@ -202,31 +183,7 @@ const UserBasicInfo: FC<IProps> = React.memo(
                 value={formCountry}
               />
             )}
-            <div className={style.user__gender}>
-              {isEditUser ? (
-                <div className={style.user__gender_wrapper}>
-                  {genderArray.map((genderItem) => (
-                    <label key={genderItem}>
-                      <InfoItem
-                        isButton={true}
-                        checked={formGender}
-                        name={genderItem}
-                      />
-                      <input
-                        className={style.user__gender_radio}
-                        id={'formGender'}
-                        type={'radio'}
-                        name={'formGender'}
-                        value={genderItem}
-                        onChange={userForm.handleChange}
-                      />
-                    </label>
-                  ))}
-                </div>
-              ) : (
-                <InfoItem isClickable={false} name={formGender} />
-              )}
-            </div>
+            <UserGender gender={formGender} setGender={userForm.handleChange} />
             <SocialMedia
               onChange={userForm.handleChange}
               value={formSocialMedia}

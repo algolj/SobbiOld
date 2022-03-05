@@ -1,6 +1,6 @@
 import React, { FC, SetStateAction, useEffect, useState } from 'react';
 import style from './PreRoomForm.module.scss';
-import UserForm from '../UserForm/UserForm';
+import UserForm from '../user/UserForm/UserForm';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
 import { IRoomForm } from '../../types/roomTypes';
 import RoomUserList from '../RoomUserList/RoomUserList';

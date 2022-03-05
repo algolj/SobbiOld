@@ -10,27 +10,30 @@
   padding: 20px;
   border: 2px solid $black;
   border-radius: 10px;
-  &__title {
-    width: 100%;
-    font-size: $LFont;
-    color: $black;
-    font-weight: 600;
-  }
-  &__wrapper{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  &__users {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
+}
 
-  &__button {
-    width: 140px;
-    height: 50px;
-  }
+.list__title {
+  width: 100%;
+  font-size: $LFont;
+  color: $black;
+  font-weight: 600;
+}
+
+.list__wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.list__users {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.list__button {
+  width: 140px;
+  height: 50px;
 }

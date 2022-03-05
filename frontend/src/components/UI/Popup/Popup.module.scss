@@ -8,36 +8,37 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+}
 
-  &_hide {
-    transform: translate(200%, 0) !important;
-  }
+.popup_hide {
+  transform: translate(200%, 0) !important;
+  visibility: hidden;
+}
 
-  &__wrapper {
-    position: absolute;
-    z-index: 2;
-    top: 130%;
-    right: 0;
-    border-radius: 10px;
-    background: $white;
-    border: 1.6px solid $black;
-    transform: translate(0, 0);
-    transition: 0.2s;
-  }
+.popup__wrapper {
+  position: absolute;
+  z-index: 2;
+  top: 130%;
+  right: 0;
+  border-radius: 10px;
+  background: $white;
+  border: 1.6px solid $black;
+  transform: translate(0, 0);
+  transition: 0.2s;
+}
 
-  &__link {
-    padding: 7px 10px 7px 4px;
-    height: 100%;
-    color: $black;
-    font-size: $MFont;
-    font-weight: 500;
-    border-bottom: 1px solid $black;
-    margin-bottom: -1px;
-    cursor: pointer;
-    transition: 0.2s;
+.popup__link {
+  padding: 7px 10px 7px 4px;
+  height: 100%;
+  color: $black;
+  font-size: $MFont;
+  font-weight: 500;
+  border-bottom: 1px solid $black;
+  margin-bottom: -1px;
+  cursor: pointer;
+  transition: 0.2s;
 
-    &:hover {
-      color: $brown;
-    }
+  &:hover {
+    color: $brown;
   }
 }

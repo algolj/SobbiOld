@@ -13,91 +13,91 @@
   &:focus ~ .input__label {
     font-weight: 600;
   }
+}
 
-  &__wrapper {
-    display: block;
-    position: relative;
-    width: 100%;
-  }
+.input__wrapper {
+  display: block;
+  position: relative;
+  width: 100%;
+}
 
-  &__button {
-    position: absolute;
-    z-index: 2;
-    right: 20px;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50px;
-    font-weight: 600;
-    border: 2px solid $black;
-    font-size: $SFont;
-    cursor: pointer;
-    transition: 0.2s;
-    user-select: none;
+.input__button {
+  position: absolute;
+  z-index: 2;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  font-weight: 600;
+  border: 2px solid $black;
+  font-size: $SFont;
+  cursor: pointer;
+  transition: 0.2s;
+  user-select: none;
 
-    &:hover {
-      color: $grey;
-      border: 2px solid $grey;
-    }
-
-    &:active {
-      transform: translateY(-50%) scale(0.96);
-    }
-  }
-
-  &__label {
-    position: absolute;
-    z-index: 1;
-    left: 20px;
-    top: 0;
-    border-radius: 3px;
-    transform: translateY(-50%);
-    color: $brown;
-    background: $white;
-    font-size: $MFont;
-    text-transform: capitalize;
-    transition: 0.2s;
-  }
-
-  &_sub {
-    display: flex;
-    align-items: end;
-    width: 100%;
+  &:hover {
+    color: $grey;
     border: 2px solid $grey;
-    border-top: 0;
-    padding: 10px;
-    height: 50px;
-    border-radius: 0 0 10px 10px;
-    transform: translateY(-30%);
-
-    &__button {
-      width: 25px;
-      height: 25px;
-      bottom: 5px;
-      transform: translateY(0) rotate(45deg);
-      border: 2px solid $red;
-      color: $red;
-
-      &:hover {
-        border: 2px solid $red;
-        background: $wheat;
-        color: $red;
-      }
-
-      &:active {
-        transform: translateY(0) rotate(45deg) scale(0.95);
-      }
-    }
-
-    &__text {
-      font-size: $XSFont;
-      color: $grey;
-    }
   }
 
+  &:active {
+    transform: translateY(-50%) scale(0.96);
+  }
+}
 
+.input__label {
+  position: absolute;
+  z-index: 1;
+  left: 20px;
+  top: 0;
+  border-radius: 3px;
+  transform: translateY(-50%);
+  color: $brown;
+  background: $white;
+  font-size: $MFont;
+  text-transform: capitalize;
+  transition: 0.2s;
+}
+
+.input_sub {
+  display: flex;
+  align-items: end;
+  width: 100%;
+  border: 2px solid $grey;
+  border-top: 0;
+  padding: 10px;
+  height: 50px;
+  border-radius: 0 0 10px 10px;
+  transform: translateY(-30%);
+
+
+}
+
+.input__button {
+  width: 25px;
+  height: 25px;
+  bottom: 5px;
+  transform: translateY(0) rotate(45deg);
+  border: 2px solid $red;
+  color: $red;
+
+  &:hover {
+    border: 2px solid $red;
+    background: $wheat;
+    color: $red;
+  }
+
+  &:active {
+    transform: translateY(0) rotate(45deg) scale(0.95);
+  }
+}
+
+.input__text {
+  font-size: $XSFont;
+  color: $grey;
 }
 
 [type='date'], [type='time'] {

@@ -142,7 +142,9 @@ export const changeUserAvatar = (formData: FormData) => {
 export const getUserAvatar = (name: string) => {
   return async (dispatch: Dispatch<ActionTypesUsers>) => {
     try {
-      const response = await $userApi.get(`profile/image/${name}`);
+      const response = await $userApi.get(
+        'profile/image/pr-img-ez0wye--z93n6m-1645398232620.png',
+      );
       dispatch(getUserAvatarAction(response.data));
     } catch (e) {
       console.log(e);

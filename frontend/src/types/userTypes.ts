@@ -21,6 +21,7 @@ export interface IUserForm {
   formGender: string;
   formDateOfBirth: string;
   formCountry: string;
+  formImage: FormData;
 }
 
 export enum SocialMediaEnum {

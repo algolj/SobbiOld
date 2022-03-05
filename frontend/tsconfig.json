@@ -1,5 +1,26 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src",
+//    "paths": {
+//      "@types/*": [
+//        "types/*"
+//      ],
+//      "@redux_store/*": [
+//        "store/*"
+//      ],
+//      "@components/*": [
+//        "components/*"
+//      ],
+//      "@pages/*": [
+//        "pages/*"
+//      ],
+//      "@UI/*": [
+//        "components/UI/*"
+//      ],
+//      "@styles/*": [
+//        "styles/*"
+//      ]
+//    },
     "target": "es5",
     "lib": [
       "dom",
@@ -18,7 +39,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
+    "jsx": "react-jsx"
   },
   "include": [
     "src"

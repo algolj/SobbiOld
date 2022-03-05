@@ -1,14 +1,12 @@
 @import "../../styles/index";
 
-.preroom {
-  &__wrapper {
-    padding: 10px;
-    border: 2px solid $black;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-  }
+.preroom__wrapper {
+  padding: 10px;
+  border: 2px solid $black;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
 }

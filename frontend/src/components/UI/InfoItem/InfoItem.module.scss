@@ -1,117 +1,119 @@
 @import "../../../styles/index";
 
-.info {
-  &__wrapper {
-    border: 2px solid $black;
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
+.info__wrapper {
+  border: 2px solid $black;
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
 
+}
+
+.info__image {
+  user-select: none;
+  width: 25px;
+  height: 25px;
+}
+
+.info__item {
+  transform: translate(-6px, -6px);
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $white;
+  border: 2px solid $black;
+  transition: 0.2s;
+  cursor: pointer;
+
+  &:active {
+    transform: translate(-2px, -2px);
+  }
+}
+
+.info__item_checked {
+  background: $brown;
+  transform: translate(-2px, -2px);
+
+}
+
+.info__item_ref {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.info__item_disable {
+  pointer-events: none;
+}
+
+
+.info__item_add {
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  border-radius: 8px;
+  background: rgba($wheat, 0.000001);
+  backdrop-filter: blur(4px);
+
+  &:after,
+  &:before {
+    content: '';
+    position: absolute;
+    background: $black;
+    border-radius: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 
-  &__item {
-    transform: translate(-6px, -6px);
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  &:before {
+    height: 60%;
+    width: 3px;
+  }
+
+  &:after {
+    width: 60%;
+    height: 3px;
+  }
+}
+
+.info__item_remove {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 90%;
+  border-radius: 8px;
+  background: rgba($red, 0.7);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+
+  &:after,
+  &:before {
+    content: '';
+    position: absolute;
     background: $white;
-    border: 2px solid $black;
-    transition: 0.2s;
-    cursor: pointer;
-    &_checked {
-      background: $brown;
-      transform: translate(-2px, -2px);
-
-    }
-    &_ref{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-    }
-    &_disable {
-      pointer-events: none;
-    }
-
-    &:active {
-      transform: translate(-2px, -2px);
-
-    }
-
-    &_add {
-      position: absolute;
-      width: 90%;
-      height: 90%;
-      border-radius: 8px;
-      background: rgba($wheat, 0.000001);
-      backdrop-filter: blur(4px);
-
-      &:after,
-      &:before {
-        content: '';
-        position: absolute;
-        background: $black;
-        border-radius: 10px;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-      }
-
-      &:before {
-        height: 60%;
-        width: 3px;
-      }
-
-      &:after {
-        width: 60%;
-        height: 3px;
-      }
-    }
-
-    &_remove {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 90%;
-      height: 90%;
-      border-radius: 8px;
-      background: rgba($red, 0.7);
-      backdrop-filter: blur(4px);
-      cursor: pointer;
-      &:after,
-      &:before {
-        content: '';
-        position: absolute;
-        background: $white;
-        border-radius: 10px;
-        left: 50%;
-        top: 50%;
-      }
-
-      &:before {
-        transform: translate(-50%, -50%) rotate(45deg);
-
-        height: 60%;
-        width: 3px;
-      }
-
-      &:after {
-        transform: translate(-50%, -50%) rotate(45deg);
-
-        width: 60%;
-        height: 3px;
-      }
-    }
+    border-radius: 10px;
+    left: 50%;
+    top: 50%;
   }
 
-  &__image {
-    user-select: none;
-    width: 25px;
-    height: 25px;
+  &:before {
+    transform: translate(-50%, -50%) rotate(45deg);
+
+    height: 60%;
+    width: 3px;
+  }
+
+  &:after {
+    transform: translate(-50%, -50%) rotate(45deg);
+
+    width: 60%;
+    height: 3px;
   }
 }

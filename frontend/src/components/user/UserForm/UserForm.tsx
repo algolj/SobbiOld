@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import style from './UserForm.module.scss';
-import { useTypeSelector } from '../../hooks/useTypeSelector';
+import { useTypeSelector } from '../../../hooks/useTypeSelector';
 
 interface IProps {
   value: string;

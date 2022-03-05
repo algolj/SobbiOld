@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import style from './UserBio.module.scss';
-import Button from '../UI/Button/Button';
-import { useActions } from '../../hooks/useActions';
-import { useTypeSelector } from '../../hooks/useTypeSelector';
+import Button from '../../UI/Button/Button';
+import { useActions } from '../../../hooks/useActions';
+import { useTypeSelector } from '../../../hooks/useTypeSelector';
 
 interface IProps {
   value: string;

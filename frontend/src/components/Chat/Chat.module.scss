@@ -7,22 +7,23 @@
   justify-content: end;
   align-items: center;
   padding: 10px;
+}
 
-  &_hide {
-    display: none;
-  }
+.chat_hide {
+  display: none;
+}
 
-  &__messages {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
-    gap: 45px;
-    margin-bottom: 10px;
-  }
+.chat__messages {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  gap: 45px;
+  margin-bottom: 10px;
 }
 
 @media screen and (min-width: 768px) {
+
   .chat {
     max-height: 400px;
     padding: 10px;
@@ -30,13 +31,16 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    &_hide{
-      display: flex;
-    }
   }
+
+  .chat_hide {
+    display: flex;
+  }
+
 }
 
 @media screen and (min-width: 1024px) {
+
   .chat {
     max-height: none;
     height: 70%;
@@ -44,6 +48,6 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-
   }
+
 }
