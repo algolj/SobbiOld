@@ -399,7 +399,7 @@ User registration on the platform.
 
 **Request type:** PUT
 
-**Route:** /api/room/id`number` or /api/room/`roomname`
+**Route:** /api/room/change/date/id`number` or /api/room/change/date/`roomname`
 
 **Required header:** Authorization (Bearer `CREATOR_JWT_TOKEN`).
 
@@ -450,7 +450,7 @@ User registration on the platform.
 }
 ```
 
-#### 14. Change room date
+#### 14. Change room user name
 
 **Request type:** PUT
 
@@ -498,7 +498,7 @@ User registration on the platform.
 
 ```JSON
 {
-    "room": "test",
+    "role": "creator",
     "user": "dog@example.com"
 }
 ```
@@ -645,7 +645,6 @@ User registration on the platform.
         }
     ]
 }
-}
 ```
 
 \* creator
@@ -667,6 +666,338 @@ User registration on the platform.
 
 \* room user
 
+#### 21. Deleting tag
+
+**Request type:** DELETE
+
+**Route:** /api/tags
+
+**Required parameters:** tag (string).
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "tag": "TypeScript"
+}
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "delete": true
+}
+```
+
+#### 22. Add tag
+
+**Request type:** POST
+
+**Route:** /api/tags
+
+[**Error**](#error-response)
+
+**Response Body (JSON type):**
+
+```JSON
+[
+    {
+        "tag": "JavaScript"
+    },
+    {
+        "tag": "TypeScript"
+    }
+]
+```
+
+#### 23. Get tags
+
+**Request type:** POST
+
+**Route:** /api/tags
+
+**Required parameters:** tag (string).
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "tag": "TypeScript"
+}
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "set": true
+}
+```
+
+#### 24. Get task
+
+**Request type:** GET
+
+**Route:** /api/tasks/`id` or /api/tasks/`title`
+
+[**Error**](#error-response)
+
+**Response Body (JSON type):**
+
+```JSON
+    {
+        "id": 1,
+        "title": "какой-то титул1",
+        "description": "какой-то дескрипшен",
+        "hardLevel": "hard",
+        "code": "какой-то код",
+        "tags": [
+            {
+                "tag": "Js"
+            },
+            {
+                "tag": "Ts"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "title": "какой-то титул",
+        "description": "какой-то дескрипшен",
+        "hardLevel": "hard",
+        "code": "какой-то код",
+        "tags": [
+            {
+                "tag": "Js"
+            }
+        ]
+    }
+```
+
+#### 25. Get tasks
+
+**Request type:** GET
+
+**Route:** /api/tasks
+
+[**Error**](#error-response)
+
+**Response Body (JSON type):**
+
+```JSON
+[
+    {
+        "id": 1,
+        "title": "какой-то титул1",
+        "description": "какой-то дескрипшен",
+        "hardLevel": "hard",
+        "code": "какой-то код",
+        "tags": [
+            {
+                "tag": "Js"
+            },
+            {
+                "tag": "Ts"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "title": "какой-то титул",
+        "description": "какой-то дескрипшен",
+        "hardLevel": "hard",
+        "code": "какой-то код",
+        "tags": [
+            {
+                "tag": "Js"
+            }
+        ]
+    }
+]
+```
+
+#### 26. Set task
+
+**Request type:** POST
+
+**Route:** /api/tasks
+
+**Required parameters:** title (string), description (string), hardLevel ( easy, medium,hard), code (string), tags (tags[]).
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "title": "какой-то титул",
+    "description": "какой-то дескрипшен",
+    "hardLevel": "hard",
+    "code": "какой-то код",
+    "tags": "Ts"
+}
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "set": true
+}
+```
+
+#### 27. Set test
+
+**Request type:** POST
+
+**Route:** /api/tests
+
+**Required parameters:** title (string), description (string), questions ( JSON => [] => {question:string, answers => [] => text(string),right(boolean) }), tags (tags[]).
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "title": "какой-то титул",
+"description": "какой-то дескрипшен",
+  "questions": [{
+      "question": "бла-бла",
+      "answers": [{
+          "text": "da", "right": true
+      },{
+          "text": "net", "right": false
+      }]
+  },{
+      "question": "бла-бла-бла",
+      "answers": [{
+          "text": "da", "right": true
+      },{
+          "text": "net", "right": false
+      }]
+  }],
+    "tags": "Js"
+}
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "set": true
+}
+```
+
+#### 28. Get test
+
+**Request type:** GET
+
+**Route:** /api/tests/`id` or /api/tests/`title`
+
+[**Error**](#error-response)
+
+**Response Body (JSON type):**
+
+```JSON
+    {
+        "id": 1,
+        "title": "какой-то титул",
+        "description": "какой-то дескрипшен",
+        "questions": [
+            {
+                "question": "бла-бла",
+                "answers": [
+                    {
+                        "text": "da",
+                        "right": true
+                    },
+                    {
+                        "text": "net",
+                        "right": false
+                    }
+                ]
+            },
+            {
+                "question": "бла-бла-бла",
+                "answers": [
+                    {
+                        "text": "da",
+                        "right": true
+                    },
+                    {
+                        "text": "net",
+                        "right": false
+                    }
+                ]
+            }
+        ],
+        "tags": [
+            {
+                "tag": "Js"
+            }
+        ]
+    }
+```
+
+#### 29. Get tests
+
+**Request type:** GET
+
+**Route:** /api/tests
+
+[**Error**](#error-response)
+
+**Response Body (JSON type):**
+
+```JSON
+[
+    {
+        "id": 1,
+        "title": "какой-то титул",
+        "description": "какой-то дескрипшен",
+        "questions": [
+            {
+                "question": "бла-бла",
+                "answers": [
+                    {
+                        "text": "da",
+                        "right": true
+                    },
+                    {
+                        "text": "net",
+                        "right": false
+                    }
+                ]
+            },
+            {
+                "question": "бла-бла-бла",
+                "answers": [
+                    {
+                        "text": "da",
+                        "right": true
+                    },
+                    {
+                        "text": "net",
+                        "right": false
+                    }
+                ]
+            }
+        ],
+        "tags": [
+            {
+                "tag": "Js"
+            }
+        ]
+    }
+]
+```
+
 #### Error response
 
 Gets JSON with two parameters:
@@ -676,9 +1007,195 @@ Gets JSON with two parameters:
 
 **Response Body (JSON type):**
 
-```
+```JSON
 {
     "statusCode": 422,
     "message": "A user with the same username already exists."
+}
+```
+
+## Work with socket.io
+
+<br/>
+
+**Handshake path:** /room-chat
+**Port:** 3100
+
+#### Chat. Chat connections
+
+**Required header:** Authorization (Bearer `USER_IN_ROOM_JWT_TOKEN`)
+
+**Route:** /room-chat
+
+**Event name:** joinRooms
+
+**Response listener:** joinRooms
+
+**Required parameters:** any.
+
+[**Error**](#error-response)
+
+**Response Body all chat (JSON type):**
+
+```JSON
+{
+    "connect": "room-102-all"
+}
+```
+
+**Response Body interviewer and watcher chat(JSON type):**
+
+```JSON
+{
+    "connect": "room-102-interviewer"
+}
+```
+
+#### Chat. Chat disconnections
+
+**Required header:** Authorization (Bearer `USER_IN_ROOM_JWT_TOKEN`)
+
+**Route:** /room-chat
+
+**Event name:** leaveRooms
+
+**Response listener:** leaveRooms
+
+**Required parameters:** any.
+
+[**Error**](#error-response)
+
+**Response Body all chat (JSON type):**
+
+```JSON
+{
+    "disconnect": "room-102-all"
+}
+```
+
+**Response Body interviewer and watcher chat(JSON type):**
+
+```JSON
+{
+    "disconnect": "room-102-interviewer"
+}
+```
+
+#### Chat. Sending a message
+
+**Required header:** Authorization (Bearer `USER_IN_ROOM_JWT_TOKEN`)
+
+**Route:** /room-chat
+
+**Event name:** message-all or message-interviewer
+
+**Response listener:** message-all or message-interviewer
+
+**Required parameters:** text.
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "message": "Hello, world!"
+}
+
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "userId": 483,
+    "name": "userName",
+    "image": "pr-img-cahaam-ddtg3c-1644591494137.jpg",
+    "message": "Hello, world!"
+}
+```
+
+<br/>
+
+**Handshake path:** /room-live-coding
+**Port:** 3100
+
+#### live-coding. Live coding connections
+
+**Required header:** Authorization (Bearer `USER_IN_ROOM_JWT_TOKEN`)
+
+**Route:** /room-live-coding
+
+**Event name:** joinLiveCoding
+
+**Response listener:** joinLiveCoding
+
+**Required parameters:** any.
+
+[**Error**](#error-response)
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "connect": "room-102-live-coding"
+}
+```
+
+#### live-coding. Live coding disconnections
+
+**Required header:** Authorization (Bearer `USER_IN_ROOM_JWT_TOKEN`)
+
+**Route:** /room-chat
+
+**Event name:** leaveLiveCoding
+
+**Response listener:** leaveLiveCoding
+
+**Required parameters:** any.
+
+[**Error**](#error-response)
+
+**Response Body all chat (JSON type):**
+
+```JSON
+{
+    "disconnect": "room-102-live-coding"
+}
+```
+
+#### live-coding. Live coding
+
+**Required header:** Authorization (Bearer `USER_IN_ROOM_JWT_TOKEN`)
+
+**Route:** /room-chat
+
+**Event name:** live-coding
+
+**Response listener:** live-coding
+
+**Required parameters:** caretPosition (number), text (string).
+
+[**Error**](#error-response)
+
+**Request Body (JSON type):**
+
+```JSON
+{
+    "caretPosition": 2,
+    "text": "code"
+}
+
+```
+
+**Response Body (JSON type):**
+
+```JSON
+{
+    "userId": 484,
+    "name": "Alex",
+    "role": "interviewee",
+    "caretPosition": 2,
+    "text": "code"
 }
 ```
