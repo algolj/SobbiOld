@@ -1,3 +1,5 @@
+@import "../../styles/index";
+
 .login {
   width: 40px;
   height: 40px;
@@ -17,7 +19,7 @@
   position: relative;
   width: 82px;
   height: 82px;
-  border-radius: 10px;
+  border-radius: $SRadius;
 
   &:hover {
     .login__hover {

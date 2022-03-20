@@ -6,10 +6,12 @@ import Header from '../components/Header/Header';
 import User from '../pages/User/User';
 import Room from '../pages/Room/Room';
 import PreRoom from '../pages/PreRoom/PreRoom';
+import Notifications from '../components/Notifications/Notifications';
 
 const RoutesPage: FC = () => (
   <BrowserRouter>
     <Header />
+    <Notifications />
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/user" element={<User />} />

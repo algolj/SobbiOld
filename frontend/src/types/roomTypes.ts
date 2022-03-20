@@ -80,3 +80,8 @@ export enum InputLabels {
   interviewee = 'Interviewee',
   watcher = 'Watcher',
 }
+
+export interface IMessage {
+  message: string;
+  isReceived: boolean;
+}

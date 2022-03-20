@@ -23,7 +23,7 @@
       font-size: $SFont;
 
       &area {
-        border-radius: 10px;
+        border-radius: $SRadius;
         outline: 1px solid $black;
         resize: none;
         margin: 0 5px 0 10px;

@@ -46,7 +46,6 @@ export const getRoomInfo = () => {
   return async (dispatch: Dispatch<ActionTypesRoom>) => {
     try {
       const response = await $roomApi.get('room');
-      console.log(response.data);
       if (!Array.isArray(response.data.interviewee)) {
         response.data.interviewee = [response.data.interviewee];
       }

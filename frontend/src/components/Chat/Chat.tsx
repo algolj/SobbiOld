@@ -4,29 +4,41 @@ import SearchInput from '../UI/inputs/SearchInput/SearchInput';
 import { connectSocket } from '../../socket';
 import Message from '../Message/Message';
 import uniqid from 'uniqid';
+import { IMessage } from '../../types/roomTypes';
+import { useTypeSelector } from '../../hooks/useTypeSelector';
 
 interface IProps {
   isHide: boolean;
 }
 
 const Chat: FC<IProps> = React.memo(({ isHide }) => {
+  const {
+    user: { username },
+  } = useTypeSelector((state) => state.user);
+
   const [message, setMessage] = useState<string>('');
-  const [messageArray, setMessageArray] = useState<string[]>([]);
+  const [messageArray, setMessageArray] = useState<IMessage[]>([]);
 
   const onSubmit = () => {
-    setMessageArray([...messageArray, message]);
     connectSocket.emit('message-all', {
       message: message,
     });
   };
+
+  connectSocket.on('message-all', (messageObject: any) => {
+    const isReceived = messageObject.name === username;
+    console.log(messageObject);
+    console.log(messageArray);
+    messageArray.push({
+      isReceived: isReceived,
+      message: messageObject.message,
+    });
+  });
+
   useEffect(() => {
     connectSocket.emit('joinRooms');
     connectSocket.connect();
   }, []);
-  useEffect(() => {
-    console.log('123sa');
-    console.log(connectSocket);
-  }, [connectSocket]);
 
   return (
     <div
@@ -35,7 +47,11 @@ const Chat: FC<IProps> = React.memo(({ isHide }) => {
     >
       <div className={style.chat__messages}>
         {messageArray.map((userMessage) => (
-          <Message key={uniqid()} message={message} isReceiving={false} />
+          <Message
+            key={uniqid()}
+            message={userMessage.message}
+            isReceiving={userMessage.isReceived}
+          />
         ))}
       </div>
       <SearchInput

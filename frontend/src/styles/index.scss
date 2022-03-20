@@ -8,7 +8,7 @@
 }
 
 html {  scroll-behavior: smooth;
-
+  overflow-x: hidden;
   scrollbar-color: $black $white;
   scrollbar-width: 5px;
 }

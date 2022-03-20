@@ -18,7 +18,7 @@
   &_wrapper {
     width: 100%;
     padding: 10px 5px;
-    border-radius: 10px;
+    border-radius: $SRadius;
     @include boxShadow;
     transform: translateX(-3px);
     &_hide{

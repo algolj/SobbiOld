@@ -5,9 +5,10 @@ import FormInput from '../UI/inputs/FormInput/FormInput';
 import Button from '../UI/Button/Button';
 import { useFormik } from 'formik';
 import { IRoom, RoomInputLabels } from '../../types/roomTypes';
-import userForm from '../user/UserForm/UserForm';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
 import { useActions } from '../../hooks/useActions';
+import { notificationSlice } from '../../store/reducers/basicReducer/reducer';
+import { useDispatch } from 'react-redux';
 
 interface IProps {
   setIsVisible: React.Dispatch<SetStateAction<boolean>>;
@@ -17,7 +18,8 @@ interface IProps {
 const CreateRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
   const { isAuth } = useTypeSelector((state) => state.user);
   const { createRoom } = useActions();
-
+  const { addNewNotification } = notificationSlice.actions;
+  const dispatch = useDispatch();
   const {
     creatorLabel,
     IntervieweeLabel,
@@ -75,57 +77,60 @@ const CreateRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
     interviewer: interviewer,
   };
   const formSubmit = () => {
-    setIsVisible(false);
     createRoom(newRoom);
+    setIsVisible(false);
+    dispatch(addNewNotification('Successfully created'));
   };
   return (
-    <Modal
-      setVisibility={setIsVisible}
-      visibility={isVisible}
-      title={'Create Room'}
-    >
-      <div className={style.create__form}>
-        <div className={style.create__time}>
-          <div className={style.create__date}>
+    <>
+      <Modal
+        setVisibility={setIsVisible}
+        visibility={isVisible}
+        title={'Create Room'}
+      >
+        <div className={style.create__form}>
+          <div className={style.create__time}>
+            <div className={style.create__date}>
+              <FormInput
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  roomForm.handleChange(e)
+                }
+                value={date}
+                name={'date'}
+                type={'date'}
+                label={'Date'}
+              />
+            </div>
+            <div className={style.create__hours}>
+              <FormInput
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  roomForm.handleChange(e)
+                }
+                value={time && time}
+                name={'time'}
+                type={'time'}
+                label={'Time'}
+              />
+            </div>
+          </div>
+          {inputLabels.map((label, index) => (
             <FormInput
+              key={index}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 roomForm.handleChange(e)
               }
-              value={date}
-              name={'date'}
-              type={'date'}
-              label={'Date'}
+              value={Object.values(roomForm.values)[index].email}
+              name={`${Object.keys(roomForm.values)[index]}`}
+              label={label}
+              isAdd={true}
             />
-          </div>
-          <div className={style.create__hours}>
-            <FormInput
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                roomForm.handleChange(e)
-              }
-              value={time ? time : ''}
-              name={'time'}
-              type={'time'}
-              label={'Time'}
-            />
+          ))}
+          <div className={style.create__button}>
+            <Button onClick={() => formSubmit()}>Create</Button>
           </div>
         </div>
-        {inputLabels.map((label, index) => (
-          <FormInput
-            key={index}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              roomForm.handleChange(e)
-            }
-            value={Object.values(roomForm.values)[index].email}
-            name={`${Object.keys(roomForm.values)[index]}`}
-            label={label}
-            isAdd={true}
-          />
-        ))}
-        <div className={style.create__button}>
-          <Button onClick={() => formSubmit()}>Create</Button>
-        </div>
-      </div>
-    </Modal>
+      </Modal>
+    </>
   );
 });
 

@@ -2,7 +2,7 @@
 
 .test {
   width: 95%;
-  border-radius: 10px;
+  border-radius: $SRadius;
   border: 1px solid $black;
   background: $white;
   max-width: 1300px;
@@ -14,7 +14,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
-  border-radius: 10px;
+  border-radius: $SRadius;
   border: 1px solid $black;
   background: $white;
   transition: 0.2s;

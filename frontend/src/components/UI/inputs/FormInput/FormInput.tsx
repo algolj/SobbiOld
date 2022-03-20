@@ -3,7 +3,7 @@ import style from './FormInput.module.scss';
 
 interface IProps {
   label: string;
-  value: string;
+  value?: string;
   name?: string;
   onChange: any;
   onBlur?: any;
