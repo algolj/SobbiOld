@@ -19,6 +19,7 @@ const LoginAvatar: FC<IProps> = React.memo(({ setIsVisible, onClick }) => {
         />
       ) : (
         <button
+          data-cy={'login-avatar-button'}
           onClick={() => setIsVisible(true)}
           className={style.login__wrapper}
         >

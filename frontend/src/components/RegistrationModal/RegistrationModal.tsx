@@ -79,7 +79,7 @@ const RegistrationModal: FC<IProps> = React.memo(
             {isRegistration ? 'Log In' : 'Register'}
           </span>
           <div className={style.form__button}>
-            <Button>{formTitle}</Button>
+            <Button data-cy={'login-modal-button'}>{formTitle}</Button>
           </div>
         </form>
       </Modal>

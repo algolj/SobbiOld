@@ -45,6 +45,7 @@ const Header: FC = React.memo(() => {
       </Link>
       <div className={style.burger}>
         <button
+          data-cy={'burger-button'}
           onClick={() => setIsOpen(!isOpen)}
           className={
             isOpen
