@@ -24,55 +24,60 @@ const FormInput: FC<IProps> = React.memo(
     isAdd,
     addArray,
     setAddArray,
+    ...props
   }) => {
     return (
-      <label className={style.input__wrapper} htmlFor="formInput">
-        <input
-          name={name}
-          value={value}
-          onChange={onChange}
-          onBlur={onBlur}
-          className={style.input}
-          id={'formInput'}
-          type={type}
-        />
-        <span className={style.input__label}>{label}</span>
-        {addArray?.length && isAdd
-          ? addArray.map(() => {
-              let translate = 0;
-              translate += 30;
-              return (
-                <div
-                  style={{ transform: `translateY(-${translate})` }}
-                  className={style.input_sub}
-                >
-                  <span className={style.input_sub__text}>
-                    vanjaqwe59@sd,/cs
-                  </span>
-                  <button
-                    className={`${style.input_sub__button} ${style.input__button}`}
+      <>
+        <label className={style.input__wrapper} htmlFor="formInput">
+          <input
+            name={name}
+            value={value}
+            onChange={onChange}
+            onBlur={onBlur}
+            className={style.input}
+            id={'formInput'}
+            type={type}
+            {...props}
+          />
+          <span className={style.input__label}>{label}</span>
+          {addArray?.length && isAdd
+            ? addArray.map(() => {
+                let translate = 0;
+                translate += 30;
+                return (
+                  <div
+                    style={{ transform: `translateY(-${translate})` }}
+                    className={style.input_sub}
                   >
-                    +
-                  </button>
-                </div>
-              );
-            })
-          : null}
-        {/*{isAdd ? (*/}
-        {/*  <div*/}
-        {/*    onClick={() => {*/}
-        {/*      if (addArray && setAddArray) setAddArray([...addArray, value]);*/}
-        {/*    }}*/}
-        {/*    className={style.input__button}*/}
-        {/*  >*/}
-        {/*    +*/}
-        {/*  </div>*/}
-        {/*) : null}*/}
-        {/*{Object.values(formik.errors)[index] &&*/}
-        {/*Object.values(formik.touched)[index] ? (*/}
-        {/*  <p>{Object.values(formik.errors)[index]}</p>*/}
-        {/*) : null}*/}
-      </label>
+                    <span className={style.input_sub__text}>
+                      vanjaqwe59@sd,/cs
+                    </span>
+                    <button
+                      className={`${style.input_sub__button} ${style.input__button}`}
+                    >
+                      +
+                    </button>
+                  </div>
+                );
+              })
+            : null}
+          {/*{isAdd ? (*/}
+          {/*  <div*/}
+          {/*    onClick={() => {*/}
+          {/*      if (addArray && setAddArray) setAddArray([...addArray, value]);*/}
+          {/*    }}*/}
+          {/*    className={style.input__button}*/}
+          {/*  >*/}
+          {/*    +*/}
+          {/*  </div>*/}
+          {/*) : null}*/}
+          {/*{Object.values(formik.errors)[index] &&*/}
+          {/*Object.values(formik.touched)[index] ? (*/}
+          {/*  <p>{Object.values(formik.errors)[index]}</p>*/}
+          {/*) : null}*/}
+        </label>
+        <div className={style.input__error}>Wrong login or email</div>
+      </>
     );
   },
 );

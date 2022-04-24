@@ -76,6 +76,13 @@
 
 }
 
+.input__error {
+  font-size: $SFont;
+  color: $red;
+  font-weight: 500;
+  padding-top: 3px;
+}
+
 .input__button {
   width: 25px;
   height: 25px;
@@ -103,6 +110,5 @@
 [type='date'], [type='time'] {
   font-size: $SFont;
   padding: 13px;
-
 }
 

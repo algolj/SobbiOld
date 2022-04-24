@@ -14,7 +14,7 @@ import {
   IUserLogin,
 } from '../../../types/userTypes';
 import { useTypeSelector } from '../../../hooks/useTypeSelector';
-import { useFormik } from 'formik';
+import { Formik } from 'formik';
 import { IOptions } from '../../../types/types';
 import uniqid from 'uniqid';
 import InfoSelect from '../../UI/selects/InfoSelect/InfoSelect';
@@ -47,62 +47,13 @@ const UserBasicInfo: FC<IProps> = React.memo(
       isEditUser,
     } = useTypeSelector((state) => state.user);
     const { getUserAvatar } = useActions();
+    useEffect(() => {
+      // getUserAvatar(imagePath);
+    }, []);
+
     const [socialMediaObject, setSocialMediaObject] = useState<ISocialMedia>(
       {},
     );
-    const userForm = useFormik({
-      enableReinitialize: true,
-      initialValues: {
-        formUsername: username,
-        formEmail: email,
-        formFirstName: firstName,
-        formLastName: lastName,
-        formSocialMedia: '',
-        formBio: bio,
-        formPicked: '',
-        formGender: gender,
-        formDateOfBirth: dateOfBirth,
-        formCountry: country,
-        formImage: image,
-      },
-      validationSchema: Yup.object({
-        // login: Yup.string().required('Required'),
-      }),
-      onSubmit: async (values: IUserForm) => {
-        return;
-      },
-    });
-
-    const {
-      formEmail,
-      formUsername,
-      formFirstName,
-      formLastName,
-      formBio,
-      formSocialMedia,
-      formPicked,
-      formGender,
-      formDateOfBirth,
-      formCountry,
-      formImage,
-    }: IUserForm = userForm.values;
-
-    const userInfoUpdate: IUserInfo = {
-      socialMedia: socialMediaObject,
-      gender: formGender,
-      firstName: formFirstName,
-      lastName: formLastName,
-      dateOfBirth: formDateOfBirth,
-      bio: formBio,
-      country: formCountry,
-      imageFile: formImage,
-    };
-    const userLoginUpdate: IUserLogin = {
-      email: formEmail,
-      username: formUsername,
-    };
-    setUpdateUserInfo(userInfoUpdate);
-    setUpdateUserLogin(userLoginUpdate);
     const countryOptions: IOptions[] = [
       {
         title: 'Czech',
@@ -115,91 +66,170 @@ const UserBasicInfo: FC<IProps> = React.memo(
         id: uniqid(),
       },
     ];
-    useEffect(() => {
-      // getUserAvatar(imagePath);
-    }, []);
+    // const userForm = useFormik({
+    //   enableReinitialize: true,
+    //   initialValues: {
+    //     formUsername: username,
+    //     formEmail: email,
+    //     formFirstName: firstName,
+    //     formLastName: lastName,
+    //     formSocialMedia: '',
+    //     formBio: bio,
+    //     formPicked: '',
+    //     formGender: gender,
+    //     formDateOfBirth: dateOfBirth,
+    //     formCountry: country,
+    //     formImage: image,
+    //   },
+    //   validationSchema: Yup.object({
+    //     // login: Yup.string().required('Required'),
+    //   }),
+    //   onSubmit: async (values: IUserForm) => {
+    //     return;
+    //   },
+    // });
+    //
+    // const {
+    //   formEmail,
+    //   formUsername,
+    //   formFirstName,
+    //   formLastName,
+    //   formBio,
+    //   formSocialMedia,
+    //   formPicked,
+    //   formGender,
+    //   formDateOfBirth,
+    //   formCountry,
+    //   formImage,
+    // }: IUserForm = userForm.values;
+    //
+    // const userInfoUpdate: IUserInfo = {
+    //   socialMedia: socialMediaObject,
+    //   gender: formGender,
+    //   firstName: formFirstName,
+    //   lastName: formLastName,
+    //   dateOfBirth: formDateOfBirth,
+    //   bio: formBio,
+    //   country: formCountry,
+    //   imageFile: formImage,
+    // };
+    // const userLoginUpdate: IUserLogin = {
+    //   email: formEmail,
+    //   username: formUsername,
+    // };
+    const initialValues: IUserForm = {
+      formUsername: username,
+      formEmail: email,
+      formFirstName: firstName,
+      formLastName: lastName,
+      formBio: bio,
+      formSocialMedia: socialMedia,
+      formGender: gender,
+      formDateOfBirth: dateOfBirth,
+      formCountry: country,
+      formImage: image,
+      socialMediaPicked: '',
+    };
+
+    const onSubmit = (values: IUserForm) => {
+      // const userLoginUpdate: IUserLogin = {
+      //   email: values.formEmail,
+      //   username: values.formUsername,
+      // };
+      const userInfoUpdate: IUserInfo = {
+        socialMedia: socialMediaObject,
+        gender,
+        firstName,
+        lastName,
+        dateOfBirth,
+        bio,
+        country,
+        image,
+      };
+      setUpdateUserInfo(userInfoUpdate);
+      // setUpdateUserLogin(userLoginUpdate);
+    };
 
     return (
-      <form className={style.user}>
-        <Title color={colors.white}>
-          {isEditUser ? (
-            <input
-              className={styleTitle.title}
-              name={'formUsername'}
-              value={formUsername}
-              onChange={userForm.handleChange}
-            />
-          ) : (
-            formUsername
-          )}
-        </Title>
-        <div className={style.user__info_wrapper}>
-          <UserAvatar
-            formField={'fromImage'}
-            setFormImage={userForm.setFieldValue}
-          />
-          <div className={style.user__info}>
-            <div className={style.user__info_name}>
-              <UserForm
-                value={formFirstName}
-                onChange={userForm.handleChange}
-                label={'First name'}
-                name={'formFirstName'}
+      <Formik initialValues={initialValues} onSubmit={onSubmit}>
+        {({ values, handleChange, handleSubmit, setFieldValue }) => (
+          <form className={style.user} onSubmit={handleSubmit}>
+            <Title color={colors.white}>
+              {isEditUser ? (
+                <input
+                  className={styleTitle.title}
+                  name={'formUsername'}
+                  value={values.formUsername}
+                  onChange={handleChange}
+                />
+              ) : (
+                username
+              )}
+            </Title>
+            <div className={style.user__info_wrapper}>
+              <UserAvatar
+                formField={'fromImage'}
+                setFormImage={setFieldValue}
               />
-              <UserForm
-                value={formLastName}
-                onChange={userForm.handleChange}
-                label={'Last name'}
-                name={'formLastName'}
-              />
+              <div className={style.user__info}>
+                <div className={style.user__info_name}>
+                  <UserForm
+                    value={values.formFirstName}
+                    onChange={handleChange}
+                    label={'First name'}
+                    name={'formFirstName'}
+                  />
+                  <UserForm
+                    value={values.formLastName}
+                    onChange={handleChange}
+                    label={'Last name'}
+                    name={'formLastName'}
+                  />
+                </div>
+                <UserForm
+                  value={values.formEmail}
+                  onChange={handleChange}
+                  label={'E-mail'}
+                  name={'formEmail'}
+                />
+                <UserForm
+                  value={values.formDateOfBirth}
+                  onChange={handleChange}
+                  label={'Birth'}
+                  name={'formDateOfBirth'}
+                  type={'date'}
+                />
+                {isEditUser ? (
+                  <InfoSelect
+                    value={values.formCountry}
+                    title={'Country'}
+                    options={countryOptions}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setFieldValue('formCountry', e.target.value)
+                    }
+                    name={'formCountry'}
+                  />
+                ) : (
+                  <UserForm
+                    label={'Country'}
+                    ableToChange={false}
+                    value={values.formCountry}
+                  />
+                )}
+                <UserGender gender={gender} setGender={handleChange} />
+                <SocialMedia
+                  onChange={handleChange}
+                  value={values.formSocialMedia}
+                  currentChecked={values.socialMediaPicked}
+                  socialMedia={socialMediaObject}
+                  setSocialMedia={setSocialMediaObject}
+                />
+              </div>
             </div>
-            <UserForm
-              value={formEmail}
-              onChange={userForm.handleChange}
-              label={'E-mail'}
-              name={'formEmail'}
-            />
-            <UserForm
-              value={formDateOfBirth}
-              onChange={userForm.handleChange}
-              label={'Birth'}
-              name={'formDateOfBirth'}
-              type={'date'}
-            />
-            {isEditUser ? (
-              <InfoSelect
-                value={formCountry}
-                title={'Country'}
-                options={countryOptions}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  userForm.setFieldValue('formCountry', e.target.value)
-                }
-                name={'formCountry'}
-              />
-            ) : (
-              <UserForm
-                label={'Country'}
-                ableToChange={false}
-                value={formCountry}
-              />
-            )}
-            <UserGender gender={formGender} setGender={userForm.handleChange} />
-            <SocialMedia
-              onChange={userForm.handleChange}
-              value={formSocialMedia}
-              currentChecked={formPicked}
-              socialMedia={socialMediaObject}
-              setSocialMedia={setSocialMediaObject}
-            />
-          </div>
-        </div>
-        <UserBio
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            userForm.handleChange(e);
-          }}
-          value={formBio}
-        />
-      </form>
+            <UserBio onChange={handleChange} value={values.formBio} />
+          </form>
+        )}
+      </Formik>
     );
   },
 );

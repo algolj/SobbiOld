@@ -17,11 +17,11 @@ export interface IUserForm {
   formLastName: string;
   formBio: string;
   formSocialMedia: string;
-  formPicked: string;
   formGender: string;
   formDateOfBirth: string;
   formCountry: string;
   formImage: FormData;
+  socialMediaPicked?: string;
 }
 
 export enum SocialMediaEnum {

@@ -10,13 +10,19 @@ import { useTypeSelector } from '../../hooks/useTypeSelector';
 interface IProps {
   onChange: any;
   value: string;
-  currentChecked: string;
+  currentChecked?: string;
   socialMedia: ISocialMedia;
   setSocialMedia: React.Dispatch<SetStateAction<ISocialMedia>>;
 }
 
 const SocialMedia: FC<IProps> = React.memo(
-  ({ value, onChange, currentChecked, setSocialMedia, socialMedia }) => {
+  ({
+    value,
+    onChange,
+    currentChecked = SocialMediaEnum.github,
+    setSocialMedia,
+    socialMedia,
+  }) => {
     const { isEditUser } = useTypeSelector((state) => state.user);
     const { github, linkedIn, facebook } = SocialMediaEnum;
     const socialMediaArray = [github, linkedIn, facebook];

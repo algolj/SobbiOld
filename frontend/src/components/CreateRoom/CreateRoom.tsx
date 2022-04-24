@@ -3,12 +3,14 @@ import Modal from '../UI/Modal/Modal';
 import style from './CreateRoom.module.scss';
 import FormInput from '../UI/inputs/FormInput/FormInput';
 import Button from '../UI/Button/Button';
-import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { Formik, useFormik } from 'formik';
 import { IRoom, RoomInputLabels } from '../../types/roomTypes';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
 import { useActions } from '../../hooks/useActions';
 import { notificationSlice } from '../../store/reducers/basicReducer/reducer';
 import { useDispatch } from 'react-redux';
+import { ValidationMessages } from '../../assets/text';
 
 interface IProps {
   setIsVisible: React.Dispatch<SetStateAction<boolean>>;
@@ -44,40 +46,29 @@ const CreateRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
   useEffect(() => {
     checkingIsAuth();
   }, []);
-  const roomForm = useFormik({
-    initialValues: {
+  const initialValues: IRoom = {
+    name: '',
+    creator: {
       name: '',
-      creator: {
-        name: '',
-        email: '',
-      },
-      interviewer: [],
-      interviewee: [],
-      watcher: [],
-      date: '',
-      time: '',
+      email: '',
     },
-    onSubmit: (values: IRoom) => {
-      return;
-    },
+    interviewer: [],
+    interviewee: [],
+    watcher: [],
+    date: '',
+    time: '',
+  };
+  const createRoomSchema = Yup.object().shape({
+    name: Yup.string().required(ValidationMessages.required),
+    interviewer: Yup.string().required(ValidationMessages.required),
+    interviewee: Yup.string().required(ValidationMessages.required),
+    date: Yup.date().required(ValidationMessages.required),
+    time: Yup.date().required(ValidationMessages.required),
   });
-
-  const { creator, name, interviewer, interviewee, watcher, date, time } =
-    roomForm.values;
-
   // let currentTime: Date = new Date();
   // const currentTimeZone = currentTime.getTimezoneOffset() / 60;
-
-  const newRoom: IRoom = {
-    name: name,
-    creator: creator,
-    date: `${date} ${time}:00+01`,
-    watcher: watcher,
-    interviewee: interviewee,
-    interviewer: interviewer,
-  };
-  const formSubmit = () => {
-    createRoom(newRoom);
+  const formSubmit = async (values: IRoom) => {
+    await createRoom(values);
     setIsVisible(false);
     dispatch(addNewNotification('Successfully created'));
   };
@@ -88,47 +79,59 @@ const CreateRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
         visibility={isVisible}
         title={'Create Room'}
       >
-        <div className={style.create__form}>
-          <div className={style.create__time}>
-            <div className={style.create__date}>
-              <FormInput
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  roomForm.handleChange(e)
-                }
-                value={date}
-                name={'date'}
-                type={'date'}
-                label={'Date'}
-              />
-            </div>
-            <div className={style.create__hours}>
-              <FormInput
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  roomForm.handleChange(e)
-                }
-                value={time && time}
-                name={'time'}
-                type={'time'}
-                label={'Time'}
-              />
-            </div>
-          </div>
-          {inputLabels.map((label, index) => (
-            <FormInput
-              key={index}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                roomForm.handleChange(e)
-              }
-              value={Object.values(roomForm.values)[index].email}
-              name={`${Object.keys(roomForm.values)[index]}`}
-              label={label}
-              isAdd={true}
-            />
-          ))}
-          <div className={style.create__button}>
-            <Button onClick={() => formSubmit()}>Create</Button>
-          </div>
-        </div>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={createRoomSchema}
+          onSubmit={formSubmit}
+        >
+          {({
+            handleSubmit,
+            handleChange,
+            values,
+            values: { time, date },
+            errors,
+          }) => (
+            <form
+              onClick={() => console.log(errors)}
+              className={style.create__form}
+              onSubmit={handleSubmit}
+            >
+              <div className={style.create__time}>
+                <div className={style.create__date}>
+                  <FormInput
+                    onChange={handleChange}
+                    value={date}
+                    name={'date'}
+                    type={'date'}
+                    label={'Date'}
+                  />
+                </div>
+                <div className={style.create__hours}>
+                  <FormInput
+                    onChange={handleChange}
+                    value={time}
+                    name={'time'}
+                    type={'time'}
+                    label={'Time'}
+                  />
+                </div>
+              </div>
+              {inputLabels.map((label, index) => (
+                <FormInput
+                  key={index}
+                  onChange={handleChange}
+                  value={Object.values(values)[index].email}
+                  name={`${Object.keys(values)[index]}`}
+                  label={label}
+                  isAdd={true}
+                />
+              ))}
+              <div className={style.create__button}>
+                <Button type="submit">Create</Button>
+              </div>
+            </form>
+          )}
+        </Formik>
       </Modal>
     </>
   );

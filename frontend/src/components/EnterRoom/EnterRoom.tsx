@@ -6,6 +6,8 @@ import Button from '../UI/Button/Button';
 import { useActions } from '../../hooks/useActions';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
 import { Link } from 'react-router-dom';
+import { IAuthRoom } from '../../types/roomTypes';
+import { Formik } from 'formik';
 
 interface IProps {
   setIsVisible: React.Dispatch<SetStateAction<boolean>>;
@@ -15,45 +17,43 @@ interface IProps {
 const EnterRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
   const { enterRoom } = useActions();
   const { isAuthRoom } = useTypeSelector((state) => state.room);
-  const [roomName, setRoomName] = useState<string>('');
-  const [roomPassword, setRoomPassword] = useState<string>('');
-  const onSubmit = async () => {
-    await enterRoom({
-      room: roomName,
-      password: roomPassword,
-    });
+  const onSubmit = async (values: IAuthRoom) => {
+    await enterRoom(values);
   };
+  const initialValues: IAuthRoom = {
+    room: '',
+    password: '',
+  };
+
   return (
     <Modal
       setVisibility={setIsVisible}
       title={'Enter Room'}
       visibility={isVisible}
     >
-      <div className={style.enter__wrapper}>
-        <FormInput
-          label={'Room name'}
-          value={roomName}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setRoomName(e.target.value)
-          }
-        />{' '}
-        <FormInput
-          label={'Room password'}
-          value={roomPassword}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setRoomPassword(e.target.value)
-          }
-        />
-        <div className={style.enter__button}>
-          {isAuthRoom ? (
-            <Link to={'/preroom'}>
-              <Button onClick={() => onSubmit()}>Enter</Button>
-            </Link>
-          ) : (
-            <Button onClick={() => onSubmit()}>Enter</Button>
-          )}
-        </div>
-      </div>
+      <Formik initialValues={initialValues} onSubmit={onSubmit}>
+        {({ values: { room, password }, handleChange, handleSubmit }) => (
+          <form className={style.enter__wrapper} onSubmit={handleSubmit}>
+            <FormInput
+              name={'room'}
+              label={'Room name'}
+              value={room}
+              onChange={handleChange}
+            />
+            <FormInput
+              name={'password'}
+              label={'Room password'}
+              value={password}
+              onChange={handleChange}
+            />
+            <div className={style.enter__button}>
+              <Link to={'/preroom'}>
+                <Button type="submit">Enter</Button>
+              </Link>
+            </div>
+          </form>
+        )}
+      </Formik>
     </Modal>
   );
 });

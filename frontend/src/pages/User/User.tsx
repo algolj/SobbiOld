@@ -80,7 +80,7 @@ const User: FC = () => {
       </Modal>
       <div className={style.user__settings}>
         <div className={style.user__buttons}>
-          <Button onClick={userEdit}>{isEditUser ? 'Save' : 'Edit'}</Button>
+          <Button data-cy={'user-edit-button'} onClick={userEdit}>{isEditUser ? 'Save' : 'Edit'}</Button>
           <Button
             isRed={true}
             onClick={() => {
