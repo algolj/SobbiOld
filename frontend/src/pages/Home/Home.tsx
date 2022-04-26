@@ -8,6 +8,8 @@ import Footer from '../../components/Footer/Footer';
 import room from '../Room/Room';
 import CreateRoom from '../../components/CreateRoom/CreateRoom';
 import EnterRoom from '../../components/EnterRoom/EnterRoom';
+import cn from 'classnames';
+import useScrollNavigation from '../../hooks/useScrollNavigation';
 
 const Home: FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -18,13 +20,8 @@ const Home: FC = () => {
   const descriptionRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const aboutRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const sidebarRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-  const getSectionPosition = (
-    ref: React.MutableRefObject<HTMLInputElement>,
-  ) => {
-    return Math.ceil(
-      ref.current.getBoundingClientRect().top + ref.current.offsetHeight / 2,
-    );
-  };
+  const sectionRefs = [homeRef, roomRef, descriptionRef, aboutRef];
+  useScrollNavigation(sectionRefs, sidebarRef, style.in_page_nav__link_active);
 
   const scrollToRoom = () => {
     setIsAnim(true);
@@ -32,50 +29,29 @@ const Home: FC = () => {
       setIsAnim(false);
     }, 400);
   };
-  // window.addEventListener('scroll', (e) => {
-  //   const activeClass = `${style.sidebar__link_active} ${style.sidebar__link}`;
-  //   const sidebar1 = sidebarRef.current.children[0];
-  //   const sidebar2 = sidebarRef.current.children[1];
-  //   const sidebar3 = sidebarRef.current.children[2];
-  //   const sidebar4 = sidebarRef.current.children[3];
-  //   const refs = {
-  //     sidebar1: getSectionPosition(homeRef),
-  //     sidebar2: getSectionPosition(roomRef),
-  //     sidebar3: getSectionPosition(descriptionRef),
-  //     sidebar4: getSectionPosition(aboutRef),
-  //   };
-  //
-  //   for (let i = 0; i < sidebarRef.current.children.length; i++) {
-  //     const filteredRefs = Object.values(refs).filter((a) => a > 0);
-  //     Object.values(refs) = filteredRefs;
-  //
-  //     if (filteredRefs[0]) {
-  //       sidebarRef.current.children[i].className = activeClass;
-  //     } else sidebarRef.current.children[i].className = style.sidebar__link;
-  //   }
-  // });
+
   return (
     <div className={style.home}>
       <CreateRoom setIsVisible={setIsVisible} isVisible={isVisible} />
       <EnterRoom setIsVisible={setIsVisibleEnter} isVisible={isVisibleEnter} />
-      <div ref={sidebarRef} className={style.sidebar}>
-        <a href={'#home'} className={style.sidebar__link}>
+      <div ref={sidebarRef} className={style.in_page_nav}>
+        <a href={'#home'} className={style.in_page_nav__link}>
           Home
         </a>
-        <a href={'#room'} className={style.sidebar__link}>
+        <a href={'#room'} className={style.in_page_nav__link}>
           Room
         </a>
-        <a href={'#description'} className={style.sidebar__link}>
+        <a href={'#description'} className={style.in_page_nav__link}>
           How to use
         </a>
-        <a href={'#about'} className={style.sidebar__link}>
+        <a href={'#about'} className={style.in_page_nav__link}>
           About
         </a>
       </div>
       <section
         ref={homeRef}
         id={'home'}
-        className={`${style.welcome} ${style.section}`}
+        className={cn(style.welcome, style.section)}
       >
         <div className={style.welcome__title_wrapper}>
           <div className={style.welcome__title}>Sobbi</div>
@@ -109,7 +85,7 @@ const Home: FC = () => {
       <section
         id={'room'}
         ref={roomRef}
-        className={`${style.room} ${style.section}`}
+        className={cn(style.room, style.section)}
       >
         <div className={style.room__wrapper}>
           <Title color={colors.wheat}>Room</Title>
@@ -126,7 +102,7 @@ const Home: FC = () => {
       <section
         ref={descriptionRef}
         id={'description'}
-        className={`${style.instruction} ${style.section}`}
+        className={cn(style.instruction, style.section)}
       >
         <div className={style.instruction__wrapper}>
           <Title color={colors.white}>How to use</Title>
@@ -161,7 +137,7 @@ const Home: FC = () => {
       <section
         ref={aboutRef}
         id={'about'}
-        className={`${style.about} ${style.section}`}
+        className={cn(style.about, style.section)}
       >
         <div className={style.about__wrapper}>
           <Title color={colors.wheat}>About</Title>
