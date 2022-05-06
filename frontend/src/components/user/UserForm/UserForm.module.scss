@@ -2,11 +2,10 @@
 
 .user__info {
   position: relative;
-  font-size: $SFont;
+  font-size: $font-s;
   color: $black;
   font-weight: 600;
   word-wrap: break-word;
-
 
   &::-webkit-calendar-picker-indicator {
     margin: 0;
@@ -18,17 +17,17 @@
   &_wrapper {
     width: 100%;
     padding: 10px 5px;
-    border-radius: $SRadius;
+    border-radius: $radius-s;
     @include boxShadow;
     transform: translateX(-3px);
-    &_hide{
+    &_hide {
       display: none;
     }
   }
 
   &_button {
     position: absolute;
-    z-index: 1;
+    z-index: $z-index1;
     top: 50%;
     transform: translateY(-50%) rotate(45deg);
     right: 20px;
@@ -39,7 +38,7 @@
     align-items: center;
     border-radius: 50px;
     font-weight: 600;
-    font-size: $SFont;
+    font-size: $font-s;
     cursor: pointer;
     transition: 0.2s;
     user-select: none;
@@ -58,7 +57,7 @@
   }
 
   &_title {
-    font-size: $XSFont;
+    font-size: $font-s;
     color: $brown;
   }
 }

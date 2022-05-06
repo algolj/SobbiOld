@@ -46,8 +46,7 @@
   padding: 10px;
 }
 
-@media screen and (min-width: 768px) {
-
+@media screen and (min-width: $tablet) {
   .room {
     height: calc(100vh - 75px);
     padding: 0;
@@ -76,11 +75,9 @@
   .room__video_hide {
     display: inline;
   }
-
 }
 
-@media screen and (min-width: 1024px) {
-
+@media screen and (min-width: $laptop) {
   .room {
     flex-direction: row-reverse;
   }
@@ -103,5 +100,4 @@
     flex-direction: column-reverse;
     justify-content: space-between;
   }
-
 }

@@ -15,7 +15,7 @@
 }
 
 .nav__text {
-  font-size: $SFont;
+  font-size: $font-s;
   font-weight: 500;
 }
 
@@ -23,8 +23,7 @@
   font-weight: 700;
 }
 
-@media screen and (min-width: 1024px) {
-
+@media screen and (min-width: $laptop) {
   .nav {
     flex-direction: column-reverse;
     height: 100%;
@@ -40,5 +39,4 @@
     writing-mode: vertical-rl;
     text-orientation: mixed;
   }
-
 }

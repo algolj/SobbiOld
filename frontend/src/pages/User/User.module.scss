@@ -1,7 +1,7 @@
 @import "../../styles/index";
 
 .user {
-  max-width: 1024px;
+  max-width: $laptop;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@
 }
 
 .user__title {
-  font-size: $XLFont;
+  font-size: $font-l;
   font-weight: 600;
   margin-bottom: 15px;
 }

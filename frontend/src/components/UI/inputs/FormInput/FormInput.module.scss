@@ -1,12 +1,16 @@
 @import "../../../../styles/index";
 
+.form_input__wrapper {
+  width: 100%;
+}
+
 .input {
   position: relative;
-  z-index: 1;
+  z-index: $z-index1;
   display: block;
   border: 2px solid $black;
-  font-size: $LFont;
-  border-radius: $SRadius;
+  font-size: $font-l;
+  border-radius: $radius-s;
   padding: 11px;
   width: 100%;
 
@@ -23,8 +27,10 @@
 
 .input__button {
   position: absolute;
-  z-index: 2;
+  z-index: $z-index2;
   right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
   width: 30px;
   height: 30px;
   display: flex;
@@ -33,7 +39,7 @@
   border-radius: 50px;
   font-weight: 600;
   border: 2px solid $black;
-  font-size: $SFont;
+  font-size: $font-s;
   cursor: pointer;
   transition: 0.2s;
   user-select: none;
@@ -50,14 +56,14 @@
 
 .input__label {
   position: absolute;
-  z-index: 1;
+  z-index: $z-index1;
   left: 20px;
   top: 0;
   border-radius: 3px;
   transform: translateY(-50%);
   color: $brown;
   background: $white;
-  font-size: $MFont;
+  font-size: $font-m;
   text-transform: capitalize;
   transition: 0.2s;
 }
@@ -66,28 +72,28 @@
   display: flex;
   align-items: end;
   width: 100%;
+  font-size: $font-m;
   border: 2px solid $grey;
   border-top: 0;
   padding: 10px;
   height: 50px;
   border-radius: 0 0 10px 10px;
-  transform: translateY(-30%);
-
-
+  transform: translateY(-15%);
+  margin-bottom: -8px;
 }
 
 .input__error {
-  font-size: $SFont;
+  font-size: $font-s;
   color: $red;
   font-weight: 500;
   padding-top: 3px;
 }
 
-.input__button {
+.input__remove_button {
   width: 25px;
   height: 25px;
   bottom: 5px;
-  transform: translateY(0) rotate(45deg);
+  transform: translateY(-35%) rotate(45deg);
   border: 2px solid $red;
   color: $red;
 
@@ -98,17 +104,17 @@
   }
 
   &:active {
-    transform: translateY(0) rotate(45deg) scale(0.95);
+    transform: translateY(-35%) rotate(45deg) scale(0.95);
   }
 }
 
 .input__text {
-  font-size: $XSFont;
+  font-size: $font-s;
   color: $grey;
 }
 
-[type='date'], [type='time'] {
-  font-size: $SFont;
+[type="date"],
+[type="time"] {
+  font-size: $font-s;
   padding: 13px;
 }
-

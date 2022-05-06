@@ -43,9 +43,8 @@
   align-items: center;
   background-color: $wheat;
   border: 1px solid $black;
-  border-radius: $SRadius;
+  border-radius: $radius-s;
   padding: 10px;
-
 }
 
 .message__arrow {
@@ -72,5 +71,5 @@
   position: relative;
   font-weight: 500;
   color: $black;
-  font-size: $SFont;
+  font-size: $font-s;
 }

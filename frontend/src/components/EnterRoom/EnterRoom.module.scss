@@ -1,3 +1,5 @@
+@import "../../styles/index";
+
 .enter__wrapper {
   margin: 0 auto;
   transform: scale(0.75);
@@ -13,8 +15,7 @@
   height: 80px;
 }
 
-@media screen and (min-width: 1024px) {
-
+@media screen and (min-width: $laptop) {
   .enter__wrapper {
     margin: 10px auto;
     transform: scale(0.9);
@@ -23,11 +24,9 @@
     margin-top: -20px;
     margin-bottom: 50px;
   }
-
 }
 
-@media screen and (min-width: 1920px) {
-
+@media screen and (min-width: $desktop) {
   .enter__wrapper {
     margin: 40px auto;
     transform: scale(0.9);
@@ -36,5 +35,4 @@
     margin-top: -60px;
     margin-bottom: 50px;
   }
-
 }

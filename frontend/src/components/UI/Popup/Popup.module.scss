@@ -1,7 +1,7 @@
 @import "../../../styles/index";
 
 .popup {
-  border-radius: $SRadius;
+  border-radius: $radius-s;
   background: $white;
   border: 1.6px solid $black;
   transform: translate(-3px, -3px);
@@ -17,10 +17,10 @@
 
 .popup__wrapper {
   position: absolute;
-  z-index: 2;
+  z-index: $z-index2;
   top: 130%;
   right: 0;
-  border-radius: $SRadius;
+  border-radius: $radius-s;
   background: $white;
   border: 1.6px solid $black;
   transform: translate(0, 0);
@@ -31,7 +31,7 @@
   padding: 7px 10px 7px 4px;
   height: 100%;
   color: $black;
-  font-size: $MFont;
+  font-size: $font-m;
   font-weight: 500;
   border-bottom: 1px solid $black;
   margin-bottom: -1px;

@@ -1,4 +1,4 @@
-@import '../../styles/index';
+@import "../../styles/index";
 
 .form__wrapper {
   display: flex;
@@ -9,7 +9,7 @@
 }
 
 .form__title {
-  font-size: $LFont;
+  font-size: $font-l;
   font-weight: 600;
 }
 

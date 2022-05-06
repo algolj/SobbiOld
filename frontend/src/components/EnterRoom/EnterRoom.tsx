@@ -8,6 +8,9 @@ import { useTypeSelector } from '../../hooks/useTypeSelector';
 import { Link } from 'react-router-dom';
 import { IAuthRoom } from '../../types/roomTypes';
 import { Formik } from 'formik';
+import * as Yup from 'yup';
+import { ValidationMessages } from 'assets/text';
+import cn from 'classnames';
 
 interface IProps {
   setIsVisible: React.Dispatch<SetStateAction<boolean>>;
@@ -24,27 +27,45 @@ const EnterRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
     room: '',
     password: '',
   };
-
+  const createRoomValidation = Yup.object().shape({
+    room: Yup.string().required(ValidationMessages.required),
+    password: Yup.string().required(ValidationMessages.required),
+  });
   return (
     <Modal
       setVisibility={setIsVisible}
       title={'Enter Room'}
       visibility={isVisible}
     >
-      <Formik initialValues={initialValues} onSubmit={onSubmit}>
-        {({ values: { room, password }, handleChange, handleSubmit }) => (
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        validationSchema={createRoomValidation}
+      >
+        {({
+          values: { room, password },
+          handleChange,
+          handleSubmit,
+          handleBlur,
+          touched,
+          errors,
+        }) => (
           <form className={style.enter__wrapper} onSubmit={handleSubmit}>
             <FormInput
               name={'room'}
               label={'Room name'}
               value={room}
+              onBlur={handleBlur}
               onChange={handleChange}
+              errorMessage={cn(touched.room && errors.room)}
             />
             <FormInput
               name={'password'}
               label={'Room password'}
               value={password}
               onChange={handleChange}
+              onBlur={handleBlur}
+              errorMessage={cn(touched.password && errors.password)}
             />
             <div className={style.enter__button}>
               <Link to={'/preroom'}>

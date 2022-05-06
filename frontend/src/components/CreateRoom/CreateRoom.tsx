@@ -11,6 +11,7 @@ import { useActions } from '../../hooks/useActions';
 import { notificationSlice } from '../../store/reducers/basicReducer/reducer';
 import { useDispatch } from 'react-redux';
 import { ValidationMessages } from '../../assets/text';
+import cn from 'classnames';
 
 interface IProps {
   setIsVisible: React.Dispatch<SetStateAction<boolean>>;
@@ -58,7 +59,7 @@ const CreateRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
     date: '',
     time: '',
   };
-  const createRoomSchema = Yup.object().shape({
+  const createRoomValidation = Yup.object().shape({
     name: Yup.string().required(ValidationMessages.required),
     interviewer: Yup.string().required(ValidationMessages.required),
     interviewee: Yup.string().required(ValidationMessages.required),
@@ -68,6 +69,10 @@ const CreateRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
   // let currentTime: Date = new Date();
   // const currentTimeZone = currentTime.getTimezoneOffset() / 60;
   const formSubmit = async (values: IRoom) => {
+    console.log(
+      '🚀 ~ file: CreateRoom.tsx ~ line 72 ~ formSubmit ~ values',
+      values,
+    );
     await createRoom(values);
     setIsVisible(false);
     dispatch(addNewNotification('Successfully created'));
@@ -81,7 +86,7 @@ const CreateRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
       >
         <Formik
           initialValues={initialValues}
-          validationSchema={createRoomSchema}
+          validationSchema={createRoomValidation}
           onSubmit={formSubmit}
         >
           {({
@@ -90,12 +95,9 @@ const CreateRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
             values,
             values: { time, date },
             errors,
+            touched,
           }) => (
-            <form
-              onClick={() => console.log(errors)}
-              className={style.create__form}
-              onSubmit={handleSubmit}
-            >
+            <form className={style.create__form} onSubmit={handleSubmit}>
               <div className={style.create__time}>
                 <div className={style.create__date}>
                   <FormInput
@@ -104,6 +106,7 @@ const CreateRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
                     name={'date'}
                     type={'date'}
                     label={'Date'}
+                    errorMessage={cn(touched.date && errors.date)}
                   />
                 </div>
                 <div className={style.create__hours}>
@@ -120,10 +123,10 @@ const CreateRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
                 <FormInput
                   key={index}
                   onChange={handleChange}
-                  value={Object.values(values)[index].email}
+                  value={Object.values(values)[index]}
                   name={`${Object.keys(values)[index]}`}
                   label={label}
-                  isAdd={true}
+                  isAbleToAddSubInput={true}
                 />
               ))}
               <div className={style.create__button}>

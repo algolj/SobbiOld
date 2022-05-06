@@ -2,7 +2,7 @@
 
 .test {
   width: 95%;
-  border-radius: $SRadius;
+  border-radius: $radius-s;
   border: 1px solid $black;
   background: $white;
   max-width: 1300px;
@@ -14,7 +14,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
-  border-radius: $SRadius;
+  border-radius: $radius-s;
   border: 1px solid $black;
   background: $white;
   transition: 0.2s;
@@ -33,18 +33,18 @@
 .test__title {
   text-align: left;
   font-weight: 700;
-  font-size: $SFont;
+  font-size: $font-s;
   color: $black;
 }
 
 .test__difficulty {
   font-weight: 600;
-  font-size: $XSFont;
+  font-size: $font-s;
   color: $brown;
 }
 
 .test__text {
   text-align: left;
-  font-size: $SFont;
+  font-size: $font-s;
   color: $black;
 }

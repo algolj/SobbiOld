@@ -9,12 +9,12 @@
   gap: 20px;
   padding: 20px;
   border: 2px solid $black;
-  border-radius: $SRadius;
+  border-radius: $radius-s;
 }
 
 .list__title {
   width: 100%;
-  font-size: $LFont;
+  font-size: $font-l;
   color: $black;
   font-weight: 600;
 }

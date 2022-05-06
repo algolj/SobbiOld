@@ -1,4 +1,4 @@
-@import '../../../../styles/index';
+@import "../../../../styles/index";
 
 .select {
   position: relative;
@@ -7,9 +7,7 @@
   cursor: pointer;
   background-color: $white;
   transform: translateX(-3px);
-  z-index: 2;
-
-
+  z-index: $z-index2;
 }
 
 .select_basic {
@@ -21,7 +19,7 @@
 }
 
 .select__expand {
-  z-index: 1;
+  z-index: $z-index1;
   position: absolute;
   top: 0;
   right: 0;
@@ -57,7 +55,7 @@
   top: 0;
   left: 0;
   cursor: pointer;
-  border-radius: $SRadius;
+  border-radius: $radius-s;
 }
 
 .select__close {
@@ -74,7 +72,7 @@
   top: 0;
   left: 0;
   border: 2px solid $black;
-  border-radius: $SRadius;
+  border-radius: $radius-s;
   padding-top: 60px;
   box-shadow: 3px 3px $white, 4px 4px 0 1px $black;
   background: $white;
@@ -94,25 +92,25 @@
   display: block;
   overflow: hidden;
   color: $black;
-  font-size: $SFont;
+  font-size: $font-s;
   line-height: 60px;
   background-color: #fff;
   cursor: pointer;
-  border-radius: $SRadius;
+  border-radius: $radius-s;
   transition: all 250ms cubic-bezier(0.4, 0.25, 0.3, 1);
 }
 
 .select__label_basic {
-  font-size: $MFont;
+  font-size: $font-m;
   font-weight: 400;
 }
 
 .select__label_placeholder {
-  font-size: $XSFont;
+  font-size: $font-s;
   color: $black;
   height: 60px;
   position: absolute;
-  z-index: 1;
+  z-index: $z-index1;
   top: 0;
   overflow: visible;
   left: 0;
@@ -129,7 +127,7 @@
   border-radius: 8px;
   color: $brown;
   background: $white;
-  font-size: $MFont;
+  font-size: $font-m;
 }
 
 .select__expand:checked {

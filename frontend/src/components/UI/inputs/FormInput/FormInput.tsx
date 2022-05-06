@@ -1,5 +1,7 @@
-import React, { FC, SetStateAction } from 'react';
+import React, { FC, SetStateAction, useId, useState } from 'react';
 import style from './FormInput.module.scss';
+import cn from 'classnames';
+import uniqid from 'uniqid';
 
 interface IProps {
   label: string;
@@ -8,9 +10,8 @@ interface IProps {
   onChange: any;
   onBlur?: any;
   type?: string;
-  isAdd?: boolean;
-  addArray?: string[];
-  setAddArray?: React.Dispatch<SetStateAction<string[]>>;
+  isAbleToAddSubInput?: boolean;
+  errorMessage?: string;
 }
 
 const FormInput: FC<IProps> = React.memo(
@@ -21,13 +22,25 @@ const FormInput: FC<IProps> = React.memo(
     onBlur,
     value,
     name,
-    isAdd,
-    addArray,
-    setAddArray,
+    isAbleToAddSubInput,
+    errorMessage,
     ...props
   }) => {
+    const [subInputs, setSubInputs] = useState<Array<string>>([]);
+    // const [subInputs, setSubInputs] = useState<Array<string>>();
+    const addSubInput = () => {
+      if (value) {
+        setSubInputs([...subInputs, value]);
+      }
+    };
+    const removeSubInput = (subInputText: string) => {
+      const newSubInputs = subInputs.filter(
+        (subInput) => subInput !== subInputText,
+      );
+      setSubInputs(newSubInputs);
+    };
     return (
-      <>
+      <div className={style.form_input__wrapper}>
         <label className={style.input__wrapper} htmlFor="formInput">
           <input
             name={name}
@@ -40,44 +53,28 @@ const FormInput: FC<IProps> = React.memo(
             {...props}
           />
           <span className={style.input__label}>{label}</span>
-          {addArray?.length && isAdd
-            ? addArray.map(() => {
-                let translate = 0;
-                translate += 30;
-                return (
-                  <div
-                    style={{ transform: `translateY(-${translate})` }}
-                    className={style.input_sub}
-                  >
-                    <span className={style.input_sub__text}>
-                      vanjaqwe59@sd,/cs
-                    </span>
-                    <button
-                      className={`${style.input_sub__button} ${style.input__button}`}
-                    >
-                      +
-                    </button>
-                  </div>
-                );
-              })
-            : null}
-          {/*{isAdd ? (*/}
-          {/*  <div*/}
-          {/*    onClick={() => {*/}
-          {/*      if (addArray && setAddArray) setAddArray([...addArray, value]);*/}
-          {/*    }}*/}
-          {/*    className={style.input__button}*/}
-          {/*  >*/}
-          {/*    +*/}
-          {/*  </div>*/}
-          {/*) : null}*/}
-          {/*{Object.values(formik.errors)[index] &&*/}
-          {/*Object.values(formik.touched)[index] ? (*/}
-          {/*  <p>{Object.values(formik.errors)[index]}</p>*/}
-          {/*) : null}*/}
+          {isAbleToAddSubInput && (
+            <div onClick={addSubInput} className={style.input__button}>
+              +
+            </div>
+          )}
+          {errorMessage && (
+            <div className={style.input__error}>{errorMessage}</div>
+          )}
         </label>
-        <div className={style.input__error}>Wrong login or email</div>
-      </>
+        {isAbleToAddSubInput &&
+          subInputs.map((subInputValue) => (
+            <div key={uniqid()} className={style.input_sub}>
+              <span className={style.input_sub__text}>{subInputValue}</span>
+              <button
+                onClick={() => removeSubInput(subInputValue)}
+                className={cn(style.input__button, style.input__remove_button)}
+              >
+                +
+              </button>
+            </div>
+          ))}
+      </div>
     );
   },
 );

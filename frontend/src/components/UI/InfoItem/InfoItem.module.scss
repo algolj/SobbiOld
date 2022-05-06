@@ -4,8 +4,7 @@
   border: 2px solid $black;
   width: 50px;
   height: 50px;
-  border-radius: $SRadius;
-
+  border-radius: $radius-s;
 }
 
 .info__image {
@@ -18,7 +17,7 @@
   transform: translate(-6px, -6px);
   width: 50px;
   height: 50px;
-  border-radius: $SRadius;
+  border-radius: $radius-s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,7 +34,6 @@
 .info__item_checked {
   background: $brown;
   transform: translate(-2px, -2px);
-
 }
 
 .info__item_ref {
@@ -50,7 +48,6 @@
   pointer-events: none;
 }
 
-
 .info__item_add {
   position: absolute;
   width: 90%;
@@ -61,10 +58,10 @@
 
   &:after,
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     background: $black;
-    border-radius: $SRadius;
+    border-radius: $radius-s;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -95,10 +92,10 @@
 
   &:after,
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     background: $white;
-    border-radius: $SRadius;
+    border-radius: $radius-s;
     left: 50%;
     top: 50%;
   }

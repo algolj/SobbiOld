@@ -36,11 +36,11 @@
   transition: 0.2s;
 
   &:hover {
-    background-color: $lightGrey;
+    background-color: $light-grey;
   }
 
   &:active {
-    background-color: $mediumGrey;
+    background-color: $medium-grey;
   }
 }
 
@@ -54,7 +54,7 @@
 }
 
 .searcher__title {
-  font-size: $LFont;
+  font-size: $font-l;
   font-weight: 700;
 }
 
@@ -91,25 +91,19 @@
 }
 
 @media screen and (min-height: 750px) {
-
   .searcher__content {
-    max-height: 500px;
+    max-height: $mobile-l;
   }
-
 }
 
 @media screen and (min-height: 1000px) {
-
   .searcher__content {
     max-height: 800px;
   }
-
 }
 
 @media screen and (min-height: 1200px) {
-
   .searcher__content {
     max-height: 1000px;
   }
-
 }

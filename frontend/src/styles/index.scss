@@ -1,13 +1,14 @@
-@import './reset-style.scss';
-@import 'vars.module';
-@import 'mixin';
+@import "./reset-style.scss";
+@import "vars.module";
+@import "mixin";
 
 * {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   color: $black;
 }
 
-html {  scroll-behavior: smooth;
+html {
+  scroll-behavior: smooth;
   overflow-x: hidden;
   scrollbar-color: $black $white;
   scrollbar-width: 5px;

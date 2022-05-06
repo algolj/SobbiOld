@@ -3,17 +3,47 @@ $black: #1c1c1c;
 $brown: #875053;
 $white: #fff;
 $grey: #979797;
-$lightGrey: #ebebeb;
-$mediumGrey: #d1d1d1;
-$red: #FF7665;
-$XSFont: 16px;
-$SFont: 20px;
-$MFont: 24px;
-$LFont: 28px;
-$XLFont: 36px;
-$XXLFont: 48px;
+$light-grey: #ebebeb;
+$medium-grey: #d1d1d1;
+$red: #ff7665;
 
-$SRadius: 10px;
+$font-xs: 16px;
+$font-s: 20px;
+$font-m: 24px;
+$font-l: 28px;
+$font-xl: 36px;
+$font-xxl: 48px;
+
+$weight-bold: 700;
+$weight-regular: 400;
+
+$radius-s: 10px;
+
+$z-index1: 1;
+$z-index2: 10;
+$z-index3: 20;
+$z-index4: 30;
+$z-index5: 40;
+$z-index6: 50;
+
+$mobile-l: 500px;
+$tablet: 768px;
+$laptop: 1024px;
+$laptop-l: 1440px;
+$desktop: 1920px;
+
+$spacing-xxxxs: 2px;
+$spacing-xxxs: 4px;
+$spacing-xxs: 8px;
+$spacing-xs: 12px;
+$spacing-s: 16px;
+$spacing-m: 24px;
+$spacing-l: 36px;
+$spacing-xl: 48px;
+$spacing-xxl: 64px;
+$spacing-xxxl: 108px;
+
+$header-height: 70px;
 
 :export {
   brown: $brown;

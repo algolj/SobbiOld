@@ -1,14 +1,10 @@
-
-.create {
-
-}
+@import "../../styles/index";
 
 .create__time {
   width: 100%;
   display: flex;
   flex-direction: row;
   gap: 5%;
-
 }
 
 .create__date {
@@ -34,20 +30,16 @@
   height: 80px;
 }
 
-@media screen and (min-width: 1024px) {
-
+@media screen and (min-width: $laptop) {
   .create__form {
     margin: 30px auto;
     transform: scale(0.9);
   }
-
 }
 
-@media screen and (min-width: 1920px) {
-
+@media screen and (min-width: $desktop) {
   .create__button {
     margin-top: -60px;
     margin-bottom: 50px;
   }
-
 }

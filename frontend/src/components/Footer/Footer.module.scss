@@ -11,7 +11,7 @@
 }
 
 .footer__course {
-  font-size: $XSFont;
+  font-size: $font-s;
   transition: 0.2s;
 
   &:hover {
@@ -25,11 +25,10 @@
 }
 
 .footer__text {
-  font-size: $SFont;
+  font-size: $font-s;
   writing-mode: vertical-rl;
   text-orientation: mixed;
   letter-spacing: 3px;
-
 }
 
 .footer__text_wrapper {
@@ -37,7 +36,7 @@
   flex-direction: column;
   align-items: center;
   gap: 15px;
-  font-size: $SFont;
+  font-size: $font-s;
 }
 
 .footer__developers {
@@ -51,7 +50,6 @@
     opacity: 0.6;
     transform: scale(0.97);
   }
-
 }
 
 .github {
@@ -73,5 +71,5 @@
   text-align: center;
   letter-spacing: 2.5px;
   padding-top: 1px;
-  font-size: $XSFont;
+  font-size: $font-s;
 }

@@ -8,19 +8,24 @@
 }
 
 .in_page_nav {
+  z-index: $z-index3;
   position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 50px;
+  top: $header-height;
+  left: 50%;
+  right: 0;
+  transform: translate(-50%, 0);
+  width: 100%;
+  padding: $spacing-xs;
+  background: $white;
   display: flex;
-  gap: 100px;
-  flex-direction: column;
+  gap: $spacing-s * 2;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .in_page_nav__link {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  font-size: $MFont;
+  font-size: $font-s;
   transition: 0.2s;
 }
 
@@ -32,21 +37,21 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 45px 10px;
+  padding: $spacing-xl $spacing-xxs;
 }
 
 .instruction__wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 26px;
-  max-width: 1024px;
+  gap: $spacing-m;
+  max-width: $laptop;
 }
 
 .instruction__article {
   position: relative;
   text-align: justify;
-  font-size: $XSFont;
+  font-size: $font-s;
 
   &:before {
     font-size: 35px;
@@ -77,13 +82,13 @@
 
 .welcome {
   position: relative;
-  height: calc(100vh - 75px);
+  height: calc(100vh - $header-height);
   align-items: center;
   flex-direction: column;
-  gap: 15px;
+  gap: $spacing-s;
   text-align: center;
-  padding: 0 10px;
-  max-width: 1440px;
+  padding: 0 $spacing-xxs;
+  max-width: $laptop-l;
   margin: 0 auto;
 }
 
@@ -93,11 +98,11 @@
 }
 
 .welcome__title_wrapper {
-  max-width: 500px;
+  max-width: $mobile-l;
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 3px;
+  gap: $spacing-xxxxs;
 }
 
 .welcome__subtitle {
@@ -106,9 +111,9 @@
 }
 
 .welcome__text {
-  max-width: 500px;
+  max-width: $mobile-l;
   text-align: justify;
-  font-size: $XSFont;
+  font-size: $font-s;
 }
 
 .welcome__arrow {
@@ -120,7 +125,7 @@
 
 .welcome__arrow_link {
   position: absolute;
-  bottom: 10px;
+  bottom: $spacing-xxs;
 }
 
 .welcome__arrow_active {
@@ -132,12 +137,12 @@
 }
 
 .room__wrapper {
-  max-width: 1440px;
+  max-width: $laptop-l;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
+  gap: $spacing-s;
 }
 
 .room__button_wrapper {
@@ -149,7 +154,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: $spacing-s;
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
@@ -163,16 +168,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
-  max-width: 1024px;
+  gap: $spacing-s;
+  max-width: $laptop;
 }
 
 .about__text {
-  font-size: $XSFont;
+  font-size: $font-s;
   text-align: justify;
 }
 
-@media screen and (min-width: 500px) {
+@media screen and (min-width: $mobile-l) {
   .room__buttons {
     justify-content: space-between;
     flex-direction: row;
@@ -181,29 +186,29 @@
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: $tablet) {
   .instruction {
-    padding-left: 60px;
+    padding-left: $spacing-xxl;
   }
 
   .instruction__article {
-    font-size: 20px;
+    font-size: $font-s;
 
     &:before {
       position: absolute;
       top: 50%;
       left: -49px;
       transform: translateY(-50%);
-      font-size: 45px;
+      font-size: $font-xxl;
     }
   }
 
   .about__text {
-    font-size: $SFont;
+    font-size: $font-s;
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: $laptop) {
   .home {
     font-size: 120px;
   }
@@ -222,8 +227,8 @@
   }
 
   .welcome__text {
-    transform: translateY(-10px);
-    font-size: $MFont;
+    transform: translateY(-$spacing-xxs);
+    font-size: $font-m;
   }
 
   .welcome__title_wrapper {
@@ -236,40 +241,57 @@
   }
 
   .create__form {
-    margin: 30px auto;
+    margin: ($spacing-s * 2) auto;
     transform: scale(0.9);
   }
 }
 
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: $laptop-l) {
+  .in_page_nav {
+    top: 50%;
+    transform: translate(0, -50%);
+    right: $spacing-xl;
+    left: 0;
+    gap: $spacing-xl * 2;
+    flex-direction: column;
+    width: auto;
+    padding: 0;
+    background: transparent;
+  }
+
+  .in_page_nav__link {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: $font-m;
+  }
   .about__text {
-    font-size: $MFont;
+    font-size: $font-m;
   }
 
   .instruction {
-    padding-left: 70px;
+    padding-left: $spacing-xxl;
   }
 
   .instruction__article {
-    font-size: $MFont;
+    font-size: $font-m;
 
     &:before {
       position: absolute;
       top: 50%;
       left: -59px;
       transform: translateY(-50%);
-      font-size: 55px;
+      font-size: $font-l * 2;
     }
   }
 }
 
-@media screen and (min-width: 1920px) {
+@media screen and (min-width: $desktop) {
   .home {
     font-size: 170px;
   }
 
   .in_page_nav {
-    right: 200px;
+    right: $spacing-xxxl * 2;
   }
 
   .welcome {
@@ -291,7 +313,7 @@
 
   .welcome__text {
     max-width: 700px;
-    transform: translateY(-10px);
+    transform: translateY(-$spacing-xxs);
     font-size: 0.186em;
   }
 
@@ -305,7 +327,7 @@
   }
 
   .create__button {
-    margin-top: -60px;
-    margin-bottom: 50px;
+    // margin-top: $spacing-xxl * (-1);
+    margin-bottom: $spacing-xl;
   }
 }

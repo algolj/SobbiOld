@@ -5,7 +5,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 5;
+  z-index: $z-index5;
   padding: 15px 0;
   width: 90%;
   border-radius: 15px;
@@ -17,7 +17,7 @@
 .modal__title {
   text-align: center;
   font-weight: 700;
-  font-size: $XXLFont;
+  font-size: $font-l;
 }
 
 .modal__bg {
@@ -25,7 +25,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 4;
+  z-index: $z-index4;
   background: rgba(0, 0, 0, 0.5);
   width: 100vw;
   height: 100vh;

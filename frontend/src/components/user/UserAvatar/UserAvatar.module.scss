@@ -14,7 +14,7 @@
 
 .avatar_edit {
   position: absolute;
-  z-index: 1;
+  z-index: $z-index1;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0);
@@ -29,7 +29,7 @@
 
   &:before,
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     top: 50%;
     left: 50%;

@@ -2,7 +2,7 @@
 
 .user {
   &__title {
-    font-size: $XLFont;
+    font-size: $font-l;
     font-weight: 600;
     margin-bottom: 15px;
   }
@@ -20,20 +20,19 @@
 
     &_text {
       margin: 0 0 0 10px;
-      font-size: $SFont;
+      font-size: $font-s;
 
       &area {
-        border-radius: $SRadius;
+        border-radius: $radius-s;
         outline: 1px solid $black;
         resize: none;
         margin: 0 5px 0 10px;
         padding: 10px;
-        font-size: $SFont;
+        font-size: $font-s;
         max-width: 95%;
 
         &:focus {
           outline: 1px solid $black;
-
         }
       }
     }

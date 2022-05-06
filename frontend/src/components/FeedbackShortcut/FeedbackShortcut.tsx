@@ -10,7 +10,7 @@ const FeedbackShortcut: FC = React.memo(() => {
           Date <span className={style.feedback__text_strong}>15.01.2022</span>
         </div>
         <div className={style.feedback__text}>
-          Interviewer{' '}
+          Interviewer
           <span className={style.feedback__text_strong}>drotov@gmail.com</span>
         </div>
         <div className={`${style.feedback__text} ${style.feedback__mark}`}>

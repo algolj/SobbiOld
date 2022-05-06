@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useMemo, useRef, useState } from 'react';
 import style from './Home.module.scss';
 import colors from '../../styles/vars.module.scss';
 import sprite from '../../assets/sprite.svg';
@@ -30,24 +30,31 @@ const Home: FC = () => {
     }, 400);
   };
 
-  return (
-    <div className={style.home}>
-      <CreateRoom setIsVisible={setIsVisible} isVisible={isVisible} />
-      <EnterRoom setIsVisible={setIsVisibleEnter} isVisible={isVisibleEnter} />
-      <div ref={sidebarRef} className={style.in_page_nav}>
-        <a href={'#home'} className={style.in_page_nav__link}>
-          Home
-        </a>
-        <a href={'#room'} className={style.in_page_nav__link}>
-          Room
-        </a>
-        <a href={'#description'} className={style.in_page_nav__link}>
-          How to use
-        </a>
-        <a href={'#about'} className={style.in_page_nav__link}>
-          About
-        </a>
-      </div>
+  const roomSection = useMemo(
+    () => (
+      <section
+        id={'room'}
+        ref={roomRef}
+        className={cn(style.room, style.section)}
+      >
+        <div className={style.room__wrapper}>
+          <Title color={colors.wheat}>Room</Title>
+          <div className={style.room__buttons}>
+            <div className={style.room__button_wrapper}>
+              <Button onClick={() => setIsVisible(true)}>Create</Button>
+            </div>
+            <div className={style.room__button_wrapper}>
+              <Button onClick={() => setIsVisibleEnter(true)}>Enter</Button>
+            </div>
+          </div>
+        </div>
+      </section>
+    ),
+    [style, roomRef],
+  );
+
+  const homeSection = useMemo(
+    () => (
       <section
         ref={homeRef}
         id={'home'}
@@ -82,23 +89,12 @@ const Home: FC = () => {
           </svg>
         </a>
       </section>
-      <section
-        id={'room'}
-        ref={roomRef}
-        className={cn(style.room, style.section)}
-      >
-        <div className={style.room__wrapper}>
-          <Title color={colors.wheat}>Room</Title>
-          <div className={style.room__buttons}>
-            <div className={style.room__button_wrapper}>
-              <Button onClick={() => setIsVisible(true)}>Create</Button>
-            </div>
-            <div className={style.room__button_wrapper}>
-              <Button onClick={() => setIsVisibleEnter(true)}>Enter</Button>
-            </div>
-          </div>
-        </div>
-      </section>
+    ),
+    [style, homeRef],
+  );
+
+  const descriptionSection = useMemo(
+    () => (
       <section
         ref={descriptionRef}
         id={'description'}
@@ -134,6 +130,12 @@ const Home: FC = () => {
           </p>
         </div>
       </section>
+    ),
+    [style, descriptionRef],
+  );
+
+  const aboutSection = useMemo(
+    () => (
       <section
         ref={aboutRef}
         id={'about'}
@@ -160,6 +162,32 @@ const Home: FC = () => {
           </div>
         </div>
       </section>
+    ),
+    [style, aboutRef],
+  );
+
+  return (
+    <div className={style.home}>
+      <CreateRoom setIsVisible={setIsVisible} isVisible={isVisible} />
+      <EnterRoom setIsVisible={setIsVisibleEnter} isVisible={isVisibleEnter} />
+      <div ref={sidebarRef} className={style.in_page_nav}>
+        <a href={'#home'} className={style.in_page_nav__link}>
+          Home
+        </a>
+        <a href={'#room'} className={style.in_page_nav__link}>
+          Room
+        </a>
+        <a href={'#description'} className={style.in_page_nav__link}>
+          How to use
+        </a>
+        <a href={'#about'} className={style.in_page_nav__link}>
+          About
+        </a>
+      </div>
+      {homeSection}
+      {roomSection}
+      {descriptionSection}
+      {aboutSection}
       <Footer />
     </div>
   );

@@ -10,7 +10,7 @@
   justify-content: center;
   flex-direction: column;
   gap: 10px;
-  font-size: $SFont;
+  font-size: $font-s;
   color: $black;
   margin-bottom: 20px;
 }
@@ -20,7 +20,7 @@
 }
 
 .preroom__name_input {
-  font-size: $SFont;
+  font-size: $font-s;
   text-align: center;
   font-weight: 500;
 
@@ -31,7 +31,7 @@
 }
 
 .preroom__wrapper {
-  max-width: 500px;
+  max-width: $mobile-l;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -50,8 +50,7 @@
   text-transform: capitalize;
 }
 
-@media screen and (min-width: 1024px) {
-
+@media screen and (min-width: $laptop) {
   .preroom__wrapper {
     max-width: 1000px;
     flex-direction: row;
@@ -59,13 +58,12 @@
   }
 
   .preroom__name {
-    font-size: $MFont;
+    font-size: $font-m;
     flex-direction: row;
   }
 
   .preroom__name_input {
     text-align: left;
-    font-size: $MFont;
+    font-size: $font-m;
   }
-
 }
