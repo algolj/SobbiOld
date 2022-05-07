@@ -10,10 +10,10 @@
 
 .test__rectangle {
   transform: translate(-4px, -4px);
-  padding: 10px;
+  padding: $spacing-xxs;
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: $spacing-s;
   border-radius: $radius-s;
   border: 1px solid $black;
   background: $white;
@@ -32,13 +32,13 @@
 
 .test__title {
   text-align: left;
-  font-weight: 700;
+  font-weight: $weight-bold;
   font-size: $font-s;
   color: $black;
 }
 
 .test__difficulty {
-  font-weight: 600;
+  font-weight: $weight-semi-bold;
   font-size: $font-s;
   color: $brown;
 }

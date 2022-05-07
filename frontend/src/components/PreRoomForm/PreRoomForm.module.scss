@@ -9,23 +9,33 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 10px;
+  gap: $spacing-xxs;
   font-size: $font-s;
   color: $black;
-  margin-bottom: 20px;
+  margin-bottom: $spacing-s;
+  
+  @include respond-to('laptop') {
+    font-size: $font-m;
+    flex-direction: row;
+  }
 }
 
 .preroom__name_text {
-  font-weight: 700;
+  font-weight: $weight-bold;
 }
 
 .preroom__name_input {
   font-size: $font-s;
   text-align: center;
-  font-weight: 500;
+  font-weight: $weight-medium;
+  
+  @include respond-to('laptop') {
+    text-align: left;
+    font-size: $font-m;
+  }
 
   &::placeholder {
-    font-weight: 500;
+    font-weight: $weight-medium;
     color: $grey;
   }
 }
@@ -34,36 +44,24 @@
   max-width: $mobile-l;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: $spacing-s * 2;
   margin: 0 auto;
+
+  @include respond-to('laptop') {
+    max-width: 1000px;
+    flex-direction: row;
+    gap: $spacing-xl;
+  }
 }
 
 .preroom__form {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: $spacing-s;
 }
 
 .preroom__role {
   width: 100%;
   text-transform: capitalize;
-}
-
-@media screen and (min-width: $laptop) {
-  .preroom__wrapper {
-    max-width: 1000px;
-    flex-direction: row;
-    gap: 50px;
-  }
-
-  .preroom__name {
-    font-size: $font-m;
-    flex-direction: row;
-  }
-
-  .preroom__name_input {
-    text-align: left;
-    font-size: $font-m;
-  }
 }

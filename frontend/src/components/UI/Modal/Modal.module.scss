@@ -6,7 +6,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: $z-index5;
-  padding: 15px 0;
+  padding: $spacing-s 0;
   width: 90%;
   border-radius: 15px;
   border: 1px solid $black;
@@ -16,7 +16,7 @@
 
 .modal__title {
   text-align: center;
-  font-weight: 700;
+  font-weight: $weight-bold;
   font-size: $font-l;
 }
 

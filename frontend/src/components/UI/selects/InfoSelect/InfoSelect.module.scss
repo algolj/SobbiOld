@@ -102,7 +102,7 @@
 
 .select__label_basic {
   font-size: $font-m;
-  font-weight: 400;
+  font-weight: $weight-regular;
 }
 
 .select__label_placeholder {
@@ -154,9 +154,9 @@
   transform: translateY(20%);
   height: 40px;
   margin-top: -60px;
-  font-weight: 600;
+  font-weight: $weight-semi-bold;
 
   &_basic {
-    font-weight: 400;
+    font-weight: $weight-regular;
   }
 }

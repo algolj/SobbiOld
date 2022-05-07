@@ -3,7 +3,7 @@
 .notification {
   @include boxShadow;
   visibility: hidden;
-  padding: 10px 24px;
+  padding: $spacing-xxs 24px;
   background: $wheat;
   border-radius: $radius-s;
   transform: translateX(-100%);
@@ -23,7 +23,7 @@
   right: 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: $spacing-s;
 }
 
 .notification__message {

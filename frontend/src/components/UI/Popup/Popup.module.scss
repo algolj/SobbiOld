@@ -28,13 +28,13 @@
 }
 
 .popup__link {
-  padding: 7px 10px 7px 4px;
+  padding: $spacing-xxs $spacing-xs $spacing-xxs $spacing-xxxs;
   height: 100%;
   color: $black;
   font-size: $font-m;
-  font-weight: 500;
+  font-weight: $weight-medium;
   border-bottom: 1px solid $black;
-  margin-bottom: -1px;
+  margin-bottom: $spacing-xxxxs * -1;
   cursor: pointer;
   transition: 0.2s;
 

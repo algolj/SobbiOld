@@ -52,6 +52,7 @@ const EnterRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
         }) => (
           <form className={style.enter__wrapper} onSubmit={handleSubmit}>
             <FormInput
+              data-testid={'enter-room__name'}
               name={'room'}
               label={'Room name'}
               value={room}
@@ -60,6 +61,7 @@ const EnterRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
               errorMessage={cn(touched.room && errors.room)}
             />
             <FormInput
+              data-testid={'enter-room__password'}
               name={'password'}
               label={'Room password'}
               value={password}
@@ -67,7 +69,7 @@ const EnterRoom: FC<IProps> = React.memo(({ setIsVisible, isVisible }) => {
               onBlur={handleBlur}
               errorMessage={cn(touched.password && errors.password)}
             />
-            <div className={style.enter__button}>
+            <div data-testid={'enter-room__button'} className={style.enter__button}>
               <Link to={'/preroom'}>
                 <Button type="submit">Enter</Button>
               </Link>

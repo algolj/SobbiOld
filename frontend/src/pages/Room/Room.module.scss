@@ -2,57 +2,28 @@
 
 .room {
   overflow-y: hidden;
-  padding: 0 10px;
+  padding: 0 $spacing-xxs;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: $spacing-xxs;
+
+  @include respond-to('tablet') {
+    height: calc(100vh - $header-mobile-height);
+    padding: 0;
+  }
+
+  @include respond-to('laptop') {
+    flex-direction: row-reverse;
+  }
 }
 
 .room__chats {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding-top: 10px;
-}
+  gap: $spacing-s;
+  padding-top: $spacing-xxs;
 
-.room_switcher {
-  width: 100%;
-  height: 40px;
-  display: flex;
-  gap: 50px;
-}
-
-.room__video {
-  height: 100%;
-  max-width: 300px;
-  margin: 0 auto;
-}
-
-.room_hide {
-  display: none;
-}
-
-.room__menu {
-  width: 100%;
-  border: 1px solid $black;
-}
-
-.room__searcher {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  flex-direction: column;
-  padding: 10px;
-}
-
-@media screen and (min-width: $tablet) {
-  .room {
-    height: calc(100vh - 75px);
-    padding: 0;
-  }
-
-  .room__chats {
+  @include respond-to('tablet') {
     border: 1px solid $black;
     align-items: center;
     flex-direction: row;
@@ -61,43 +32,69 @@
     padding: 0;
   }
 
-  .room__chats_switcher {
-    display: none;
-  }
-
-  .room__video {
-    height: 100%;
-    max-width: 100%;
-    object-fit: cover;
-    width: 50%;
-    margin: 0;
-  }
-  .room__video_hide {
-    display: inline;
-  }
-}
-
-@media screen and (min-width: $laptop) {
-  .room {
-    flex-direction: row-reverse;
-  }
-
-  .room__menu {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .room__video {
-    min-height: auto;
-    height: 30%;
-    width: 100%;
-  }
-
-  .room__chats {
+  @include respond-to('laptop') {
     min-width: 300px;
     width: 30%;
     max-width: 450px;
     flex-direction: column-reverse;
     justify-content: space-between;
   }
+}
+
+.room_switcher {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  gap: $spacing-xl;
+
+  @include respond-to('tablet') {
+    display: none;
+  }
+}
+
+.room__video {
+  height: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+
+  @include respond-to('tablet') {
+    height: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    width: 50%;
+    margin: 0;
+  }
+
+  @include respond-to('laptop') {
+    min-height: auto;
+    height: 30%;
+    width: 100%;
+  }
+}
+
+.room_hide {
+  display: none;
+
+  @include respond-to('tablet') {
+    display: inline;
+  }
+}
+
+.room__menu {
+  width: 100%;
+  border: 1px solid $black;
+
+  @include respond-to('laptop') {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.room__searcher {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding: $spacing-xxs;
 }

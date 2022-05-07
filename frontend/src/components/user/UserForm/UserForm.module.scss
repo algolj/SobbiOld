@@ -4,60 +4,61 @@
   position: relative;
   font-size: $font-s;
   color: $black;
-  font-weight: 600;
+  font-weight: $weight-semi-bold;
   word-wrap: break-word;
+  padding: 0;
 
   &::-webkit-calendar-picker-indicator {
     margin: 0;
     padding: 0;
   }
+}
 
-  padding: 0;
 
-  &_wrapper {
-    width: 100%;
-    padding: 10px 5px;
-    border-radius: $radius-s;
-    @include boxShadow;
-    transform: translateX(-3px);
-    &_hide {
-      display: none;
-    }
-  }
+.user__info_wrapper {
+  @include boxShadow;
+  width: 100%;
+  padding: $spacing-xxs $spacing-xxxs;
+  border-radius: $radius-s;
+  transform: translateX(-3px);
+}
 
-  &_button {
-    position: absolute;
-    z-index: $z-index1;
-    top: 50%;
-    transform: translateY(-50%) rotate(45deg);
-    right: 20px;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: $font-s;
-    cursor: pointer;
-    transition: 0.2s;
-    user-select: none;
+.user__info_wrapper_hide {
+  display: none;
+}
+
+.user__info_button {
+  position: absolute;
+  z-index: $z-index1;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  font-weight: $weight-semi-bold;
+  font-size: $font-s;
+  cursor: pointer;
+  transition: 0.2s;
+  user-select: none;
+  border: 2px solid $red;
+  color: $red;
+
+  &:hover {
     border: 2px solid $red;
+    background: $wheat;
     color: $red;
-
-    &:hover {
-      border: 2px solid $red;
-      background: $wheat;
-      color: $red;
-    }
-
-    &:active {
-      transform: translateY(-50%) rotate(45deg) scale(0.95);
-    }
   }
 
-  &_title {
-    font-size: $font-s;
-    color: $brown;
+  &:active {
+    transform: translateY(-50%) rotate(45deg) scale(0.95);
   }
+}
+
+.user__info_title {
+  font-size: $font-s;
+  color: $brown;
 }

@@ -2,17 +2,17 @@
 
 .user {
   max-width: $laptop;
-  padding: 10px;
+  padding: $spacing-xxs;
   display: flex;
   flex-direction: column;
-  gap: 70px;
+  gap: $spacing-xxl;
   margin: 0 auto;
 }
 
 .user__title {
   font-size: $font-l;
-  font-weight: 600;
-  margin-bottom: 15px;
+  font-weight: $weight-semi-bold;
+  margin-bottom: $spacing-s;
 }
 
 .user__settings {
@@ -23,7 +23,7 @@
 .user__buttons {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: $spacing-s;
   width: 120px;
   height: 120px;
 }
@@ -35,16 +35,16 @@
 
 .user__delete_wrapper {
   height: 45px;
-  margin: 60px auto 10px auto;
+  margin: $spacing-xxl auto $spacing-xxs auto;
   width: 50%;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 30px;
+  gap: $spacing-s * 2;
 }
 
 .user__feedbacks {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: $spacing-xxxs;
 }

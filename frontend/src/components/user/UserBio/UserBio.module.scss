@@ -1,40 +1,38 @@
 @import "../../../styles/index";
 
-.user {
-  &__title {
-    font-size: $font-l;
-    font-weight: 600;
-    margin-bottom: 15px;
-  }
+.user__title {
+  font-size: $font-l;
+  font-weight: $weight-semi-bold;
+  margin-bottom: $spacing-s;
+}
 
-  &__description {
-    max-width: 700px;
-    overflow-wrap: break-word;
-    hyphens: manual;
-    margin-left: 5px;
+.user__description {
+  max-width: 700px;
+  overflow-wrap: break-word;
+  hyphens: manual;
+  margin-left: $spacing-xxxs;
+}
 
-    &_button {
-      width: 200px;
-      height: 70px;
-    }
+.user__description_button {
+  width: 200px;
+  height: 70px;
+}
 
-    &_text {
-      margin: 0 0 0 10px;
-      font-size: $font-s;
+.user__description_text {
+  margin: 0 0 0 $spacing-xxs;
+  font-size: $font-s;
+}
 
-      &area {
-        border-radius: $radius-s;
-        outline: 1px solid $black;
-        resize: none;
-        margin: 0 5px 0 10px;
-        padding: 10px;
-        font-size: $font-s;
-        max-width: 95%;
+.user__description_textarea {
+  border-radius: $radius-s;
+  outline: 1px solid $black;
+  resize: none;
+  margin: 0 $spacing-xxxs 0 $spacing-xxs;
+  padding: $spacing-xxs;
+  font-size: $font-s;
+  max-width: 95%;
 
-        &:focus {
-          outline: 1px solid $black;
-        }
-      }
-    }
+  &:focus {
+    outline: 1px solid $black;
   }
 }

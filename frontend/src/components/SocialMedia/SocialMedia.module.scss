@@ -1,3 +1,5 @@
+@import "../../styles/index";
+
 .media__radio {
   display: none;
 }
@@ -6,13 +8,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  padding: 10px 20px;
+  gap: $spacing-s;
+  padding: $spacing-xxs $spacing-s;
 }
 
 .media__wrapper {
   display: flex;
-  gap: 10px;
+  gap: $spacing-xxs;
   width: 100%;
 }
 

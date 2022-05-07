@@ -5,12 +5,19 @@
   display: flex;
   flex-direction: column;
   font-size: 80px;
+
+  @include respond-to("laptop") {
+    font-size: 120px;
+  }
+  @include respond-to("desktop") {
+    font-size: 170px;
+  }
 }
 
 .in_page_nav {
   z-index: $z-index3;
   position: fixed;
-  top: $header-height;
+  top: $header-mobile-height;
   left: 50%;
   right: 0;
   transform: translate(-50%, 0);
@@ -22,15 +29,37 @@
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
+
+  @include respond-to("laptop-l") {
+    top: 50%;
+    left: auto;
+    transform: translate(0, -50%);
+    right: $spacing-xl;
+    gap: $spacing-xl * 2;
+    flex-direction: column;
+    width: auto;
+    padding: 0;
+    background: transparent;
+  }
+
+  @include respond-to("desktop") {
+    right: $spacing-xxxl * 2;
+  }
 }
 
 .in_page_nav__link {
   font-size: $font-s;
   transition: 0.2s;
+
+  @include respond-to("laptop-l") {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: $font-m;
+  }
 }
 
 .in_page_nav__link_active {
-  font-weight: 700;
+  font-weight: $weight-bold;
 }
 
 .section {
@@ -54,8 +83,8 @@
   font-size: $font-s;
 
   &:before {
-    font-size: 35px;
-    font-weight: 700;
+    font-size: $font-xl;
+    font-weight: $weight-bold;
   }
 
   &:nth-child(2):before {
@@ -78,11 +107,32 @@
     color: #ffffff;
     text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
   }
+
+  @include respond-to("laptop-l") {
+    font-size: $font-m;
+
+    &:before {
+      position: absolute;
+      top: 50%;
+      left: -59px;
+      transform: translateY(-50%);
+      font-size: $font-l * 2;
+    }
+  }
+
+  @include respond-to("tablet") {
+    font-size: $font-s;
+
+    &:before {
+      left: -49px;
+      font-size: $font-xxl;
+    }
+  }
 }
 
 .welcome {
   position: relative;
-  height: calc(100vh - $header-height);
+  height: calc(100vh - #{$header-mobile-height});
   align-items: center;
   flex-direction: column;
   gap: $spacing-s;
@@ -90,11 +140,21 @@
   padding: 0 $spacing-xxs;
   max-width: $laptop-l;
   margin: 0 auto;
+
+  @include respond-to("laptop") {
+    height: calc(100vh - #{$header-desktop-height});
+    flex-direction: row;
+    justify-content: center;
+  }
 }
 
 .welcome__title {
   font-weight: bold;
   font-size: 1em;
+
+  @include respond-to("laptop") {
+    font-size: 1.4em;
+  }
 }
 
 .welcome__title_wrapper {
@@ -103,17 +163,39 @@
   align-items: center;
   flex-direction: column;
   gap: $spacing-xxxxs;
+
+  @include respond-to("laptop") {
+    flex-direction: column-reverse;
+  }
+
+  @include respond-to("desktop") {
+    max-width: 700px;
+  }
 }
 
 .welcome__subtitle {
   font-size: 0.25em;
   font-weight: 600;
+
+  @include respond-to("laptop") {
+    font-size: 0.21em;
+  }
 }
 
 .welcome__text {
   max-width: $mobile-l;
   text-align: justify;
   font-size: $font-s;
+
+  @include respond-to("laptop") {
+    transform: translateY(-$spacing-xxs);
+    font-size: $font-m;
+  }
+
+  @include respond-to("desktop") {
+    max-width: 700px;
+    font-size: 0.186em;
+  }
 }
 
 .welcome__arrow {
@@ -148,6 +230,16 @@
 .room__button_wrapper {
   width: 200px;
   height: 200px;
+
+  @include respond-to("laptop") {
+    width: 300px;
+    height: 300px;
+  }
+
+  @include respond-to("laptop-l") {
+    width: 400px;
+    height: 400px;
+  }
 }
 
 .room__buttons {
@@ -158,6 +250,13 @@
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
+
+  @include respond-to("mobile-l") {
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
 }
 
 .about {
@@ -175,159 +274,14 @@
 .about__text {
   font-size: $font-s;
   text-align: justify;
-}
 
-@media screen and (min-width: $mobile-l) {
-  .room__buttons {
-    justify-content: space-between;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
+  @include respond-to("laptop-l") {
+    font-size: $font-m;
   }
 }
 
-@media screen and (min-width: $tablet) {
-  .instruction {
+.instruction {
+  @include respond-to("tablet") {
     padding-left: $spacing-xxl;
-  }
-
-  .instruction__article {
-    font-size: $font-s;
-
-    &:before {
-      position: absolute;
-      top: 50%;
-      left: -49px;
-      transform: translateY(-50%);
-      font-size: $font-xxl;
-    }
-  }
-
-  .about__text {
-    font-size: $font-s;
-  }
-}
-
-@media screen and (min-width: $laptop) {
-  .home {
-    font-size: 120px;
-  }
-
-  .welcome {
-    justify-content: center;
-    flex-direction: row;
-  }
-
-  .welcome__title {
-    font-size: 1.4em;
-  }
-
-  .welcome__subtitle {
-    font-size: 0.21em;
-  }
-
-  .welcome__text {
-    transform: translateY(-$spacing-xxs);
-    font-size: $font-m;
-  }
-
-  .welcome__title_wrapper {
-    flex-direction: column-reverse;
-  }
-
-  .room__button_wrapper {
-    width: 300px;
-    height: 300px;
-  }
-
-  .create__form {
-    margin: ($spacing-s * 2) auto;
-    transform: scale(0.9);
-  }
-}
-
-@media screen and (min-width: $laptop-l) {
-  .in_page_nav {
-    top: 50%;
-    transform: translate(0, -50%);
-    right: $spacing-xl;
-    left: 0;
-    gap: $spacing-xl * 2;
-    flex-direction: column;
-    width: auto;
-    padding: 0;
-    background: transparent;
-  }
-
-  .in_page_nav__link {
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    font-size: $font-m;
-  }
-  .about__text {
-    font-size: $font-m;
-  }
-
-  .instruction {
-    padding-left: $spacing-xxl;
-  }
-
-  .instruction__article {
-    font-size: $font-m;
-
-    &:before {
-      position: absolute;
-      top: 50%;
-      left: -59px;
-      transform: translateY(-50%);
-      font-size: $font-l * 2;
-    }
-  }
-}
-
-@media screen and (min-width: $desktop) {
-  .home {
-    font-size: 170px;
-  }
-
-  .in_page_nav {
-    right: $spacing-xxxl * 2;
-  }
-
-  .welcome {
-    justify-content: center;
-    flex-direction: row;
-  }
-
-  .welcome__title {
-    font-size: 1.4em;
-  }
-
-  .welcome__title_wrapper {
-    max-width: 700px;
-  }
-
-  .welcome__subtitle {
-    font-size: 0.21em;
-  }
-
-  .welcome__text {
-    max-width: 700px;
-    transform: translateY(-$spacing-xxs);
-    font-size: 0.186em;
-  }
-
-  .welcome__title_wrapper {
-    flex-direction: column-reverse;
-  }
-
-  .room__button_wrapper {
-    width: 400px;
-    height: 400px;
-  }
-
-  .create__button {
-    // margin-top: $spacing-xxl * (-1);
-    margin-bottom: $spacing-xl;
   }
 }

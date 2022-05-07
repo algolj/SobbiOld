@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 import style from './Notifications.module.scss';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
-import Notification from './Notification';
+import NotificationItem from './NotificationItem';
 
 const Notifications: FC = React.memo(() => {
   const { notifications } = useTypeSelector((state) => state.notification);
   return (
     <div className={style.notification__wrapper}>
       {notifications.map((message) => (
-        <Notification message={message} />
+        <NotificationItem message={message} />
       ))}
     </div>
   );

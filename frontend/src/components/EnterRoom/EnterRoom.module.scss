@@ -5,34 +5,32 @@
   transform: scale(0.75);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: $spacing-s;
   align-items: center;
   max-width: 400px;
+
+  @include respond-to('laptop') {
+    margin: $spacing-xxs auto;
+    transform: scale(0.9);
+  }
+
+  @include respond-to('desktop') {
+    margin: $spacing-l auto;
+    transform: scale(0.9);
+  }
 }
 
 .enter__button {
   width: 100%;
   height: 80px;
-}
 
-@media screen and (min-width: $laptop) {
-  .enter__wrapper {
-    margin: 10px auto;
-    transform: scale(0.9);
+  @include respond-to('laptop') {
+    margin-top: $spacing-s * -1;
+    margin-bottom: $spacing-xl;
   }
-  .enter__button {
-    margin-top: -20px;
-    margin-bottom: 50px;
-  }
-}
 
-@media screen and (min-width: $desktop) {
-  .enter__wrapper {
-    margin: 40px auto;
-    transform: scale(0.9);
-  }
-  .enter__button {
-    margin-top: -60px;
-    margin-bottom: 50px;
+  @include respond-to('desktop') {
+    margin-top: $spacing-xxl * -1;
+    margin-bottom: $spacing-xl;
   }
 }

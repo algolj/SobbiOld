@@ -4,10 +4,10 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: end;
+  align-items: flex-end;
   justify-content: space-between;
-  gap: 20px;
-  padding: 20px;
+  gap: $spacing-s;
+  padding: $spacing-s;
   border: 2px solid $black;
   border-radius: $radius-s;
 }
@@ -16,21 +16,21 @@
   width: 100%;
   font-size: $font-l;
   color: $black;
-  font-weight: 600;
+  font-weight: $weight-semi-bold;
 }
 
 .list__wrapper {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: $spacing-s;
 }
 
 .list__users {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: $spacing-s;
 }
 
 .list__button {

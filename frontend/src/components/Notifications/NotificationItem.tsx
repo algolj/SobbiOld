@@ -10,7 +10,7 @@ interface IProps {
   message: string;
 }
 
-const Notification: FC<IProps> = React.memo(({ message }) => {
+const NotificationItem: FC<IProps> = React.memo(({ message }) => {
   const { notifications } = useTypeSelector((state) => state.notification);
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const { removeNotification } = notificationSlice.actions;
@@ -37,4 +37,4 @@ const Notification: FC<IProps> = React.memo(({ message }) => {
   );
 });
 
-export default Notification;
+export default NotificationItem;

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import LoginAvatar from '../LoginAvatar/LoginAvatar';
 import Popup from '../UI/Popup/Popup';
 import { useActions } from '../../hooks/useActions';
+import cn from 'classnames';
 
 const Header: FC = React.memo(() => {
   const { logoutUser } = useActions();
@@ -47,22 +48,12 @@ const Header: FC = React.memo(() => {
         <button
           data-cy={'burger-button'}
           onClick={() => setIsOpen(!isOpen)}
-          className={
-            isOpen
-              ? `${style.burger__rectangle} ${style.burger__rectangle_active}`
-              : style.burger__rectangle
-          }
+          className={cn(style.burger__rectangle, isOpen && style.burger__rectangle_active)}
         >
           <span className={style.burger__line} />
         </button>
       </div>
-      <div
-        className={
-          isOpen
-            ? `${style.header__wrapper} ${style.header__wrapper_active}`
-            : style.header__wrapper
-        }
-      >
+      <div className={cn(style.header__wrapper, isOpen && style.header__wrapper_active)}>
         <nav onClick={(e) => closeBurger(e)} className={style.header__nav}>
           <Link className={style.header__link} to={'/room'}>
             Tasks

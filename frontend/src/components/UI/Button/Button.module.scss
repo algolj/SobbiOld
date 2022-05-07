@@ -1,6 +1,7 @@
 @import "../../../styles/index";
 
 .button {
+  @include boxShadow;
   position: relative;
   width: 100%;
   height: 100%;
@@ -9,9 +10,8 @@
   background: $wheat;
   border-radius: 13px;
   border: 2px solid $black;
-  font-size: 25px;
-  font-weight: 700;
-  @include boxShadow;
+  font-size: $font-m;
+  font-weight: $weight-bold;
   transition: 0.2s;
 
   &:active {

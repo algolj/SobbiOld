@@ -2,41 +2,39 @@
 
 .nav {
   width: 100%;
-  padding: 15px;
+  padding: $spacing-s;
   border: 1px solid $black;
   display: flex;
   justify-content: space-around;
-  gap: 10px 5px;
+  gap: $spacing-xxs $spacing-xxxs;
+  
+  @include respond-to('laptop') {
+    flex-direction: column-reverse;
+    height: 100%;
+    width: auto;
+  }
 }
 
 .nav__wrapper {
   display: flex;
   flex-direction: column;
+  
+  @include respond-to('laptop') {
+    flex-direction: row;
+  }
 }
 
 .nav__text {
   font-size: $font-s;
-  font-weight: 500;
-}
-
-.nav_active {
-  font-weight: 700;
-}
-
-@media screen and (min-width: $laptop) {
-  .nav {
-    flex-direction: column-reverse;
-    height: 100%;
-    width: auto;
-  }
-
-  .nav__wrapper {
-    flex-direction: row;
-  }
-
-  .nav__text {
+  font-weight: $weight-regular;
+  
+  @include respond-to('laptop') {
     transform: rotate(180deg);
     writing-mode: vertical-rl;
     text-orientation: mixed;
   }
+}
+
+.nav_active {
+  font-weight: $weight-bold;
 }

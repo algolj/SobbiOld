@@ -5,8 +5,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  font-size: 30px;
+  padding: $spacing-xxs;
+  font-size: $font-l;
 
   a {
     &:active {
@@ -18,35 +18,27 @@
 }
 
 .header__wrapper {
+  @include boxShadow;
   position: fixed;
   z-index: $z-index2;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  padding: 0 10px;
+  padding: 0 $spacing-xxs;
   overflow: visible;
   background: $white;
   transition: 0.2s;
   transform: translate(-102%, 0);
-  @include boxShadow;
-}
-
-.header_active {
-  transform: translate(-3px, 0);
-
-  .header__nav {
-    margin-top: 75px;
-    flex-direction: column;
+  
+  @include respond-to('laptop-l') {
+    position: relative;
+    transform: translate(0, 0);
+    background: none;
+    width: 50%;
+    box-shadow: none;
+    border: none;
   }
-}
-
-.header__nav {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: start;
-  gap: 1em;
 }
 
 .header__link {
@@ -72,10 +64,14 @@
   border-radius: $radius-s;
   background: $wheat;
   border: 2px solid $black;
+  
+  @include respond-to('laptop-l') {
+    display: none;
+  }
 }
 
 .burger__rectangle {
-  transform: translate(-5px, -5px);
+  transform: translate(-$spacing-xxxs, -$spacing-xxxs);
   width: 50px;
   height: 50px;
   border-radius: $radius-s;
@@ -84,7 +80,7 @@
   transition: 0.2s;
 
   &:active {
-    transform: translate(-2px, -2px);
+    transform: translate(-$spacing-xxxxs, -$spacing-xxxxs);
   }
 
   &:after,
@@ -138,49 +134,22 @@
 }
 
 .form {
-  padding-top: 20px;
+  padding-top: $spacing-s;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: $spacing-s;
   width: 400px;
   margin: 0 auto;
   transform: scale(0.85);
+  
+  @include respond-to('laptop-l') {
+    transform: scale(1)
+  }
 }
 
 .form__button {
-  padding-top: 10px;
+  padding-top: $spacing-xxs;
   height: 60px;
   width: 70%;
-}
-
-@media screen and (min-width: $laptop-l) {
-  .burger {
-    display: none;
-  }
-
-  .header__wrapper {
-    position: relative;
-    transform: translate(0, 0);
-    background: none;
-    width: 50%;
-    box-shadow: none;
-    border: none;
-  }
-
-  .header_active {
-    .header__nav {
-      margin: 0;
-      flex-direction: row;
-    }
-  }
-
-  .header__nav {
-    align-items: center;
-    flex-direction: row;
-  }
-
-  .form {
-    transform: scale(1);
-  }
 }

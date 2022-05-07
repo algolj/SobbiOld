@@ -3,10 +3,10 @@
 .user {
   max-width: $laptop;
   width: 100%;
-  padding: 10px;
+  padding: $spacing-xxs;
   display: flex;
   flex-direction: column;
-  gap: 70px;
+  gap: $spacing-l * 2;
   margin: 0 auto;
 }
 
@@ -14,7 +14,7 @@
   width: 300px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: $spacing-s;
 }
 
 .user__info_wrapper {
@@ -22,34 +22,28 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
-}
-
-.user__info_name {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.user__info_media {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-}
-
-@media screen and (min-width: $tablet) {
-  .user__info_wrapper {
-    align-items: start;
-    display: flex;
+  gap: $spacing-s;
+  
+  @include respond-to('tablet') {
+    align-items: flex-start;
     flex-direction: row-reverse;
     justify-content: space-between;
   }
 }
 
-@media screen and (min-width: $laptop) {
-  .user__info_name {
-    display: flex;
+.user__info_name {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-s;
+  
+  @include respond-to('laptop') {
     flex-direction: row;
     width: 620px;
   }
+}
+
+.user__info_media {
+  display: flex;
+  flex-direction: row;
+  gap: $spacing-xxs;
 }
